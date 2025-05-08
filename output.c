@@ -14,26 +14,50 @@ size_t get_new_buffer_size(char* input_string) {
                     switch (*character) {
                         case 'E':
                             ++character;
-                            if (strncmp(character, "lig;", 4) == 0) {
-                                // Found word "&AElig;"
-                                character += 4;
-                                length += -5;
+                            if (strncmp(character, "lig", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&AElig;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&AElig"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                         case 'M':
                             ++character;
-                            if (strncmp(character, "P;", 2) == 0) {
-                                // Found word "&AMP;"
-                                character += 2;
-                                length += -4;
+                            if (*character == 'P') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&AMP;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&AMP"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Aacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Aacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Aacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'b':
@@ -49,10 +73,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Acirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Acirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&Acirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -75,10 +107,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Agrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Agrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Agrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'l':
@@ -136,10 +176,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'r':
                             ++character;
-                            if (strncmp(character, "ing;", 4) == 0) {
-                                // Found word "&Aring;"
-                                character += 4;
-                                length += -5;
+                            if (strncmp(character, "ing", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&Aring;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&Aring"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                         case 's':
@@ -165,18 +213,34 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 't':
                             ++character;
-                            if (strncmp(character, "ilde;", 5) == 0) {
-                                // Found word "&Atilde;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "ilde", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Atilde;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Atilde"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Auml;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Auml;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&Auml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                     }
@@ -310,10 +374,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'O':
                             ++character;
-                            if (strncmp(character, "PY;", 3) == 0) {
-                                // Found word "&COPY;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "PY", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&COPY;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&COPY"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                         case 'a':
@@ -330,8 +402,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Cap;"
                                         case ';':
+                                            // Found word "&Cap;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'i':
@@ -367,10 +440,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'e':
                                     ++character;
-                                    if (strncmp(character, "dil;", 4) == 0) {
-                                        // Found word "&Ccedil;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "dil", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&Ccedil;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&Ccedil"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 'i':
@@ -524,8 +605,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "on", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&Colon;"
                                             case ';':
+                                                // Found word "&Colon;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'e':
@@ -620,8 +702,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (*character == 'p') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&Cup;"
                                     case ';':
+                                        // Found word "&Cup;"
+                                        ++character;
                                         length += -2;
                                         break;
                                     case 'C':
@@ -643,8 +726,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'D':
                             ++character;
                             switch (*character) {
-                                    // Found word "&DD;"
                                 case ';':
+                                    // Found word "&DD;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'o':
@@ -736,8 +820,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (*character == 'l') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&Del;"
                                     case ';':
+                                        // Found word "&Del;"
+                                        ++character;
                                         length += -2;
                                         break;
                                     case 't':
@@ -855,8 +940,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Dot;"
                                         case ';':
+                                            // Found word "&Dot;"
+                                            ++character;
                                             length += -3;
                                             break;
                                         case 'D':
@@ -1060,8 +1146,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "rrow", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&DownArrow;"
                                                         case ';':
+                                                            // Found word "&DownArrow;"
+                                                            ++character;
                                                             length += -8;
                                                             break;
                                                         case 'B':
@@ -1117,8 +1204,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "ector", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&DownLeftVector;"
                                                                     case ';':
+                                                                        // Found word "&DownLeftVector;"
+                                                                        ++character;
                                                                         length += -13;
                                                                         break;
                                                                     case 'B':
@@ -1153,8 +1241,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "ector", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&DownRightVector;"
                                                                     case ';':
+                                                                        // Found word "&DownRightVector;"
+                                                                        ++character;
                                                                         length += -14;
                                                                         break;
                                                                     case 'B':
@@ -1176,8 +1265,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "ee", 2) == 0) {
                                                     character += 2;
                                                     switch (*character) {
-                                                            // Found word "&DownTee;"
                                                         case ';':
+                                                            // Found word "&DownTee;"
+                                                            ++character;
                                                             length += -6;
                                                             break;
                                                         case 'A':
@@ -1240,18 +1330,34 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'T':
                             ++character;
-                            if (strncmp(character, "H;", 2) == 0) {
-                                // Found word "&ETH;"
-                                character += 2;
-                                length += -3;
+                            if (*character == 'H') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&ETH;"
+                                    ++character;
+                                    length += -3;
+                                }
+                                else {
+                                    // Found word "&ETH"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -2;
+                                }
                             }
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Eacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Eacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Eacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'c':
@@ -1267,10 +1373,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Ecirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Ecirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&Ecirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -1301,10 +1415,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Egrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Egrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Egrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'l':
@@ -1391,8 +1513,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         if (*character == 'l') {
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&Equal;"
                                                 case ';':
+                                                    // Found word "&Equal;"
+                                                    ++character;
                                                     length += -4;
                                                     break;
                                                 case 'T':
@@ -1448,10 +1571,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Euml;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Euml;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&Euml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                         case 'x':
@@ -1570,17 +1701,27 @@ size_t get_new_buffer_size(char* input_string) {
                                 length += -4;
                             }
                             break;
-                            // Found word "&GT"
                         case 'T':
-                            length += -2;
+                            ++character;
+                            if (*character == ';') {
+                                // Found word "&GT;"
+                                ++character;
+                                length += -3;
+                            }
+                            else {
+                                // Found word "&GT"
+                                // Dont update the character position. No new characters were matched for this leaf.
+                                length += -2;
+                            }
                             break;
                         case 'a':
                             ++character;
                             if (strncmp(character, "mma", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&Gamma;"
                                     case ';':
+                                        // Found word "&Gamma;"
+                                        ++character;
                                         length += -5;
                                         break;
                                     case 'd':
@@ -1673,8 +1814,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         if (strncmp(character, "qual", 4) == 0) {
                                             character += 4;
                                             switch (*character) {
-                                                    // Found word "&GreaterEqual;"
                                                 case ';':
+                                                    // Found word "&GreaterEqual;"
+                                                    ++character;
                                                     length += -11;
                                                     break;
                                                 case 'L':
@@ -1902,10 +2044,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Iacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Iacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Iacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'c':
@@ -1913,10 +2063,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Icirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Icirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&Icirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -1947,17 +2105,26 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Igrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Igrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Igrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'm':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Im;"
                                 case ';':
+                                    // Found word "&Im;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'a':
@@ -1997,8 +2164,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Int;"
                                         case ';':
+                                            // Found word "&Int;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'e':
@@ -2108,10 +2276,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&Iuml;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&Iuml;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&Iuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                             }
@@ -2274,9 +2450,18 @@ size_t get_new_buffer_size(char* input_string) {
                                 length += -4;
                             }
                             break;
-                            // Found word "&LT"
                         case 'T':
-                            length += -2;
+                            ++character;
+                            if (*character == ';') {
+                                // Found word "&LT;"
+                                ++character;
+                                length += -3;
+                            }
+                            else {
+                                // Found word "&LT"
+                                // Dont update the character position. No new characters were matched for this leaf.
+                                length += -2;
+                            }
                             break;
                         case 'a':
                             ++character;
@@ -2376,8 +2561,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "row", 3) == 0) {
                                                             character += 3;
                                                             switch (*character) {
-                                                                    // Found word "&LeftArrow;"
                                                                 case ';':
+                                                                    // Found word "&LeftArrow;"
+                                                                    ++character;
                                                                     length += -8;
                                                                     break;
                                                                 case 'B':
@@ -2440,8 +2626,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                         if (strncmp(character, "ector", 5) == 0) {
                                                                             character += 5;
                                                                             switch (*character) {
-                                                                                    // Found word "&LeftDownVector;"
                                                                                 case ';':
+                                                                                    // Found word "&LeftDownVector;"
+                                                                                    ++character;
                                                                                     length += -13;
                                                                                     break;
                                                                                 case 'B':
@@ -2501,8 +2688,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (*character == 'e') {
                                                             ++character;
                                                             switch (*character) {
-                                                                    // Found word "&LeftTee;"
                                                                 case ';':
+                                                                    // Found word "&LeftTee;"
+                                                                    ++character;
                                                                     length += -6;
                                                                     break;
                                                                 case 'A':
@@ -2529,8 +2717,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "iangle", 6) == 0) {
                                                             character += 6;
                                                             switch (*character) {
-                                                                    // Found word "&LeftTriangle;"
                                                                 case ';':
+                                                                    // Found word "&LeftTriangle;"
+                                                                    ++character;
                                                                     length += -11;
                                                                     break;
                                                                 case 'B':
@@ -2580,8 +2769,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "ector", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&LeftUpVector;"
                                                                     case ';':
+                                                                        // Found word "&LeftUpVector;"
+                                                                        ++character;
                                                                         length += -11;
                                                                         break;
                                                                     case 'B':
@@ -2603,8 +2793,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "ector", 5) == 0) {
                                                     character += 5;
                                                     switch (*character) {
-                                                            // Found word "&LeftVector;"
                                                         case ';':
+                                                            // Found word "&LeftVector;"
+                                                            ++character;
                                                             length += -9;
                                                             break;
                                                         case 'B':
@@ -2706,8 +2897,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Ll;"
                                 case ';':
+                                    // Found word "&Ll;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'e':
@@ -3129,8 +3321,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Not;"
                                         case ';':
+                                            // Found word "&Not;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'C':
@@ -3178,8 +3371,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (strncmp(character, "ual", 3) == 0) {
                                                         character += 3;
                                                         switch (*character) {
-                                                                // Found word "&NotEqual;"
                                                             case ';':
+                                                                // Found word "&NotEqual;"
+                                                                ++character;
                                                                 length += -7;
                                                                 break;
                                                             case 'T':
@@ -3208,8 +3402,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "reater", 6) == 0) {
                                                 character += 6;
                                                 switch (*character) {
-                                                        // Found word "&NotGreater;"
                                                     case ';':
+                                                        // Found word "&NotGreater;"
+                                                        ++character;
                                                         length += -9;
                                                         break;
                                                     case 'E':
@@ -3297,8 +3492,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "tTriangle", 9) == 0) {
                                                             character += 9;
                                                             switch (*character) {
-                                                                    // Found word "&NotLeftTriangle;"
                                                                 case ';':
+                                                                    // Found word "&NotLeftTriangle;"
+                                                                    ++character;
                                                                     length += -14;
                                                                     break;
                                                                 case 'B':
@@ -3325,8 +3521,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (*character == 's') {
                                                             ++character;
                                                             switch (*character) {
-                                                                    // Found word "&NotLess;"
                                                                 case ';':
+                                                                    // Found word "&NotLess;"
+                                                                    ++character;
                                                                     length += -6;
                                                                     break;
                                                                 case 'E':
@@ -3404,8 +3601,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "recedes", 7) == 0) {
                                                 character += 7;
                                                 switch (*character) {
-                                                        // Found word "&NotPrecedes;"
                                                     case ';':
+                                                        // Found word "&NotPrecedes;"
+                                                        ++character;
                                                         length += -10;
                                                         break;
                                                     case 'E':
@@ -3443,8 +3641,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (strncmp(character, "ghtTriangle", 11) == 0) {
                                                         character += 11;
                                                         switch (*character) {
-                                                                // Found word "&NotRightTriangle;"
                                                             case ';':
+                                                                // Found word "&NotRightTriangle;"
+                                                                ++character;
                                                                 length += -15;
                                                                 break;
                                                             case 'B':
@@ -3481,8 +3680,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (strncmp(character, "set", 3) == 0) {
                                                                     character += 3;
                                                                     switch (*character) {
-                                                                            // Found word "&NotSquareSubset;"
                                                                         case ';':
+                                                                            // Found word "&NotSquareSubset;"
+                                                                            ++character;
                                                                             length += -12;
                                                                             break;
                                                                         case 'E':
@@ -3501,8 +3701,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (strncmp(character, "erset", 5) == 0) {
                                                                     character += 5;
                                                                     switch (*character) {
-                                                                            // Found word "&NotSquareSuperset;"
                                                                         case ';':
+                                                                            // Found word "&NotSquareSuperset;"
+                                                                            ++character;
                                                                             length += -14;
                                                                             break;
                                                                         case 'E':
@@ -3527,8 +3728,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "set", 3) == 0) {
                                                                 character += 3;
                                                                 switch (*character) {
-                                                                        // Found word "&NotSubset;"
                                                                     case ';':
+                                                                        // Found word "&NotSubset;"
+                                                                        ++character;
                                                                         length += -5;
                                                                         break;
                                                                     case 'E':
@@ -3547,8 +3749,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "ceeds", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&NotSucceeds;"
                                                                     case ';':
+                                                                        // Found word "&NotSucceeds;"
+                                                                        ++character;
                                                                         length += -10;
                                                                         break;
                                                                     case 'E':
@@ -3583,8 +3786,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "erset", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&NotSuperset;"
                                                                     case ';':
+                                                                        // Found word "&NotSuperset;"
+                                                                        ++character;
                                                                         length += -7;
                                                                         break;
                                                                     case 'E':
@@ -3607,8 +3811,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "ilde", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&NotTilde;"
                                                     case ';':
+                                                        // Found word "&NotTilde;"
+                                                        ++character;
                                                         length += -7;
                                                         break;
                                                     case 'E':
@@ -3660,10 +3865,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 't':
                             ++character;
-                            if (strncmp(character, "ilde;", 5) == 0) {
-                                // Found word "&Ntilde;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "ilde", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Ntilde;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Ntilde"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'u':
@@ -3689,10 +3902,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Oacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Oacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Oacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'c':
@@ -3700,10 +3921,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Ocirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Ocirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&Ocirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -3734,10 +3963,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Ograve;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Ograve;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Ograve"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'm':
@@ -3822,10 +4059,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'l':
                                     ++character;
-                                    if (strncmp(character, "ash;", 4) == 0) {
-                                        // Found word "&Oslash;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ash", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&Oslash;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&Oslash"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                             }
@@ -3837,10 +4082,18 @@ size_t get_new_buffer_size(char* input_string) {
                                 switch (*character) {
                                     case 'l':
                                         ++character;
-                                        if (strncmp(character, "de;", 3) == 0) {
-                                            // Found word "&Otilde;"
-                                            character += 3;
-                                            length += -6;
+                                        if (strncmp(character, "de", 2) == 0) {
+                                            character += 2;
+                                            if (*character == ';') {
+                                                // Found word "&Otilde;"
+                                                ++character;
+                                                length += -6;
+                                            }
+                                            else {
+                                                // Found word "&Otilde"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -5;
+                                            }
                                         }
                                         break;
                                     case 'm':
@@ -3856,10 +4109,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Ouml;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Ouml;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&Ouml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                         case 'v':
@@ -3992,8 +4253,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Pr;"
                                 case ';':
+                                    // Found word "&Pr;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'e':
@@ -4001,8 +4263,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "cedes", 5) == 0) {
                                         character += 5;
                                         switch (*character) {
-                                                // Found word "&Precedes;"
                                             case ';':
+                                                // Found word "&Precedes;"
+                                                ++character;
                                                 length += -7;
                                                 break;
                                             case 'E':
@@ -4056,8 +4319,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "ortion", 6) == 0) {
                                                 character += 6;
                                                 switch (*character) {
-                                                        // Found word "&Proportion;"
                                                     case ';':
+                                                        // Found word "&Proportion;"
+                                                        ++character;
                                                         length += -9;
                                                         break;
                                                     case 'a':
@@ -4103,10 +4367,18 @@ size_t get_new_buffer_size(char* input_string) {
                     switch (*character) {
                         case 'U':
                             ++character;
-                            if (strncmp(character, "OT;", 3) == 0) {
-                                // Found word "&QUOT;"
-                                character += 3;
-                                length += -5;
+                            if (strncmp(character, "OT", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&QUOT;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&QUOT"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                         case 'f':
@@ -4148,10 +4420,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'E':
                             ++character;
-                            if (strncmp(character, "G;", 2) == 0) {
-                                // Found word "&REG;"
-                                character += 2;
-                                length += -3;
+                            if (*character == 'G') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&REG;"
+                                    ++character;
+                                    length += -3;
+                                }
+                                else {
+                                    // Found word "&REG"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -2;
+                                }
                             }
                             break;
                         case 'a':
@@ -4178,8 +4458,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&Rarr;"
                                             case ';':
+                                                // Found word "&Rarr;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 't':
@@ -4227,8 +4508,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Re;"
                                 case ';':
+                                    // Found word "&Re;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'v':
@@ -4307,8 +4589,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "row", 3) == 0) {
                                                     character += 3;
                                                     switch (*character) {
-                                                            // Found word "&RightArrow;"
                                                         case ';':
+                                                            // Found word "&RightArrow;"
+                                                            ++character;
                                                             length += -9;
                                                             break;
                                                         case 'B':
@@ -4371,8 +4654,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (strncmp(character, "ector", 5) == 0) {
                                                                     character += 5;
                                                                     switch (*character) {
-                                                                            // Found word "&RightDownVector;"
                                                                         case ';':
+                                                                            // Found word "&RightDownVector;"
+                                                                            ++character;
                                                                             length += -14;
                                                                             break;
                                                                         case 'B':
@@ -4408,8 +4692,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (*character == 'e') {
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&RightTee;"
                                                         case ';':
+                                                            // Found word "&RightTee;"
+                                                            ++character;
                                                             length += -7;
                                                             break;
                                                         case 'A':
@@ -4436,8 +4721,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "iangle", 6) == 0) {
                                                     character += 6;
                                                     switch (*character) {
-                                                            // Found word "&RightTriangle;"
                                                         case ';':
+                                                            // Found word "&RightTriangle;"
+                                                            ++character;
                                                             length += -12;
                                                             break;
                                                         case 'B':
@@ -4487,8 +4773,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (strncmp(character, "ector", 5) == 0) {
                                                         character += 5;
                                                         switch (*character) {
-                                                                // Found word "&RightUpVector;"
                                                             case ';':
+                                                                // Found word "&RightUpVector;"
+                                                                ++character;
                                                                 length += -12;
                                                                 break;
                                                             case 'B':
@@ -4510,8 +4797,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         if (strncmp(character, "ector", 5) == 0) {
                                             character += 5;
                                             switch (*character) {
-                                                    // Found word "&RightVector;"
                                                 case ';':
+                                                    // Found word "&RightVector;"
+                                                    ++character;
                                                     length += -10;
                                                     break;
                                                 case 'B':
@@ -4639,8 +4927,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Sc;"
                                 case ';':
+                                    // Found word "&Sc;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'a':
@@ -4765,8 +5054,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "are", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&Square;"
                                             case ';':
+                                                // Found word "&Square;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'I':
@@ -4787,8 +5077,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "set", 3) == 0) {
                                                                 character += 3;
                                                                 switch (*character) {
-                                                                        // Found word "&SquareSubset;"
                                                                     case ';':
+                                                                        // Found word "&SquareSubset;"
+                                                                        ++character;
                                                                         length += -11;
                                                                         break;
                                                                     case 'E':
@@ -4807,8 +5098,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "erset", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&SquareSuperset;"
                                                                     case ';':
+                                                                        // Found word "&SquareSuperset;"
+                                                                        ++character;
                                                                         length += -13;
                                                                         break;
                                                                     case 'E':
@@ -4860,8 +5152,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'b':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Sub;"
                                         case ';':
+                                            // Found word "&Sub;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 's':
@@ -4869,8 +5162,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "et", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&Subset;"
                                                     case ';':
+                                                        // Found word "&Subset;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'E':
@@ -4894,8 +5188,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "eeds", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&Succeeds;"
                                                     case ';':
+                                                        // Found word "&Succeeds;"
+                                                        ++character;
                                                         length += -7;
                                                         break;
                                                     case 'E':
@@ -4946,8 +5241,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Sup;"
                                         case ';':
+                                            // Found word "&Sup;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'e':
@@ -4955,8 +5251,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "rset", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&Superset;"
                                                     case ';':
+                                                        // Found word "&Superset;"
+                                                        ++character;
                                                         length += -7;
                                                         break;
                                                     case 'E':
@@ -4989,10 +5286,18 @@ size_t get_new_buffer_size(char* input_string) {
                     switch (*character) {
                         case 'H':
                             ++character;
-                            if (strncmp(character, "ORN;", 4) == 0) {
-                                // Found word "&THORN;"
-                                character += 4;
-                                length += -5;
+                            if (strncmp(character, "ORN", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&THORN;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&THORN"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                         case 'R':
@@ -5134,8 +5439,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "lde", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&Tilde;"
                                     case ';':
+                                        // Found word "&Tilde;"
+                                        ++character;
                                         length += -4;
                                         break;
                                     case 'E':
@@ -5212,10 +5518,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&Uacute;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&Uacute;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&Uacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -5223,8 +5537,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&Uarr;"
                                             case ';':
+                                                // Found word "&Uarr;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'o':
@@ -5269,10 +5584,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Ucirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Ucirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&Ucirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -5303,10 +5626,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Ugrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Ugrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Ugrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'm':
@@ -5378,8 +5709,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "on", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&Union;"
                                             case ';':
+                                                // Found word "&Union;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'P':
@@ -5424,8 +5756,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "rrow", 4) == 0) {
                                         character += 4;
                                         switch (*character) {
-                                                // Found word "&UpArrow;"
                                             case ';':
+                                                // Found word "&UpArrow;"
+                                                ++character;
                                                 length += -6;
                                                 break;
                                             case 'B':
@@ -5468,8 +5801,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ee", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&UpTee;"
                                             case ';':
+                                                // Found word "&UpTee;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'A':
@@ -5528,8 +5862,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&Upsi;"
                                             case ';':
+                                                // Found word "&Upsi;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'l':
@@ -5571,10 +5906,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Uuml;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Uuml;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&Uuml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                     }
@@ -5611,8 +5954,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "ash", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&Vdash;"
                                     case ';':
+                                        // Found word "&Vdash;"
+                                        ++character;
                                         length += -4;
                                         break;
                                     case 'l':
@@ -5651,8 +5995,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 't':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&Vert;"
                                                 case ';':
+                                                    // Found word "&Vert;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'i':
@@ -5854,10 +6199,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Yacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Yacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&Yacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'c':
@@ -6015,10 +6368,18 @@ size_t get_new_buffer_size(char* input_string) {
                     switch (*character) {
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&aacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&aacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&aacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'b':
@@ -6032,8 +6393,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ac;"
                                 case ';':
+                                    // Found word "&ac;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'E':
@@ -6054,18 +6416,34 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&acirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&acirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&acirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'u':
                                     ++character;
-                                    if (strncmp(character, "te;", 3) == 0) {
-                                        // Found word "&acute;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "te", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&acute;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&acute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -6080,17 +6458,26 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'e':
                             ++character;
-                            if (strncmp(character, "lig;", 4) == 0) {
-                                // Found word "&aelig;"
-                                character += 4;
-                                length += -5;
+                            if (strncmp(character, "lig", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&aelig;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&aelig"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                         case 'f':
                             ++character;
                             switch (*character) {
-                                    // Found word "&af;"
                                 case ';':
+                                    // Found word "&af;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'r':
@@ -6105,10 +6492,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&agrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&agrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&agrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'l':
@@ -6169,9 +6564,18 @@ size_t get_new_buffer_size(char* input_string) {
                                             break;
                                     }
                                     break;
-                                    // Found word "&amp"
                                 case 'p':
-                                    length += -3;
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&amp;"
+                                        ++character;
+                                        length += -4;
+                                    }
+                                    else {
+                                        // Found word "&amp"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+                                        length += -3;
+                                    }
                                     break;
                             }
                             break;
@@ -6181,8 +6585,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'd':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&and;"
                                         case ';':
+                                            // Found word "&and;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'a':
@@ -6222,8 +6627,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'g':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ang;"
                                         case ';':
+                                            // Found word "&ang;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'e':
@@ -6247,8 +6653,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "sd", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&angmsd;"
                                                     case ';':
+                                                        // Found word "&angmsd;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'a':
@@ -6328,8 +6735,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 't') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&angrt;"
                                                     case ';':
+                                                        // Found word "&angrt;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'v':
@@ -6337,8 +6745,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (*character == 'b') {
                                                             ++character;
                                                             switch (*character) {
-                                                                    // Found word "&angrtvb;"
                                                                 case ';':
+                                                                    // Found word "&angrtvb;"
+                                                                    ++character;
                                                                     length += -6;
                                                                     break;
                                                                 case 'd':
@@ -6412,8 +6821,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'p':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ap;"
                                 case ';':
+                                    // Found word "&ap;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'E':
@@ -6461,8 +6871,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "rox", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&approx;"
                                             case ';':
+                                                // Found word "&approx;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'e':
@@ -6480,10 +6891,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'r':
                             ++character;
-                            if (strncmp(character, "ing;", 4) == 0) {
-                                // Found word "&aring;"
-                                character += 4;
-                                length += -5;
+                            if (strncmp(character, "ing", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&aring;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&aring"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                         case 's':
@@ -6510,8 +6929,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "mp", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&asymp;"
                                             case ';':
+                                                // Found word "&asymp;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'e':
@@ -6529,18 +6949,34 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 't':
                             ++character;
-                            if (strncmp(character, "ilde;", 5) == 0) {
-                                // Found word "&atilde;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "ilde", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&atilde;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&atilde"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&auml;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&auml;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&auml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                         case 'w':
@@ -6614,8 +7050,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "im", 2) == 0) {
                                                     character += 2;
                                                     switch (*character) {
-                                                            // Found word "&backsim;"
                                                         case ';':
+                                                            // Found word "&backsim;"
+                                                            ++character;
                                                             length += -6;
                                                             break;
                                                         case 'e':
@@ -6648,8 +7085,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "ed", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&barwed;"
                                                     case ';':
+                                                        // Found word "&barwed;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'g':
@@ -6672,8 +7110,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "rk", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&bbrk;"
                                     case ';':
+                                        // Found word "&bbrk;"
+                                        ++character;
                                         length += -3;
                                         break;
                                     case 't':
@@ -6724,8 +7163,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "aus", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&becaus;"
                                             case ';':
+                                                // Found word "&becaus;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'e':
@@ -6977,8 +7417,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "riangle", 7) == 0) {
                                                             character += 7;
                                                             switch (*character) {
-                                                                    // Found word "&blacktriangle;"
                                                                 case ';':
+                                                                    // Found word "&blacktriangle;"
+                                                                    ++character;
                                                                     length += -12;
                                                                     break;
                                                                 case 'd':
@@ -7071,8 +7512,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&bne;"
                                         case ';':
+                                            // Found word "&bne;"
+                                            ++character;
                                             length += -1;
                                             break;
                                         case 'q':
@@ -7109,8 +7551,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&bot;"
                                         case ';':
+                                            // Found word "&bot;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 't':
@@ -7174,8 +7617,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'H':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxH;"
                                                 case ';':
+                                                    // Found word "&boxH;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'D':
@@ -7252,8 +7696,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'V':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxV;"
                                                 case ';':
+                                                    // Found word "&boxV;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'H':
@@ -7354,8 +7799,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'h':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxh;"
                                                 case ';':
+                                                    // Found word "&boxh;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'D':
@@ -7456,8 +7902,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'v':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxv;"
                                                 case ';':
+                                                    // Found word "&boxv;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'H':
@@ -7535,10 +7982,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'v':
                                     ++character;
-                                    if (strncmp(character, "bar;", 4) == 0) {
-                                        // Found word "&brvbar;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "bar", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&brvbar;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&brvbar"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                             }
@@ -7567,8 +8022,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bsim;"
                                             case ';':
+                                                // Found word "&bsim;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'e':
@@ -7587,8 +8043,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'l') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bsol;"
                                             case ';':
+                                                // Found word "&bsol;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'b':
@@ -7620,8 +8077,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'l') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bull;"
                                             case ';':
+                                                // Found word "&bull;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'e':
@@ -7640,8 +8098,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'p') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bump;"
                                             case ';':
+                                                // Found word "&bump;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'E':
@@ -7655,8 +8114,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'e':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&bumpe;"
                                                     case ';':
+                                                        // Found word "&bumpe;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'q':
@@ -7693,8 +8153,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&cap;"
                                         case ';':
+                                            // Found word "&cap;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'a':
@@ -7801,10 +8262,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'e':
                                     ++character;
-                                    if (strncmp(character, "dil;", 4) == 0) {
-                                        // Found word "&ccedil;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "dil", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&ccedil;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&ccedil"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 'i':
@@ -7820,8 +8289,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ps", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&ccups;"
                                             case ';':
+                                                // Found word "&ccups;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 's':
@@ -7850,10 +8320,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'd':
                                     ++character;
-                                    if (strncmp(character, "il;", 3) == 0) {
-                                        // Found word "&cedil;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "il", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&cedil;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&cedil"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'm':
@@ -7867,9 +8345,22 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'n':
                                     ++character;
                                     if (*character == 't') {
-                                        // Found word "&cent"
                                         ++character;
-                                        length += -3;
+                                        switch (*character) {
+                                            case ';':
+                                                // Found word "&cent;"
+                                                ++character;
+                                                length += -4;
+                                                break;
+                                            case 'e':
+                                                ++character;
+                                                if (strncmp(character, "rdot;", 5) == 0) {
+                                                    // Found word "&centerdot;"
+                                                    character += 5;
+                                                    length += -9;
+                                                }
+                                                break;
+                                        }
                                     }
                                     break;
                             }
@@ -7898,8 +8389,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ck", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&check;"
                                             case ';':
+                                                // Found word "&check;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'm':
@@ -7928,8 +8420,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (*character == 'r') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&cir;"
                                     case ';':
+                                        // Found word "&cir;"
+                                        ++character;
                                         length += -2;
                                         break;
                                     case 'E':
@@ -7943,8 +8436,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     case 'c':
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&circ;"
                                             case ';':
+                                                // Found word "&circ;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'e':
@@ -8074,8 +8568,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "ubs", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&clubs;"
                                     case ';':
+                                        // Found word "&clubs;"
+                                        ++character;
                                         length += -4;
                                         break;
                                     case 'u':
@@ -8097,15 +8592,17 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "on", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&colon;"
                                             case ';':
+                                                // Found word "&colon;"
+                                                ++character;
                                                 length += -6;
                                                 break;
                                             case 'e':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&colone;"
                                                     case ';':
+                                                        // Found word "&colone;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'q':
@@ -8129,8 +8626,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'a') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&comma;"
                                                     case ';':
+                                                        // Found word "&comma;"
+                                                        ++character;
                                                         length += -6;
                                                         break;
                                                     case 't':
@@ -8147,8 +8645,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&comp;"
                                                 case ';':
+                                                    // Found word "&comp;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'f':
@@ -8193,8 +8692,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'g':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&cong;"
                                                 case ';':
+                                                    // Found word "&cong;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'd':
@@ -8236,9 +8736,23 @@ size_t get_new_buffer_size(char* input_string) {
                                                 length += -5;
                                             }
                                             break;
-                                            // Found word "&copy"
                                         case 'y':
-                                            length += -3;
+                                            ++character;
+                                            switch (*character) {
+                                                case ';':
+                                                    // Found word "&copy;"
+                                                    ++character;
+                                                    length += -4;
+                                                    break;
+                                                case 's':
+                                                    ++character;
+                                                    if (strncmp(character, "r;", 2) == 0) {
+                                                        // Found word "&copysr;"
+                                                        character += 2;
+                                                        length += -5;
+                                                    }
+                                                    break;
+                                            }
                                             break;
                                     }
                                     break;
@@ -8282,8 +8796,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'b':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&csub;"
                                                 case ';':
+                                                    // Found word "&csub;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'e':
@@ -8299,8 +8814,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&csup;"
                                                 case ';':
+                                                    // Found word "&csup;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'e':
@@ -8378,8 +8894,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "arr", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&cularr;"
                                             case ';':
+                                                // Found word "&cularr;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'p':
@@ -8396,8 +8913,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&cup;"
                                         case ';':
+                                            // Found word "&cup;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'b':
@@ -8463,8 +8981,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "rr", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&curarr;"
                                                     case ';':
+                                                        // Found word "&curarr;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'm':
@@ -8528,10 +9047,18 @@ size_t get_new_buffer_size(char* input_string) {
                                             break;
                                         case 'r':
                                             ++character;
-                                            if (strncmp(character, "en;", 3) == 0) {
-                                                // Found word "&curren;"
-                                                character += 3;
-                                                length += -6;
+                                            if (strncmp(character, "en", 2) == 0) {
+                                                character += 2;
+                                                if (*character == ';') {
+                                                    // Found word "&curren;"
+                                                    ++character;
+                                                    length += -6;
+                                                }
+                                                else {
+                                                    // Found word "&curren"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+                                                    length += -5;
+                                                }
                                             }
                                             break;
                                         case 'v':
@@ -8660,8 +9187,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'h') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&dash;"
                                             case ';':
+                                                // Found word "&dash;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'v':
@@ -8722,8 +9250,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'd':
                             ++character;
                             switch (*character) {
-                                    // Found word "&dd;"
                                 case ';':
+                                    // Found word "&dd;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'a':
@@ -8760,9 +9289,18 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&deg"
                                 case 'g':
-                                    length += -2;
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&deg;"
+                                        ++character;
+                                        length += -3;
+                                    }
+                                    else {
+                                        // Found word "&deg"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+                                        length += -2;
+                                    }
                                     break;
                                 case 'l':
                                     ++character;
@@ -8835,8 +9373,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&diam;"
                                             case ';':
+                                                // Found word "&diam;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'o':
@@ -8844,8 +9383,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "nd", 2) == 0) {
                                                     character += 2;
                                                     switch (*character) {
-                                                            // Found word "&diamond;"
                                                         case ';':
+                                                            // Found word "&diamond;"
+                                                            ++character;
                                                             length += -6;
                                                             break;
                                                         case 's':
@@ -8897,16 +9437,30 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'v':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&div;"
                                         case ';':
+                                            // Found word "&div;"
+                                            ++character;
                                             length += -3;
                                             break;
                                         case 'i':
                                             ++character;
                                             if (strncmp(character, "de", 2) == 0) {
-                                                // Found word "&divide"
                                                 character += 2;
-                                                length += -5;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&divide;"
+                                                        ++character;
+                                                        length += -6;
+                                                        break;
+                                                    case 'o':
+                                                        ++character;
+                                                        if (strncmp(character, "ntimes;", 7) == 0) {
+                                                            // Found word "&divideontimes;"
+                                                            character += 7;
+                                                            length += -12;
+                                                        }
+                                                        break;
+                                                }
                                             }
                                             break;
                                         case 'o':
@@ -8975,8 +9529,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&dot;"
                                         case ';':
+                                            // Found word "&dot;"
+                                            ++character;
                                             length += -3;
                                             break;
                                         case 'e':
@@ -8984,8 +9539,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'q') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&doteq;"
                                                     case ';':
+                                                        // Found word "&doteq;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'd':
@@ -9175,8 +9731,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&dtri;"
                                             case ';':
+                                                // Found word "&dtri;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'f':
@@ -9273,10 +9830,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&eacute;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&eacute;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&eacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 's':
@@ -9305,13 +9870,23 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&ecir;"
                                             case ';':
+                                                // Found word "&ecir;"
+                                                ++character;
                                                 length += -3;
                                                 break;
-                                                // Found word "&ecirc"
                                             case 'c':
-                                                length += -4;
+                                                ++character;
+                                                if (*character == ';') {
+                                                    // Found word "&ecirc;"
+                                                    ++character;
+                                                    length += -5;
+                                                }
+                                                else {
+                                                    // Found word "&ecirc"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+                                                    length += -4;
+                                                }
                                                 break;
                                         }
                                     }
@@ -9374,23 +9949,33 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'g':
                             ++character;
                             switch (*character) {
-                                    // Found word "&eg;"
                                 case ';':
+                                    // Found word "&eg;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'r':
                                     ++character;
-                                    if (strncmp(character, "ave;", 4) == 0) {
-                                        // Found word "&egrave;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ave", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&egrave;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&egrave"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&egs;"
                                         case ';':
+                                            // Found word "&egs;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'd':
@@ -9408,8 +9993,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&el;"
                                 case ';':
+                                    // Found word "&el;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'i':
@@ -9431,8 +10017,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&els;"
                                         case ';':
+                                            // Found word "&els;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'd':
@@ -9463,8 +10050,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ty", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&empty;"
                                             case ';':
+                                                // Found word "&empty;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 's':
@@ -9512,8 +10100,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         break;
                                                 }
                                                 break;
-                                                // Found word "&emsp;"
                                             case ';':
+                                                // Found word "&emsp;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                         }
@@ -9571,8 +10160,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&epar;"
                                             case ';':
+                                                // Found word "&epar;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 's':
@@ -9599,8 +10189,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&epsi;"
                                             case ';':
+                                                // Found word "&epsi;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'l':
@@ -9709,8 +10300,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'v') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&equiv;"
                                                     case ';':
+                                                        // Found word "&equiv;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'D':
@@ -9797,9 +10389,18 @@ size_t get_new_buffer_size(char* input_string) {
                                         length += -3;
                                     }
                                     break;
-                                    // Found word "&eth"
                                 case 'h':
-                                    length += -2;
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&eth;"
+                                        ++character;
+                                        length += -3;
+                                    }
+                                    else {
+                                        // Found word "&eth"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+                                        length += -2;
+                                    }
                                     break;
                             }
                             break;
@@ -9808,10 +10409,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&euml;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&euml;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&euml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -10015,8 +10624,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'k':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&fork;"
                                                 case ';':
+                                                    // Found word "&fork;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'v':
@@ -10053,9 +10663,18 @@ size_t get_new_buffer_size(char* input_string) {
                                                 case '1':
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&frac12"
                                                         case '2':
-                                                            length += -5;
+                                                            ++character;
+                                                            if (*character == ';') {
+                                                                // Found word "&frac12;"
+                                                                ++character;
+                                                                length += -6;
+                                                            }
+                                                            else {
+                                                                // Found word "&frac12"
+                                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                                length += -5;
+                                                            }
                                                             break;
                                                         case '3':
                                                             ++character;
@@ -10065,9 +10684,18 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 length += -5;
                                                             }
                                                             break;
-                                                            // Found word "&frac14"
                                                         case '4':
-                                                            length += -5;
+                                                            ++character;
+                                                            if (*character == ';') {
+                                                                // Found word "&frac14;"
+                                                                ++character;
+                                                                length += -6;
+                                                            }
+                                                            else {
+                                                                // Found word "&frac14"
+                                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                                length += -5;
+                                                            }
                                                             break;
                                                         case '5':
                                                             ++character;
@@ -10119,9 +10747,18 @@ size_t get_new_buffer_size(char* input_string) {
                                                 case '3':
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&frac34"
                                                         case '4':
-                                                            length += -5;
+                                                            ++character;
+                                                            if (*character == ';') {
+                                                                // Found word "&frac34;"
+                                                                ++character;
+                                                                length += -6;
+                                                            }
+                                                            else {
+                                                                // Found word "&frac34"
+                                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                                length += -5;
+                                                            }
                                                             break;
                                                         case '5':
                                                             ++character;
@@ -10216,8 +10853,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'E':
                             ++character;
                             switch (*character) {
-                                    // Found word "&gE;"
                                 case ';':
+                                    // Found word "&gE;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'l':
@@ -10246,8 +10884,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ma", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&gamma;"
                                             case ';':
+                                                // Found word "&gamma;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'd':
@@ -10311,8 +10950,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ge;"
                                 case ';':
+                                    // Found word "&ge;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'l':
@@ -10326,8 +10966,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'q':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&geq;"
                                         case ';':
+                                            // Found word "&geq;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'q':
@@ -10351,8 +10992,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ges;"
                                         case ';':
+                                            // Found word "&ges;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'c':
@@ -10368,15 +11010,17 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "ot", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&gesdot;"
                                                     case ';':
+                                                        // Found word "&gesdot;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'o':
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&gesdoto;"
                                                             case ';':
+                                                                // Found word "&gesdoto;"
+                                                                ++character;
                                                                 length += -6;
                                                                 break;
                                                             case 'l':
@@ -10395,8 +11039,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'l':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&gesl;"
                                                 case ';':
+                                                    // Found word "&gesl;"
+                                                    ++character;
                                                     length += 0;
                                                     break;
                                                 case 'e':
@@ -10424,8 +11069,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'g':
                             ++character;
                             switch (*character) {
-                                    // Found word "&gg;"
                                 case ';':
+                                    // Found word "&gg;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'g':
@@ -10457,8 +11103,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&gl;"
                                 case ';':
+                                    // Found word "&gl;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'E':
@@ -10503,8 +11150,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'p') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&gnap;"
                                             case ';':
+                                                // Found word "&gnap;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'p':
@@ -10521,15 +11169,17 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&gne;"
                                         case ';':
+                                            // Found word "&gne;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&gneq;"
                                                 case ';':
+                                                    // Found word "&gneq;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'q':
@@ -10586,8 +11236,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&gsim;"
                                             case ';':
+                                                // Found word "&gsim;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'e':
@@ -10611,9 +11262,134 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                             }
                             break;
-                            // Found word "&gt"
                         case 't':
-                            length += -2;
+                            ++character;
+                            switch (*character) {
+                                case ';':
+                                    // Found word "&gt;"
+                                    ++character;
+                                    length += -3;
+                                    break;
+                                case 'c':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'c':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&gtcc;"
+                                                ++character;
+                                                length += -3;
+                                            }
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            if (strncmp(character, "r;", 2) == 0) {
+                                                // Found word "&gtcir;"
+                                                character += 2;
+                                                length += -4;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                case 'd':
+                                    ++character;
+                                    if (strncmp(character, "ot;", 3) == 0) {
+                                        // Found word "&gtdot;"
+                                        character += 3;
+                                        length += -4;
+                                    }
+                                    break;
+                                case 'l':
+                                    ++character;
+                                    if (strncmp(character, "Par;", 4) == 0) {
+                                        // Found word "&gtlPar;"
+                                        character += 4;
+                                        length += -5;
+                                    }
+                                    break;
+                                case 'q':
+                                    ++character;
+                                    if (strncmp(character, "uest;", 5) == 0) {
+                                        // Found word "&gtquest;"
+                                        character += 5;
+                                        length += -6;
+                                    }
+                                    break;
+                                case 'r':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'a':
+                                            ++character;
+                                            switch (*character) {
+                                                case 'p':
+                                                    ++character;
+                                                    if (strncmp(character, "prox;", 5) == 0) {
+                                                        // Found word "&gtrapprox;"
+                                                        character += 5;
+                                                        length += -8;
+                                                    }
+                                                    break;
+                                                case 'r':
+                                                    ++character;
+                                                    if (strncmp(character, "r;", 2) == 0) {
+                                                        // Found word "&gtrarr;"
+                                                        character += 2;
+                                                        length += -5;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                        case 'd':
+                                            ++character;
+                                            if (strncmp(character, "ot;", 3) == 0) {
+                                                // Found word "&gtrdot;"
+                                                character += 3;
+                                                length += -5;
+                                            }
+                                            break;
+                                        case 'e':
+                                            ++character;
+                                            if (*character == 'q') {
+                                                ++character;
+                                                switch (*character) {
+                                                    case 'l':
+                                                        ++character;
+                                                        if (strncmp(character, "ess;", 4) == 0) {
+                                                            // Found word "&gtreqless;"
+                                                            character += 4;
+                                                            length += -8;
+                                                        }
+                                                        break;
+                                                    case 'q':
+                                                        ++character;
+                                                        if (strncmp(character, "less;", 5) == 0) {
+                                                            // Found word "&gtreqqless;"
+                                                            character += 5;
+                                                            length += -9;
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                        case 'l':
+                                            ++character;
+                                            if (strncmp(character, "ess;", 4) == 0) {
+                                                // Found word "&gtrless;"
+                                                character += 4;
+                                                length += -6;
+                                            }
+                                            break;
+                                        case 's':
+                                            ++character;
+                                            if (strncmp(character, "im;", 3) == 0) {
+                                                // Found word "&gtrsim;"
+                                                character += 3;
+                                                length += -5;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                            }
                             break;
                         case 'v':
                             ++character;
@@ -10690,8 +11466,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'r':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&harr;"
                                                 case ';':
+                                                    // Found word "&harr;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'c':
@@ -10740,8 +11517,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "rts", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&hearts;"
                                             case ';':
+                                                // Found word "&hearts;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'u':
@@ -10923,25 +11701,42 @@ size_t get_new_buffer_size(char* input_string) {
                     switch (*character) {
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&iacute;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&iacute;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&iacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ic;"
                                 case ';':
+                                    // Found word "&ic;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&icirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&icirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&icirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -10967,10 +11762,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'x':
                                     ++character;
-                                    if (strncmp(character, "cl;", 3) == 0) {
-                                        // Found word "&iexcl;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "cl", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&iexcl;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&iexcl"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                             }
@@ -10998,17 +11801,26 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&igrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&igrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&igrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'i':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ii;"
                                 case ';':
+                                    // Found word "&ii;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'i':
@@ -11132,8 +11944,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'n':
                             ++character;
                             switch (*character) {
-                                    // Found word "&in;"
                                 case ';':
+                                    // Found word "&in;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'c':
@@ -11149,8 +11962,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "in", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&infin;"
                                             case ';':
+                                                // Found word "&infin;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 't':
@@ -11175,8 +11989,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&int;"
                                         case ';':
+                                            // Found word "&int;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'c':
@@ -11275,10 +12090,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'q':
                             ++character;
-                            if (strncmp(character, "uest;", 5) == 0) {
-                                // Found word "&iquest;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "uest", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&iquest;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&iquest"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 's':
@@ -11297,8 +12120,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'n') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&isin;"
                                             case ';':
+                                                // Found word "&isin;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'E':
@@ -11320,8 +12144,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 's':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&isins;"
                                                     case ';':
+                                                        // Found word "&isins;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'v':
@@ -11350,8 +12175,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 't':
                             ++character;
                             switch (*character) {
-                                    // Found word "&it;"
                                 case ';':
+                                    // Found word "&it;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'i':
@@ -11377,10 +12203,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&iuml;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&iuml;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&iuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                             }
@@ -11474,8 +12308,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "ppa", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&kappa;"
                                     case ';':
+                                        // Found word "&kappa;"
+                                        ++character;
                                         length += -5;
                                         break;
                                     case 'v':
@@ -11603,8 +12438,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'E':
                             ++character;
                             switch (*character) {
-                                    // Found word "&lE;"
                                 case ';':
+                                    // Found word "&lE;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'g':
@@ -11665,8 +12501,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'g') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&lang;"
                                             case ';':
+                                                // Found word "&lang;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'd':
@@ -11698,10 +12535,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'q':
                                     ++character;
-                                    if (strncmp(character, "uo;", 3) == 0) {
-                                        // Found word "&laquo;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "uo", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&laquo;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&laquo"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -11709,15 +12554,17 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&larr;"
                                             case ';':
+                                                // Found word "&larr;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'b':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&larrb;"
                                                     case ';':
+                                                        // Found word "&larrb;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'f':
@@ -11784,8 +12631,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&lat;"
                                         case ';':
+                                            // Found word "&lat;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'a':
@@ -11799,8 +12647,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&late;"
                                                 case ';':
+                                                    // Found word "&late;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 's':
@@ -11970,8 +12819,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "uo", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&ldquo;"
                                             case ';':
+                                                // Found word "&ldquo;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'r':
@@ -12019,8 +12869,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&le;"
                                 case ';':
+                                    // Found word "&le;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'f':
@@ -12033,8 +12884,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "rrow", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&leftarrow;"
                                                         case ';':
+                                                            // Found word "&leftarrow;"
+                                                            ++character;
                                                             length += -8;
                                                             break;
                                                         case 't':
@@ -12090,8 +12942,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "rrow", 4) == 0) {
                                                                 character += 4;
                                                                 switch (*character) {
-                                                                        // Found word "&leftrightarrow;"
                                                                     case ';':
+                                                                        // Found word "&leftrightarrow;"
+                                                                        ++character;
                                                                         length += -13;
                                                                         break;
                                                                     case 's':
@@ -12146,8 +12999,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'q':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&leq;"
                                         case ';':
+                                            // Found word "&leq;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'q':
@@ -12171,8 +13025,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&les;"
                                         case ';':
+                                            // Found word "&les;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'c':
@@ -12188,15 +13043,17 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "ot", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&lesdot;"
                                                     case ';':
+                                                        // Found word "&lesdot;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'o':
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&lesdoto;"
                                                             case ';':
+                                                                // Found word "&lesdoto;"
+                                                                ++character;
                                                                 length += -6;
                                                                 break;
                                                             case 'r':
@@ -12215,8 +13072,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'g':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&lesg;"
                                                 case ';':
+                                                    // Found word "&lesg;"
+                                                    ++character;
                                                     length += 0;
                                                     break;
                                                 case 'e':
@@ -12326,8 +13184,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'g':
                             ++character;
                             switch (*character) {
-                                    // Found word "&lg;"
                                 case ';':
+                                    // Found word "&lg;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'E':
@@ -12359,8 +13218,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'u':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&lharu;"
                                                     case ';':
+                                                        // Found word "&lharu;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'l':
@@ -12397,8 +13257,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ll;"
                                 case ';':
+                                    // Found word "&ll;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'a':
@@ -12451,8 +13312,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ust", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&lmoust;"
                                             case ';':
+                                                // Found word "&lmoust;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'a':
@@ -12484,8 +13346,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'p') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&lnap;"
                                             case ';':
+                                                // Found word "&lnap;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'p':
@@ -12502,15 +13365,17 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&lne;"
                                         case ';':
+                                            // Found word "&lne;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&lneq;"
                                                 case ';':
+                                                    // Found word "&lneq;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'q':
@@ -12700,8 +13565,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'z':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&loz;"
                                         case ';':
+                                            // Found word "&loz;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'e':
@@ -12729,8 +13595,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "ar", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&lpar;"
                                     case ';':
+                                        // Found word "&lpar;"
+                                        ++character;
                                         length += -5;
                                         break;
                                     case 'l':
@@ -12768,8 +13635,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ar", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&lrhar;"
                                             case ';':
+                                                // Found word "&lrhar;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'd':
@@ -12833,8 +13701,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&lsim;"
                                             case ';':
+                                                // Found word "&lsim;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'e':
@@ -12872,8 +13741,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'o') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&lsquo;"
                                                     case ';':
+                                                        // Found word "&lsquo;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'r':
@@ -12899,9 +13769,115 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                             }
                             break;
-                            // Found word "&lt"
                         case 't':
-                            length += -2;
+                            ++character;
+                            switch (*character) {
+                                case ';':
+                                    // Found word "&lt;"
+                                    ++character;
+                                    length += -3;
+                                    break;
+                                case 'c':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'c':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&ltcc;"
+                                                ++character;
+                                                length += -3;
+                                            }
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            if (strncmp(character, "r;", 2) == 0) {
+                                                // Found word "&ltcir;"
+                                                character += 2;
+                                                length += -4;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                case 'd':
+                                    ++character;
+                                    if (strncmp(character, "ot;", 3) == 0) {
+                                        // Found word "&ltdot;"
+                                        character += 3;
+                                        length += -4;
+                                    }
+                                    break;
+                                case 'h':
+                                    ++character;
+                                    if (strncmp(character, "ree;", 4) == 0) {
+                                        // Found word "&lthree;"
+                                        character += 4;
+                                        length += -5;
+                                    }
+                                    break;
+                                case 'i':
+                                    ++character;
+                                    if (strncmp(character, "mes;", 4) == 0) {
+                                        // Found word "&ltimes;"
+                                        character += 4;
+                                        length += -5;
+                                    }
+                                    break;
+                                case 'l':
+                                    ++character;
+                                    if (strncmp(character, "arr;", 4) == 0) {
+                                        // Found word "&ltlarr;"
+                                        character += 4;
+                                        length += -5;
+                                    }
+                                    break;
+                                case 'q':
+                                    ++character;
+                                    if (strncmp(character, "uest;", 5) == 0) {
+                                        // Found word "&ltquest;"
+                                        character += 5;
+                                        length += -6;
+                                    }
+                                    break;
+                                case 'r':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'P':
+                                            ++character;
+                                            if (strncmp(character, "ar;", 3) == 0) {
+                                                // Found word "&ltrPar;"
+                                                character += 3;
+                                                length += -5;
+                                            }
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            switch (*character) {
+                                                case ';':
+                                                    // Found word "&ltri;"
+                                                    ++character;
+                                                    length += -3;
+                                                    break;
+                                                case 'e':
+                                                    ++character;
+                                                    if (*character == ';') {
+                                                        // Found word "&ltrie;"
+                                                        ++character;
+                                                        length += -4;
+                                                    }
+                                                    break;
+                                                case 'f':
+                                                    ++character;
+                                                    if (*character == ';') {
+                                                        // Found word "&ltrif;"
+                                                        ++character;
+                                                        length += -4;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                            }
                             break;
                         case 'u':
                             ++character;
@@ -12966,10 +13942,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "r;", 2) == 0) {
-                                        // Found word "&macr;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'r') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&macr;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&macr"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                                 case 'l':
@@ -12986,8 +13970,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 't':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&malt;"
                                                 case ';':
+                                                    // Found word "&malt;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'e':
@@ -13005,8 +13990,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&map;"
                                         case ';':
+                                            // Found word "&map;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 's':
@@ -13014,8 +14000,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "to", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&mapsto;"
                                                     case ';':
+                                                        // Found word "&mapsto;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'd':
@@ -13115,17 +14102,26 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ro;", 3) == 0) {
-                                        // Found word "&micro;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "ro", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&micro;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&micro"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'd':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&mid;"
                                         case ';':
+                                            // Found word "&mid;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'a':
@@ -13146,10 +14142,18 @@ size_t get_new_buffer_size(char* input_string) {
                                             break;
                                         case 'd':
                                             ++character;
-                                            if (strncmp(character, "ot;", 3) == 0) {
-                                                // Found word "&middot;"
-                                                character += 3;
-                                                length += -6;
+                                            if (strncmp(character, "ot", 2) == 0) {
+                                                character += 2;
+                                                if (*character == ';') {
+                                                    // Found word "&middot;"
+                                                    ++character;
+                                                    length += -6;
+                                                }
+                                                else {
+                                                    // Found word "&middot"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+                                                    length += -5;
+                                                }
                                             }
                                             break;
                                     }
@@ -13159,8 +14163,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "us", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&minus;"
                                             case ';':
+                                                // Found word "&minus;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'b':
@@ -13174,8 +14179,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'd':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&minusd;"
                                                     case ';':
+                                                        // Found word "&minusd;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'u':
@@ -13275,8 +14281,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'u':
                             ++character;
                             switch (*character) {
-                                    // Found word "&mu;"
                                 case ';':
+                                    // Found word "&mu;"
+                                    ++character;
                                     length += -2;
                                     break;
                                 case 'l':
@@ -13316,8 +14323,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nGt;"
                                         case ';':
+                                            // Found word "&nGt;"
+                                            ++character;
                                             length += 1;
                                             break;
                                         case 'v':
@@ -13370,8 +14378,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nLt;"
                                         case ';':
+                                            // Found word "&nLt;"
+                                            ++character;
                                             length += 1;
                                             break;
                                         case 'v':
@@ -13445,8 +14454,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nap;"
                                         case ';':
+                                            // Found word "&nap;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'E':
@@ -13488,8 +14498,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ur", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&natur;"
                                             case ';':
+                                                // Found word "&natur;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'a':
@@ -13497,8 +14508,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (*character == 'l') {
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&natural;"
                                                         case ';':
+                                                            // Found word "&natural;"
+                                                            ++character;
                                                             length += -6;
                                                             break;
                                                         case 's':
@@ -13522,10 +14534,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 's':
                                     ++character;
-                                    if (strncmp(character, "p;", 2) == 0) {
-                                        // Found word "&nbsp;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'p') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&nbsp;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&nbsp"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                                 case 'u':
@@ -13533,8 +14553,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "mp", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&nbump;"
                                             case ';':
+                                                // Found word "&nbump;"
+                                                ++character;
                                                 length += -2;
                                                 break;
                                             case 'e':
@@ -13587,8 +14608,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ng", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&ncong;"
                                             case ';':
+                                                // Found word "&ncong;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'd':
@@ -13631,8 +14653,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ne;"
                                 case ';':
+                                    // Found word "&ne;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'A':
@@ -13659,8 +14682,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nearr;"
                                                     case ';':
+                                                        // Found word "&nearr;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'o':
@@ -13718,8 +14742,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ist", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&nexist;"
                                             case ';':
+                                                // Found word "&nexist;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 's':
@@ -13757,15 +14782,17 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nge;"
                                         case ';':
+                                            // Found word "&nge;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&ngeq;"
                                                 case ';':
+                                                    // Found word "&ngeq;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'q':
@@ -13807,8 +14834,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ngt;"
                                         case ';':
+                                            // Found word "&ngt;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'r':
@@ -13855,15 +14883,17 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'i':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ni;"
                                 case ';':
+                                    // Found word "&ni;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nis;"
                                         case ';':
+                                            // Found word "&nis;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'd':
@@ -13932,8 +14962,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nle;"
                                         case ';':
+                                            // Found word "&nle;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'f':
@@ -13963,8 +14994,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nleq;"
                                                 case ';':
+                                                    // Found word "&nleq;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'q':
@@ -13988,8 +15020,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 's':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nles;"
                                                 case ';':
+                                                    // Found word "&nles;"
+                                                    ++character;
                                                     length += -1;
                                                     break;
                                                 case 's':
@@ -14015,8 +15048,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nlt;"
                                         case ';':
+                                            // Found word "&nlt;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'r':
@@ -14024,8 +15058,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'i') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nltri;"
                                                     case ';':
+                                                        // Found word "&nltri;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'e':
@@ -14062,9 +15097,115 @@ size_t get_new_buffer_size(char* input_string) {
                                         length += -2;
                                     }
                                     break;
-                                    // Found word "&not"
                                 case 't':
-                                    length += -2;
+                                    ++character;
+                                    switch (*character) {
+                                        case ';':
+                                            // Found word "&not;"
+                                            ++character;
+                                            length += -3;
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            if (*character == 'n') {
+                                                ++character;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&notin;"
+                                                        ++character;
+                                                        length += -4;
+                                                        break;
+                                                    case 'E':
+                                                        ++character;
+                                                        if (*character == ';') {
+                                                            // Found word "&notinE;"
+                                                            ++character;
+                                                            length += -3;
+                                                        }
+                                                        break;
+                                                    case 'd':
+                                                        ++character;
+                                                        if (strncmp(character, "ot;", 3) == 0) {
+                                                            // Found word "&notindot;"
+                                                            character += 3;
+                                                            length += -5;
+                                                        }
+                                                        break;
+                                                    case 'v':
+                                                        ++character;
+                                                        switch (*character) {
+                                                            case 'a':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notinva;"
+                                                                    ++character;
+                                                                    length += -6;
+                                                                }
+                                                                break;
+                                                            case 'b':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notinvb;"
+                                                                    ++character;
+                                                                    length += -6;
+                                                                }
+                                                                break;
+                                                            case 'c':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notinvc;"
+                                                                    ++character;
+                                                                    length += -6;
+                                                                }
+                                                                break;
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                        case 'n':
+                                            ++character;
+                                            if (*character == 'i') {
+                                                ++character;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&notni;"
+                                                        ++character;
+                                                        length += -4;
+                                                        break;
+                                                    case 'v':
+                                                        ++character;
+                                                        switch (*character) {
+                                                            case 'a':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notniva;"
+                                                                    ++character;
+                                                                    length += -6;
+                                                                }
+                                                                break;
+                                                            case 'b':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notnivb;"
+                                                                    ++character;
+                                                                    length += -6;
+                                                                }
+                                                                break;
+                                                            case 'c':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notnivc;"
+                                                                    ++character;
+                                                                    length += -6;
+                                                                }
+                                                                break;
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                    }
                                     break;
                             }
                             break;
@@ -14076,8 +15217,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&npar;"
                                             case ';':
+                                                // Found word "&npar;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'a':
@@ -14118,8 +15260,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'r':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&npr;"
                                         case ';':
+                                            // Found word "&npr;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'c':
@@ -14133,15 +15276,17 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&npre;"
                                                 case ';':
+                                                    // Found word "&npre;"
+                                                    ++character;
                                                     length += -1;
                                                     break;
                                                 case 'c':
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&nprec;"
                                                         case ';':
+                                                            // Found word "&nprec;"
+                                                            ++character;
                                                             length += -4;
                                                             break;
                                                         case 'e':
@@ -14176,8 +15321,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "rr", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&nrarr;"
                                             case ';':
+                                                // Found word "&nrarr;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'c':
@@ -14212,8 +15358,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ri", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&nrtri;"
                                             case ';':
+                                                // Found word "&nrtri;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'e':
@@ -14235,8 +15382,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'c':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nsc;"
                                         case ';':
+                                            // Found word "&nsc;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'c':
@@ -14294,15 +15442,17 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&nsim;"
                                             case ';':
+                                                // Found word "&nsim;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'e':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nsime;"
                                                     case ';':
+                                                        // Found word "&nsime;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'q':
@@ -14364,8 +15514,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'b':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nsub;"
                                                 case ';':
+                                                    // Found word "&nsub;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'E':
@@ -14389,8 +15540,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (strncmp(character, "et", 2) == 0) {
                                                         character += 2;
                                                         switch (*character) {
-                                                                // Found word "&nsubset;"
                                                             case ';':
+                                                                // Found word "&nsubset;"
+                                                                ++character;
                                                                 length += -3;
                                                                 break;
                                                             case 'e':
@@ -14398,8 +15550,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&nsubseteq;"
                                                                         case ';':
+                                                                            // Found word "&nsubseteq;"
+                                                                            ++character;
                                                                             length += -8;
                                                                             break;
                                                                         case 'q':
@@ -14423,8 +15576,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'c') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nsucc;"
                                                     case ';':
+                                                        // Found word "&nsucc;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'e':
@@ -14441,8 +15595,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nsup;"
                                                 case ';':
+                                                    // Found word "&nsup;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'E':
@@ -14466,8 +15621,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (strncmp(character, "et", 2) == 0) {
                                                         character += 2;
                                                         switch (*character) {
-                                                                // Found word "&nsupset;"
                                                             case ';':
+                                                                // Found word "&nsupset;"
+                                                                ++character;
                                                                 length += -3;
                                                                 break;
                                                             case 'e':
@@ -14475,8 +15631,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&nsupseteq;"
                                                                         case ';':
+                                                                            // Found word "&nsupseteq;"
+                                                                            ++character;
                                                                             length += -8;
                                                                             break;
                                                                         case 'q':
@@ -14512,10 +15669,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "lde;", 4) == 0) {
-                                        // Found word "&ntilde;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "lde", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&ntilde;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&ntilde"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 'l':
@@ -14536,8 +15701,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "eft", 3) == 0) {
                                                     character += 3;
                                                     switch (*character) {
-                                                            // Found word "&ntriangleleft;"
                                                         case ';':
+                                                            // Found word "&ntriangleleft;"
+                                                            ++character;
                                                             length += -12;
                                                             break;
                                                         case 'e':
@@ -14556,8 +15722,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "ight", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&ntriangleright;"
                                                         case ';':
+                                                            // Found word "&ntriangleright;"
+                                                            ++character;
                                                             length += -13;
                                                             break;
                                                         case 'e':
@@ -14579,15 +15746,17 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'u':
                             ++character;
                             switch (*character) {
-                                    // Found word "&nu;"
                                 case ';':
+                                    // Found word "&nu;"
+                                    ++character;
                                     length += -2;
                                     break;
                                 case 'm':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&num;"
                                         case ';':
+                                            // Found word "&num;"
+                                            ++character;
                                             length += -4;
                                             break;
                                         case 'e':
@@ -14696,8 +15865,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 't':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nvlt;"
                                                 case ';':
+                                                    // Found word "&nvlt;"
+                                                    ++character;
                                                     length += -2;
                                                     break;
                                                 case 'r':
@@ -14770,8 +15940,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nwarr;"
                                                     case ';':
+                                                        // Found word "&nwarr;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'o':
@@ -14815,10 +15986,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&oacute;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&oacute;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&oacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 's':
@@ -14839,13 +16018,23 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&ocir;"
                                             case ';':
+                                                // Found word "&ocir;"
+                                                ++character;
                                                 length += -3;
                                                 break;
-                                                // Found word "&ocirc"
                                             case 'c':
-                                                length += -4;
+                                                ++character;
+                                                if (*character == ';') {
+                                                    // Found word "&ocirc;"
+                                                    ++character;
+                                                    length += -5;
+                                                }
+                                                else {
+                                                    // Found word "&ocirc"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+                                                    length += -4;
+                                                }
                                                 break;
                                         }
                                     }
@@ -14947,10 +16136,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'r':
                                     ++character;
-                                    if (strncmp(character, "ave;", 4) == 0) {
-                                        // Found word "&ograve;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ave", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&ograve;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&ograve"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 't':
@@ -15132,8 +16329,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&or;"
                                 case ';':
+                                    // Found word "&or;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'a':
@@ -15147,8 +16345,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'd':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ord;"
                                         case ';':
+                                            // Found word "&ord;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'e':
@@ -15156,8 +16355,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'r') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&order;"
                                                     case ';':
+                                                        // Found word "&order;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'o':
@@ -15171,13 +16371,31 @@ size_t get_new_buffer_size(char* input_string) {
                                                 }
                                             }
                                             break;
-                                            // Found word "&ordf"
                                         case 'f':
-                                            length += -3;
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&ordf;"
+                                                ++character;
+                                                length += -4;
+                                            }
+                                            else {
+                                                // Found word "&ordf"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -3;
+                                            }
                                             break;
-                                            // Found word "&ordm"
                                         case 'm':
-                                            length += -3;
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&ordm;"
+                                                ++character;
+                                                length += -4;
+                                            }
+                                            else {
+                                                // Found word "&ordm"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -3;
+                                            }
                                             break;
                                     }
                                     break;
@@ -15228,10 +16446,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'l':
                                     ++character;
-                                    if (strncmp(character, "ash;", 4) == 0) {
-                                        // Found word "&oslash;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ash", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&oslash;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&oslash"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 'o':
@@ -15251,10 +16477,18 @@ size_t get_new_buffer_size(char* input_string) {
                                 switch (*character) {
                                     case 'l':
                                         ++character;
-                                        if (strncmp(character, "de;", 3) == 0) {
-                                            // Found word "&otilde;"
-                                            character += 3;
-                                            length += -6;
+                                        if (strncmp(character, "de", 2) == 0) {
+                                            character += 2;
+                                            if (*character == ';') {
+                                                // Found word "&otilde;"
+                                                ++character;
+                                                length += -6;
+                                            }
+                                            else {
+                                                // Found word "&otilde"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -5;
+                                            }
                                         }
                                         break;
                                     case 'm':
@@ -15262,8 +16496,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         if (strncmp(character, "es", 2) == 0) {
                                             character += 2;
                                             switch (*character) {
-                                                    // Found word "&otimes;"
                                                 case ';':
+                                                    // Found word "&otimes;"
+                                                    ++character;
                                                     length += -5;
                                                     break;
                                                 case 'a':
@@ -15282,10 +16517,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&ouml;"
-                                character += 3;
-                                length += -4;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&ouml;"
+                                    ++character;
+                                    length += -4;
+                                }
+                                else {
+                                    // Found word "&ouml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -3;
+                                }
                             }
                             break;
                         case 'v':
@@ -15306,13 +16549,28 @@ size_t get_new_buffer_size(char* input_string) {
                             if (*character == 'r') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&par;"
                                     case ';':
+                                        // Found word "&par;"
+                                        ++character;
                                         length += -2;
                                         break;
-                                        // Found word "&para"
                                     case 'a':
-                                        length += -3;
+                                        ++character;
+                                        switch (*character) {
+                                            case ';':
+                                                // Found word "&para;"
+                                                ++character;
+                                                length += -4;
+                                                break;
+                                            case 'l':
+                                                ++character;
+                                                if (strncmp(character, "lel;", 4) == 0) {
+                                                    // Found word "&parallel;"
+                                                    character += 4;
+                                                    length += -7;
+                                                }
+                                                break;
+                                        }
                                         break;
                                     case 's':
                                         ++character;
@@ -15416,8 +16674,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'i':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&phi;"
                                         case ';':
+                                            // Found word "&phi;"
+                                            ++character;
                                             length += -3;
                                             break;
                                         case 'v':
@@ -15451,8 +16710,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'i':
                             ++character;
                             switch (*character) {
-                                    // Found word "&pi;"
                                 case ';':
+                                    // Found word "&pi;"
+                                    ++character;
                                     length += -2;
                                     break;
                                 case 't':
@@ -15486,8 +16746,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (*character == 'k') {
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&planck;"
                                                         case ';':
+                                                            // Found word "&planck;"
+                                                            ++character;
                                                             length += -5;
                                                             break;
                                                         case 'h':
@@ -15517,8 +16778,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 's') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&plus;"
                                             case ';':
+                                                // Found word "&plus;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'a':
@@ -15576,10 +16838,18 @@ size_t get_new_buffer_size(char* input_string) {
                                                 break;
                                             case 'm':
                                                 ++character;
-                                                if (strncmp(character, "n;", 2) == 0) {
-                                                    // Found word "&plusmn;"
-                                                    character += 2;
-                                                    length += -6;
+                                                if (*character == 'n') {
+                                                    ++character;
+                                                    if (*character == ';') {
+                                                        // Found word "&plusmn;"
+                                                        ++character;
+                                                        length += -6;
+                                                    }
+                                                    else {
+                                                        // Found word "&plusmn"
+                                                        // Dont update the character position. No new characters were matched for this leaf.
+                                                        length += -5;
+                                                    }
                                                 }
                                                 break;
                                             case 's':
@@ -15632,10 +16902,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'u':
                                     ++character;
-                                    if (strncmp(character, "nd;", 3) == 0) {
-                                        // Found word "&pound;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "nd", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&pound;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&pound"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                             }
@@ -15643,8 +16921,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&pr;"
                                 case ';':
+                                    // Found word "&pr;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'E':
@@ -15674,15 +16953,17 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&pre;"
                                         case ';':
+                                            // Found word "&pre;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'c':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&prec;"
                                                 case ';':
+                                                    // Found word "&prec;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'a':
@@ -15755,8 +17036,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "me", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&prime;"
                                             case ';':
+                                                // Found word "&prime;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 's':
@@ -15842,8 +17124,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&prop;"
                                                 case ';':
+                                                    // Found word "&prop;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 't':
@@ -15982,8 +17265,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "st", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&quest;"
                                             case ';':
+                                                // Found word "&quest;"
+                                                ++character;
                                                 length += -6;
                                                 break;
                                             case 'e':
@@ -15999,10 +17283,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'o':
                                     ++character;
-                                    if (strncmp(character, "t;", 2) == 0) {
-                                        // Found word "&quot;"
-                                        character += 2;
-                                        length += -5;
+                                    if (*character == 't') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&quot;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&quot"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                             }
@@ -16102,8 +17394,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'g') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rang;"
                                             case ';':
+                                                // Found word "&rang;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'd':
@@ -16135,10 +17428,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'q':
                                     ++character;
-                                    if (strncmp(character, "uo;", 3) == 0) {
-                                        // Found word "&raquo;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "uo", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&raquo;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&raquo"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -16146,8 +17447,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rarr;"
                                             case ';':
+                                                // Found word "&rarr;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'a':
@@ -16161,8 +17463,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'b':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&rarrb;"
                                                     case ';':
+                                                        // Found word "&rarrb;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'f':
@@ -16258,8 +17561,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'o') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&ratio;"
                                                     case ';':
+                                                        // Found word "&ratio;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'n':
@@ -16438,8 +17742,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "uo", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&rdquo;"
                                             case ';':
+                                                // Found word "&rdquo;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'r':
@@ -16471,8 +17776,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'l') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&real;"
                                             case ';':
+                                                // Found word "&real;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'i':
@@ -16510,9 +17816,18 @@ size_t get_new_buffer_size(char* input_string) {
                                         length += -3;
                                     }
                                     break;
-                                    // Found word "&reg"
                                 case 'g':
-                                    length += -2;
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&reg;"
+                                        ++character;
+                                        length += -3;
+                                    }
+                                    else {
+                                        // Found word "&reg"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+                                        length += -2;
+                                    }
                                     break;
                             }
                             break;
@@ -16564,8 +17879,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'u':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&rharu;"
                                                     case ';':
+                                                        // Found word "&rharu;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'l':
@@ -16584,8 +17900,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'o':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&rho;"
                                         case ';':
+                                            // Found word "&rho;"
+                                            ++character;
                                             length += -3;
                                             break;
                                         case 'v':
@@ -16613,8 +17930,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                 if (strncmp(character, "rrow", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&rightarrow;"
                                                         case ';':
+                                                            // Found word "&rightarrow;"
+                                                            ++character;
                                                             length += -9;
                                                             break;
                                                         case 't':
@@ -16755,8 +18073,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "oust", 4) == 0) {
                                 character += 4;
                                 switch (*character) {
-                                        // Found word "&rmoust;"
                                     case ';':
+                                        // Found word "&rmoust;"
+                                        ++character;
                                         length += -5;
                                         break;
                                     case 'a':
@@ -16857,8 +18176,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rpar;"
                                             case ';':
+                                                // Found word "&rpar;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'g':
@@ -16933,8 +18253,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'o') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&rsquo;"
                                                     case ';':
+                                                        // Found word "&rsquo;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'r':
@@ -16976,8 +18297,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rtri;"
                                             case ';':
+                                                // Found word "&rtri;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'e':
@@ -17049,8 +18371,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&sc;"
                                 case ';':
+                                    // Found word "&sc;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'E':
@@ -17093,8 +18416,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sce;"
                                         case ';':
+                                            // Found word "&sce;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'd':
@@ -17175,8 +18499,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "ot", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&sdot;"
                                     case ';':
+                                        // Found word "&sdot;"
+                                        ++character;
                                         length += -3;
                                         break;
                                     case 'b':
@@ -17225,8 +18550,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&searr;"
                                                     case ';':
+                                                        // Found word "&searr;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'o':
@@ -17244,10 +18570,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "t;", 2) == 0) {
-                                        // Found word "&sect;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 't') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&sect;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&sect"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                                 case 'm':
@@ -17305,8 +18639,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (*character == 'r') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&sfr;"
                                     case ';':
+                                        // Found word "&sfr;"
+                                        ++character;
                                         length += -1;
                                         break;
                                     case 'o':
@@ -17376,9 +18711,18 @@ size_t get_new_buffer_size(char* input_string) {
                                         }
                                     }
                                     break;
-                                    // Found word "&shy"
                                 case 'y':
-                                    length += -2;
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&shy;"
+                                        ++character;
+                                        length += -3;
+                                    }
+                                    else {
+                                        // Found word "&shy"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+                                        length += -2;
+                                    }
                                     break;
                             }
                             break;
@@ -17390,8 +18734,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (strncmp(character, "ma", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&sigma;"
                                             case ';':
+                                                // Found word "&sigma;"
+                                                ++character;
                                                 length += -5;
                                                 break;
                                             case 'f':
@@ -17416,8 +18761,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'm':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sim;"
                                         case ';':
+                                            // Found word "&sim;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'd':
@@ -17431,8 +18777,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&sime;"
                                                 case ';':
+                                                    // Found word "&sime;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'q':
@@ -17448,8 +18795,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'g':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&simg;"
                                                 case ';':
+                                                    // Found word "&simg;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'E':
@@ -17465,8 +18813,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'l':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&siml;"
                                                 case ';':
+                                                    // Found word "&siml;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'E':
@@ -17571,15 +18920,17 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&smt;"
                                         case ';':
+                                            // Found word "&smt;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&smte;"
                                                 case ';':
+                                                    // Found word "&smte;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 's':
@@ -17610,15 +18961,17 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'l':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sol;"
                                         case ';':
+                                            // Found word "&sol;"
+                                            ++character;
                                             length += -4;
                                             break;
                                         case 'b':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&solb;"
                                                 case ';':
+                                                    // Found word "&solb;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'a':
@@ -17653,8 +19006,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         if (strncmp(character, "es", 2) == 0) {
                                             character += 2;
                                             switch (*character) {
-                                                    // Found word "&spades;"
                                                 case ';':
+                                                    // Found word "&spades;"
+                                                    ++character;
                                                     length += -5;
                                                     break;
                                                 case 'u':
@@ -17690,8 +19044,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'p') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqcap;"
                                                     case ';':
+                                                        // Found word "&sqcap;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 's':
@@ -17710,8 +19065,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'p') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqcup;"
                                                     case ';':
+                                                        // Found word "&sqcup;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 's':
@@ -17735,8 +19091,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'b':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqsub;"
                                                     case ';':
+                                                        // Found word "&sqsub;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'e':
@@ -17752,8 +19109,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "et", 2) == 0) {
                                                             character += 2;
                                                             switch (*character) {
-                                                                    // Found word "&sqsubset;"
                                                                 case ';':
+                                                                    // Found word "&sqsubset;"
+                                                                    ++character;
                                                                     length += -7;
                                                                     break;
                                                                 case 'e':
@@ -17772,8 +19130,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'p':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqsup;"
                                                     case ';':
+                                                        // Found word "&sqsup;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'e':
@@ -17789,8 +19148,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "et", 2) == 0) {
                                                             character += 2;
                                                             switch (*character) {
-                                                                    // Found word "&sqsupset;"
                                                                 case ';':
+                                                                    // Found word "&sqsupset;"
+                                                                    ++character;
                                                                     length += -7;
                                                                     break;
                                                                 case 'e':
@@ -17812,8 +19172,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'u':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&squ;"
                                         case ';':
+                                            // Found word "&squ;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'a':
@@ -17905,8 +19266,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&star;"
                                             case ';':
+                                                // Found word "&star;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'f':
@@ -17965,8 +19327,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'b':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sub;"
                                         case ';':
+                                            // Found word "&sub;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'E':
@@ -17988,8 +19351,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&sube;"
                                                 case ';':
+                                                    // Found word "&sube;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'd':
@@ -18055,8 +19419,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (*character == 't') {
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&subset;"
                                                             case ';':
+                                                                // Found word "&subset;"
+                                                                ++character;
                                                                 length += -5;
                                                                 break;
                                                             case 'e':
@@ -18064,8 +19429,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&subseteq;"
                                                                         case ';':
+                                                                            // Found word "&subseteq;"
+                                                                            ++character;
                                                                             length += -7;
                                                                             break;
                                                                         case 'q':
@@ -18084,8 +19450,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (strncmp(character, "eq", 2) == 0) {
                                                                     character += 2;
                                                                     switch (*character) {
-                                                                            // Found word "&subsetneq;"
                                                                         case ';':
+                                                                            // Found word "&subsetneq;"
+                                                                            ++character;
                                                                             length += -8;
                                                                             break;
                                                                         case 'q':
@@ -18140,8 +19507,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'c') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&succ;"
                                             case ';':
+                                                // Found word "&succ;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'a':
@@ -18227,20 +19595,48 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sup1"
                                         case '1':
-                                            length += -3;
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&sup1;"
+                                                ++character;
+                                                length += -4;
+                                            }
+                                            else {
+                                                // Found word "&sup1"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -3;
+                                            }
                                             break;
-                                            // Found word "&sup2"
                                         case '2':
-                                            length += -3;
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&sup2;"
+                                                ++character;
+                                                length += -4;
+                                            }
+                                            else {
+                                                // Found word "&sup2"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -3;
+                                            }
                                             break;
-                                            // Found word "&sup3"
                                         case '3':
-                                            length += -3;
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&sup3;"
+                                                ++character;
+                                                length += -4;
+                                            }
+                                            else {
+                                                // Found word "&sup3"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -3;
+                                            }
                                             break;
-                                            // Found word "&sup;"
                                         case ';':
+                                            // Found word "&sup;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'E':
@@ -18275,8 +19671,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&supe;"
                                                 case ';':
+                                                    // Found word "&supe;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'd':
@@ -18366,8 +19763,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                     if (*character == 't') {
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&supset;"
                                                             case ';':
+                                                                // Found word "&supset;"
+                                                                ++character;
                                                                 length += -5;
                                                                 break;
                                                             case 'e':
@@ -18375,8 +19773,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&supseteq;"
                                                                         case ';':
+                                                                            // Found word "&supseteq;"
+                                                                            ++character;
                                                                             length += -7;
                                                                             break;
                                                                         case 'q':
@@ -18395,8 +19794,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                                 if (strncmp(character, "eq", 2) == 0) {
                                                                     character += 2;
                                                                     switch (*character) {
-                                                                            // Found word "&supsetneq;"
                                                                         case ';':
+                                                                            // Found word "&supsetneq;"
+                                                                            ++character;
                                                                             length += -8;
                                                                             break;
                                                                         case 'q':
@@ -18475,8 +19875,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&swarr;"
                                                     case ';':
+                                                        // Found word "&swarr;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'o':
@@ -18504,10 +19905,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'z':
                             ++character;
-                            if (strncmp(character, "lig;", 4) == 0) {
-                                // Found word "&szlig;"
-                                character += 4;
-                                length += -5;
+                            if (strncmp(character, "lig", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&szlig;"
+                                    ++character;
+                                    length += -5;
+                                }
+                                else {
+                                    // Found word "&szlig"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -4;
+                                }
                             }
                             break;
                     }
@@ -18632,8 +20041,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'a') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&theta;"
                                                     case ';':
+                                                        // Found word "&theta;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 's':
@@ -18717,10 +20127,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'o':
                                     ++character;
-                                    if (strncmp(character, "rn;", 3) == 0) {
-                                        // Found word "&thorn;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rn", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&thorn;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&thorn"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                             }
@@ -18739,9 +20157,40 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'm':
                                     ++character;
                                     if (strncmp(character, "es", 2) == 0) {
-                                        // Found word "&times"
                                         character += 2;
-                                        length += -4;
+                                        switch (*character) {
+                                            case ';':
+                                                // Found word "&times;"
+                                                ++character;
+                                                length += -5;
+                                                break;
+                                            case 'b':
+                                                ++character;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&timesb;"
+                                                        ++character;
+                                                        length += -5;
+                                                        break;
+                                                    case 'a':
+                                                        ++character;
+                                                        if (strncmp(character, "r;", 2) == 0) {
+                                                            // Found word "&timesbar;"
+                                                            character += 2;
+                                                            length += -7;
+                                                        }
+                                                        break;
+                                                }
+                                                break;
+                                            case 'd':
+                                                ++character;
+                                                if (*character == ';') {
+                                                    // Found word "&timesd;"
+                                                    ++character;
+                                                    length += -5;
+                                                }
+                                                break;
+                                        }
                                     }
                                     break;
                                 case 'n':
@@ -18768,8 +20217,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&top;"
                                         case ';':
+                                            // Found word "&top;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'b':
@@ -18791,8 +20241,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'f':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&topf;"
                                                 case ';':
+                                                    // Found word "&topf;"
+                                                    ++character;
                                                     length += -2;
                                                     break;
                                                 case 'o':
@@ -18844,8 +20295,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "ngle", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&triangle;"
                                                     case ';':
+                                                        // Found word "&triangle;"
+                                                        ++character;
                                                         length += -7;
                                                         break;
                                                     case 'd':
@@ -18861,8 +20313,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "eft", 3) == 0) {
                                                             character += 3;
                                                             switch (*character) {
-                                                                    // Found word "&triangleleft;"
                                                                 case ';':
+                                                                    // Found word "&triangleleft;"
+                                                                    ++character;
                                                                     length += -11;
                                                                     break;
                                                                 case 'e':
@@ -18889,8 +20342,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                         if (strncmp(character, "ight", 4) == 0) {
                                                             character += 4;
                                                             switch (*character) {
-                                                                    // Found word "&triangleright;"
                                                                 case ';':
+                                                                    // Found word "&triangleright;"
+                                                                    ++character;
                                                                     length += -12;
                                                                     break;
                                                                 case 'e':
@@ -19072,10 +20526,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&uacute;"
-                                        character += 4;
-                                        length += -6;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&uacute;"
+                                            ++character;
+                                            length += -6;
+                                        }
+                                        else {
+                                            // Found word "&uacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -5;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -19117,10 +20579,18 @@ size_t get_new_buffer_size(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&ucirc;"
-                                        character += 3;
-                                        length += -5;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&ucirc;"
+                                            ++character;
+                                            length += -5;
+                                        }
+                                        else {
+                                            // Found word "&ucirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -4;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -19185,10 +20655,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&ugrave;"
-                                character += 5;
-                                length += -6;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&ugrave;"
+                                    ++character;
+                                    length += -6;
+                                }
+                                else {
+                                    // Found word "&ugrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -5;
+                                }
                             }
                             break;
                         case 'h':
@@ -19239,8 +20717,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "rn", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&ulcorn;"
                                                     case ';':
+                                                        // Found word "&ulcorn;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'e':
@@ -19285,9 +20764,18 @@ size_t get_new_buffer_size(char* input_string) {
                                         length += -5;
                                     }
                                     break;
-                                    // Found word "&uml"
                                 case 'l':
-                                    length += -2;
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&uml;"
+                                        ++character;
+                                        length += -3;
+                                    }
+                                    else {
+                                        // Found word "&uml"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+                                        length += -2;
+                                    }
                                     break;
                             }
                             break;
@@ -19368,8 +20856,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&upsi;"
                                             case ';':
+                                                // Found word "&upsi;"
+                                                ++character;
                                                 length += -4;
                                                 break;
                                             case 'h':
@@ -19412,8 +20901,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (strncmp(character, "rn", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&urcorn;"
                                                     case ';':
+                                                        // Found word "&urcorn;"
+                                                        ++character;
                                                         length += -5;
                                                         break;
                                                     case 'e':
@@ -19487,8 +20977,9 @@ size_t get_new_buffer_size(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&utri;"
                                             case ';':
+                                                // Found word "&utri;"
+                                                ++character;
                                                 length += -3;
                                                 break;
                                             case 'f':
@@ -19517,10 +21008,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&uuml;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&uuml;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&uuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                             }
@@ -19551,8 +21050,9 @@ size_t get_new_buffer_size(char* input_string) {
                             if (strncmp(character, "ar", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&vBar;"
                                     case ';':
+                                        // Found word "&vBar;"
+                                        ++character;
                                         length += -3;
                                         break;
                                     case 'v':
@@ -19644,8 +21144,9 @@ size_t get_new_buffer_size(char* input_string) {
                                         case 'r':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&varr;"
                                                 case ';':
+                                                    // Found word "&varr;"
+                                                    ++character;
                                                     length += -3;
                                                     break;
                                                 case 'h':
@@ -19677,8 +21178,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "setneq", 6) == 0) {
                                                                 character += 6;
                                                                 switch (*character) {
-                                                                        // Found word "&varsubsetneq;"
                                                                     case ';':
+                                                                        // Found word "&varsubsetneq;"
+                                                                        ++character;
                                                                         length += -8;
                                                                         break;
                                                                     case 'q':
@@ -19697,8 +21199,9 @@ size_t get_new_buffer_size(char* input_string) {
                                                             if (strncmp(character, "setneq", 6) == 0) {
                                                                 character += 6;
                                                                 switch (*character) {
-                                                                        // Found word "&varsupsetneq;"
                                                                     case ';':
+                                                                        // Found word "&varsupsetneq;"
+                                                                        ++character;
                                                                         length += -8;
                                                                         break;
                                                                     case 'q':
@@ -19779,8 +21282,9 @@ size_t get_new_buffer_size(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&vee;"
                                         case ';':
+                                            // Found word "&vee;"
+                                            ++character;
                                             length += -2;
                                             break;
                                         case 'b':
@@ -20002,8 +21506,9 @@ size_t get_new_buffer_size(char* input_string) {
                                             if (*character == 'e') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&wedge;"
                                                     case ';':
+                                                        // Found word "&wedge;"
+                                                        ++character;
                                                         length += -4;
                                                         break;
                                                     case 'q':
@@ -20056,8 +21561,9 @@ size_t get_new_buffer_size(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&wr;"
                                 case ';':
+                                    // Found word "&wr;"
+                                    ++character;
                                     length += -1;
                                     break;
                                 case 'e':
@@ -20327,10 +21833,18 @@ size_t get_new_buffer_size(char* input_string) {
                                 switch (*character) {
                                     case 'u':
                                         ++character;
-                                        if (strncmp(character, "te;", 3) == 0) {
-                                            // Found word "&yacute;"
-                                            character += 3;
-                                            length += -6;
+                                        if (strncmp(character, "te", 2) == 0) {
+                                            character += 2;
+                                            if (*character == ';') {
+                                                // Found word "&yacute;"
+                                                ++character;
+                                                length += -6;
+                                            }
+                                            else {
+                                                // Found word "&yacute"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+                                                length += -5;
+                                            }
                                         }
                                         break;
                                     case 'y':
@@ -20367,10 +21881,18 @@ size_t get_new_buffer_size(char* input_string) {
                             break;
                         case 'e':
                             ++character;
-                            if (strncmp(character, "n;", 2) == 0) {
-                                // Found word "&yen;"
-                                character += 2;
-                                length += -3;
+                            if (*character == 'n') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&yen;"
+                                    ++character;
+                                    length += -3;
+                                }
+                                else {
+                                    // Found word "&yen"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+                                    length += -2;
+                                }
                             }
                             break;
                         case 'f':
@@ -20418,10 +21940,18 @@ size_t get_new_buffer_size(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&yuml;"
-                                        character += 2;
-                                        length += -4;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&yuml;"
+                                            ++character;
+                                            length += -4;
+                                        }
+                                        else {
+                                            // Found word "&yuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+                                            length += -3;
+                                        }
                                     }
                                     break;
                             }
@@ -20583,49 +22113,96 @@ char* replace_html_escape_codes(char* input_string) {
                     switch (*character) {
                         case 'E':
                             ++character;
-                            if (strncmp(character, "lig;", 4) == 0) {
-                                // Found word "&AElig;"
-                                character += 4;
+                            if (strncmp(character, "lig", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&AElig;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x86;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x86;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&AElig"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x86;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'M':
                             ++character;
-                            if (strncmp(character, "P;", 2) == 0) {
-                                // Found word "&AMP;"
-                                character += 2;
+                            if (*character == 'P') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&AMP;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0x26;
-                                output_copy_start += 1;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0x26;
+                                    output_copy_start += 1;
+                                }
+                                else {
+                                    // Found word "&AMP"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0x26;
+                                    output_copy_start += 1;
+                                }
                             }
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Aacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Aacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x81;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x81;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Aacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x81;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'b':
@@ -20649,18 +22226,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Acirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Acirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x82;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x82;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Acirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x82;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -20701,18 +22294,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Agrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Agrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x80;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x80;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Agrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x80;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'l':
@@ -20822,18 +22431,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'r':
                             ++character;
-                            if (strncmp(character, "ing;", 4) == 0) {
-                                // Found word "&Aring;"
-                                character += 4;
+                            if (strncmp(character, "ing", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&Aring;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x85;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x85;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Aring"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x85;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 's':
@@ -20878,34 +22503,66 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 't':
                             ++character;
-                            if (strncmp(character, "ilde;", 5) == 0) {
-                                // Found word "&Atilde;"
-                                character += 5;
+                            if (strncmp(character, "ilde", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Atilde;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x83;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x83;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Atilde"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x83;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Auml;"
-                                character += 3;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Auml;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x84;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x84;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Auml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x84;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                     }
@@ -21154,18 +22811,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'O':
                             ++character;
-                            if (strncmp(character, "PY;", 3) == 0) {
-                                // Found word "&COPY;"
-                                character += 3;
+                            if (strncmp(character, "PY", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&COPY;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc2;
-                                output_copy_start[1] = 0xa9;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xa9;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&COPY"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xa9;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'a':
@@ -21190,8 +22863,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Cap;"
                                         case ';':
+                                            // Found word "&Cap;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -21262,18 +22936,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'e':
                                     ++character;
-                                    if (strncmp(character, "dil;", 4) == 0) {
-                                        // Found word "&Ccedil;"
-                                        character += 4;
+                                    if (strncmp(character, "dil", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&Ccedil;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x87;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x87;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Ccedil"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x87;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'i':
@@ -21548,8 +23238,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "on", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&Colon;"
                                             case ';':
+                                                // Found word "&Colon;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -21735,8 +23426,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (*character == 'p') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&Cup;"
                                     case ';':
+                                        // Found word "&Cup;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -21776,8 +23468,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'D':
                             ++character;
                             switch (*character) {
-                                    // Found word "&DD;"
                                 case ';':
+                                    // Found word "&DD;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -21954,8 +23647,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (*character == 'l') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&Del;"
                                     case ';':
+                                        // Found word "&Del;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -22167,8 +23861,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Dot;"
                                         case ';':
+                                            // Found word "&Dot;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -22523,8 +24218,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "rrow", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&DownArrow;"
                                                         case ';':
+                                                            // Found word "&DownArrow;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -22633,8 +24329,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "ector", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&DownLeftVector;"
                                                                     case ';':
+                                                                        // Found word "&DownLeftVector;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -22696,8 +24393,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "ector", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&DownRightVector;"
                                                                     case ';':
+                                                                        // Found word "&DownRightVector;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -22737,8 +24435,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "ee", 2) == 0) {
                                                     character += 2;
                                                     switch (*character) {
-                                                            // Found word "&DownTee;"
                                                         case ';':
+                                                            // Found word "&DownTee;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -22854,34 +24553,66 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'T':
                             ++character;
-                            if (strncmp(character, "H;", 2) == 0) {
-                                // Found word "&ETH;"
-                                character += 2;
+                            if (*character == 'H') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&ETH;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x90;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x90;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&ETH"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x90;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Eacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Eacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x89;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x89;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Eacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x89;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'c':
@@ -22905,18 +24636,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Ecirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Ecirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x8a;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x8a;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Ecirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x8a;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -22973,18 +24720,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Egrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Egrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x88;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x88;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Egrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x88;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'l':
@@ -23132,8 +24895,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         if (*character == 'l') {
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&Equal;"
                                                 case ';':
+                                                    // Found word "&Equal;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -23242,18 +25006,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Euml;"
-                                character += 3;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Euml;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x8b;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x8b;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Euml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x8b;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'x':
@@ -23471,24 +25251,41 @@ char* replace_html_escape_codes(char* input_string) {
                                 output_copy_start += 2;
                             }
                             break;
-                            // Found word "&GT"
                         case 'T':
+                            ++character;
+                            if (*character == ';') {
+                                // Found word "&GT;"
+                                ++character;
 
-                            // Copy the string up to the start of the token
-                            copy_size = substitute_start - input_copy_start;
-                            memcpy(output_copy_start, input_copy_start, copy_size);
-                            output_copy_start += copy_size;
-                            input_copy_start = character;
-                            output_copy_start[0] = 0x3e;
-                            output_copy_start += 1;
+                                // Copy the string up to the start of the token
+                                copy_size = substitute_start - input_copy_start;
+                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                output_copy_start += copy_size;
+                                input_copy_start = character;
+                                output_copy_start[0] = 0x3e;
+                                output_copy_start += 1;
+                            }
+                            else {
+                                // Found word "&GT"
+                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                // Copy the string up to the start of the token
+                                copy_size = substitute_start - input_copy_start;
+                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                output_copy_start += copy_size;
+                                input_copy_start = character;
+                                output_copy_start[0] = 0x3e;
+                                output_copy_start += 1;
+                            }
                             break;
                         case 'a':
                             ++character;
                             if (strncmp(character, "mma", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&Gamma;"
                                     case ';':
+                                        // Found word "&Gamma;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -23666,8 +25463,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         if (strncmp(character, "qual", 4) == 0) {
                                             character += 4;
                                             switch (*character) {
-                                                    // Found word "&GreaterEqual;"
                                                 case ';':
+                                                    // Found word "&GreaterEqual;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -24103,18 +25901,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Iacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Iacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x8d;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x8d;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Iacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x8d;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'c':
@@ -24122,18 +25936,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Icirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Icirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x8e;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x8e;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Icirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x8e;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -24189,25 +26019,42 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Igrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Igrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x8c;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x8c;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Igrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x8c;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'm':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Im;"
                                 case ';':
+                                    // Found word "&Im;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -24282,8 +26129,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Int;"
                                         case ';':
+                                            // Found word "&Int;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -24489,18 +26337,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&Iuml;"
-                                        character += 2;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&Iuml;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x8f;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x8f;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Iuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x8f;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -24803,16 +26667,32 @@ char* replace_html_escape_codes(char* input_string) {
                                 output_copy_start += 2;
                             }
                             break;
-                            // Found word "&LT"
                         case 'T':
+                            ++character;
+                            if (*character == ';') {
+                                // Found word "&LT;"
+                                ++character;
 
-                            // Copy the string up to the start of the token
-                            copy_size = substitute_start - input_copy_start;
-                            memcpy(output_copy_start, input_copy_start, copy_size);
-                            output_copy_start += copy_size;
-                            input_copy_start = character;
-                            output_copy_start[0] = 0x3c;
-                            output_copy_start += 1;
+                                // Copy the string up to the start of the token
+                                copy_size = substitute_start - input_copy_start;
+                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                output_copy_start += copy_size;
+                                input_copy_start = character;
+                                output_copy_start[0] = 0x3c;
+                                output_copy_start += 1;
+                            }
+                            else {
+                                // Found word "&LT"
+                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                // Copy the string up to the start of the token
+                                copy_size = substitute_start - input_copy_start;
+                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                output_copy_start += copy_size;
+                                input_copy_start = character;
+                                output_copy_start[0] = 0x3c;
+                                output_copy_start += 1;
+                            }
                             break;
                         case 'a':
                             ++character;
@@ -24988,8 +26868,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "row", 3) == 0) {
                                                             character += 3;
                                                             switch (*character) {
-                                                                    // Found word "&LeftArrow;"
                                                                 case ';':
+                                                                    // Found word "&LeftArrow;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -25106,8 +26987,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                         if (strncmp(character, "ector", 5) == 0) {
                                                                             character += 5;
                                                                             switch (*character) {
-                                                                                    // Found word "&LeftDownVector;"
                                                                                 case ';':
+                                                                                    // Found word "&LeftDownVector;"
+                                                                                    ++character;
 
                                                                                     // Copy the string up to the start of the token
                                                                                     copy_size = substitute_start - input_copy_start;
@@ -25212,8 +27094,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (*character == 'e') {
                                                             ++character;
                                                             switch (*character) {
-                                                                    // Found word "&LeftTee;"
                                                                 case ';':
+                                                                    // Found word "&LeftTee;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -25267,8 +27150,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "iangle", 6) == 0) {
                                                             character += 6;
                                                             switch (*character) {
-                                                                    // Found word "&LeftTriangle;"
                                                                 case ';':
+                                                                    // Found word "&LeftTriangle;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -25363,8 +27247,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "ector", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&LeftUpVector;"
                                                                     case ';':
+                                                                        // Found word "&LeftUpVector;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -25404,8 +27289,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "ector", 5) == 0) {
                                                     character += 5;
                                                     switch (*character) {
-                                                            // Found word "&LeftVector;"
                                                         case ';':
+                                                            // Found word "&LeftVector;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -25607,8 +27493,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Ll;"
                                 case ';':
+                                    // Found word "&Ll;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -26391,8 +28278,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Not;"
                                         case ';':
+                                            // Found word "&Not;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -26485,8 +28373,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (strncmp(character, "ual", 3) == 0) {
                                                         character += 3;
                                                         switch (*character) {
-                                                                // Found word "&NotEqual;"
                                                             case ';':
+                                                                // Found word "&NotEqual;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -26544,8 +28433,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "reater", 6) == 0) {
                                                 character += 6;
                                                 switch (*character) {
-                                                        // Found word "&NotGreater;"
                                                     case ';':
+                                                        // Found word "&NotGreater;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -26724,8 +28614,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "tTriangle", 9) == 0) {
                                                             character += 9;
                                                             switch (*character) {
-                                                                    // Found word "&NotLeftTriangle;"
                                                                 case ';':
+                                                                    // Found word "&NotLeftTriangle;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -26781,8 +28672,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (*character == 's') {
                                                             ++character;
                                                             switch (*character) {
-                                                                    // Found word "&NotLess;"
                                                                 case ';':
+                                                                    // Found word "&NotLess;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -26940,8 +28832,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "recedes", 7) == 0) {
                                                 character += 7;
                                                 switch (*character) {
-                                                        // Found word "&NotPrecedes;"
                                                     case ';':
+                                                        // Found word "&NotPrecedes;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -27017,8 +28910,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (strncmp(character, "ghtTriangle", 11) == 0) {
                                                         character += 11;
                                                         switch (*character) {
-                                                                // Found word "&NotRightTriangle;"
                                                             case ';':
+                                                                // Found word "&NotRightTriangle;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -27084,8 +28978,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (strncmp(character, "set", 3) == 0) {
                                                                     character += 3;
                                                                     switch (*character) {
-                                                                            // Found word "&NotSquareSubset;"
                                                                         case ';':
+                                                                            // Found word "&NotSquareSubset;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -27124,8 +29019,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (strncmp(character, "erset", 5) == 0) {
                                                                     character += 5;
                                                                     switch (*character) {
-                                                                            // Found word "&NotSquareSuperset;"
                                                                         case ';':
+                                                                            // Found word "&NotSquareSuperset;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -27170,8 +29066,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "set", 3) == 0) {
                                                                 character += 3;
                                                                 switch (*character) {
-                                                                        // Found word "&NotSubset;"
                                                                     case ';':
+                                                                        // Found word "&NotSubset;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -27211,8 +29108,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "ceeds", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&NotSucceeds;"
                                                                     case ';':
+                                                                        // Found word "&NotSucceeds;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -27287,8 +29185,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "erset", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&NotSuperset;"
                                                                     case ';':
+                                                                        // Found word "&NotSuperset;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -27332,8 +29231,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "ilde", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&NotTilde;"
                                                     case ';':
+                                                        // Found word "&NotTilde;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -27440,18 +29340,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 't':
                             ++character;
-                            if (strncmp(character, "ilde;", 5) == 0) {
-                                // Found word "&Ntilde;"
-                                character += 5;
+                            if (strncmp(character, "ilde", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Ntilde;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x91;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x91;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Ntilde"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x91;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'u':
@@ -27493,18 +29409,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Oacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Oacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x93;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x93;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Oacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x93;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'c':
@@ -27512,18 +29444,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Ocirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Ocirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x94;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x94;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Ocirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x94;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -27580,18 +29528,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Ograve;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Ograve;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x92;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x92;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Ograve"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x92;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'm':
@@ -27747,18 +29711,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'l':
                                     ++character;
-                                    if (strncmp(character, "ash;", 4) == 0) {
-                                        // Found word "&Oslash;"
-                                        character += 4;
+                                    if (strncmp(character, "ash", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&Oslash;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x98;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x98;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Oslash"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x98;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -27770,18 +29750,34 @@ char* replace_html_escape_codes(char* input_string) {
                                 switch (*character) {
                                     case 'l':
                                         ++character;
-                                        if (strncmp(character, "de;", 3) == 0) {
-                                            // Found word "&Otilde;"
-                                            character += 3;
+                                        if (strncmp(character, "de", 2) == 0) {
+                                            character += 2;
+                                            if (*character == ';') {
+                                                // Found word "&Otilde;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc3;
-                                            output_copy_start[1] = 0x95;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0x95;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&Otilde"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0x95;
+                                                output_copy_start += 2;
+                                            }
                                         }
                                         break;
                                     case 'm':
@@ -27806,18 +29802,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Ouml;"
-                                character += 3;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Ouml;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x96;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x96;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Ouml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x96;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'v':
@@ -28055,8 +30067,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Pr;"
                                 case ';':
+                                    // Found word "&Pr;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -28073,8 +30086,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "cedes", 5) == 0) {
                                         character += 5;
                                         switch (*character) {
-                                                // Found word "&Precedes;"
                                             case ';':
+                                                // Found word "&Precedes;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -28182,8 +30196,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "ortion", 6) == 0) {
                                                 character += 6;
                                                 switch (*character) {
-                                                        // Found word "&Proportion;"
                                                     case ';':
+                                                        // Found word "&Proportion;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -28265,17 +30280,32 @@ char* replace_html_escape_codes(char* input_string) {
                     switch (*character) {
                         case 'U':
                             ++character;
-                            if (strncmp(character, "OT;", 3) == 0) {
-                                // Found word "&QUOT;"
-                                character += 3;
+                            if (strncmp(character, "OT", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&QUOT;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0x22;
-                                output_copy_start += 1;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0x22;
+                                    output_copy_start += 1;
+                                }
+                                else {
+                                    // Found word "&QUOT"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0x22;
+                                    output_copy_start += 1;
+                                }
                             }
                             break;
                         case 'f':
@@ -28355,18 +30385,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'E':
                             ++character;
-                            if (strncmp(character, "G;", 2) == 0) {
-                                // Found word "&REG;"
-                                character += 2;
+                            if (*character == 'G') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&REG;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc2;
-                                output_copy_start[1] = 0xae;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xae;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&REG"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xae;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'a':
@@ -28410,8 +30456,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&Rarr;"
                                             case ';':
+                                                // Found word "&Rarr;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -28501,8 +30548,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Re;"
                                 case ';':
+                                    // Found word "&Re;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -28643,8 +30691,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "row", 3) == 0) {
                                                     character += 3;
                                                     switch (*character) {
-                                                            // Found word "&RightArrow;"
                                                         case ';':
+                                                            // Found word "&RightArrow;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -28761,8 +30810,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (strncmp(character, "ector", 5) == 0) {
                                                                     character += 5;
                                                                     switch (*character) {
-                                                                            // Found word "&RightDownVector;"
                                                                         case ';':
+                                                                            // Found word "&RightDownVector;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -28825,8 +30875,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (*character == 'e') {
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&RightTee;"
                                                         case ';':
+                                                            // Found word "&RightTee;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -28880,8 +30931,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "iangle", 6) == 0) {
                                                     character += 6;
                                                     switch (*character) {
-                                                            // Found word "&RightTriangle;"
                                                         case ';':
+                                                            // Found word "&RightTriangle;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -28976,8 +31028,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (strncmp(character, "ector", 5) == 0) {
                                                         character += 5;
                                                         switch (*character) {
-                                                                // Found word "&RightUpVector;"
                                                             case ';':
+                                                                // Found word "&RightUpVector;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -29017,8 +31070,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         if (strncmp(character, "ector", 5) == 0) {
                                             character += 5;
                                             switch (*character) {
-                                                    // Found word "&RightVector;"
                                                 case ';':
+                                                    // Found word "&RightVector;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -29259,8 +31313,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&Sc;"
                                 case ';':
+                                    // Found word "&Sc;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -29508,8 +31563,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "are", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&Square;"
                                             case ';':
+                                                // Found word "&Square;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -29548,8 +31604,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "set", 3) == 0) {
                                                                 character += 3;
                                                                 switch (*character) {
-                                                                        // Found word "&SquareSubset;"
                                                                     case ';':
+                                                                        // Found word "&SquareSubset;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -29586,8 +31643,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "erset", 5) == 0) {
                                                                 character += 5;
                                                                 switch (*character) {
-                                                                        // Found word "&SquareSuperset;"
                                                                     case ';':
+                                                                        // Found word "&SquareSuperset;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -29685,8 +31743,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'b':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Sub;"
                                         case ';':
+                                            // Found word "&Sub;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -29703,8 +31762,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "et", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&Subset;"
                                                     case ';':
+                                                        // Found word "&Subset;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -29746,8 +31806,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "eeds", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&Succeeds;"
                                                     case ';':
+                                                        // Found word "&Succeeds;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -29852,8 +31913,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&Sup;"
                                         case ';':
+                                            // Found word "&Sup;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -29870,8 +31932,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "rset", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&Superset;"
                                                     case ';':
+                                                        // Found word "&Superset;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -29931,18 +31994,34 @@ char* replace_html_escape_codes(char* input_string) {
                     switch (*character) {
                         case 'H':
                             ++character;
-                            if (strncmp(character, "ORN;", 4) == 0) {
-                                // Found word "&THORN;"
-                                character += 4;
+                            if (strncmp(character, "ORN", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&THORN;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x9e;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9e;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&THORN"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9e;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'R':
@@ -30196,8 +32275,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "lde", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&Tilde;"
                                     case ';':
+                                        // Found word "&Tilde;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -30347,18 +32427,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&Uacute;"
-                                        character += 4;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&Uacute;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x9a;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x9a;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Uacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x9a;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -30366,8 +32462,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&Uarr;"
                                             case ';':
+                                                // Found word "&Uarr;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -30446,18 +32543,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&Ucirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&Ucirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x9b;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x9b;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&Ucirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0x9b;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -30514,18 +32627,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&Ugrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Ugrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x99;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x99;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Ugrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x99;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'm':
@@ -30639,8 +32768,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "on", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&Union;"
                                             case ';':
+                                                // Found word "&Union;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -30721,8 +32851,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "rrow", 4) == 0) {
                                         character += 4;
                                         switch (*character) {
-                                                // Found word "&UpArrow;"
                                             case ';':
+                                                // Found word "&UpArrow;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -30810,8 +32941,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ee", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&UpTee;"
                                             case ';':
+                                                // Found word "&UpTee;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -30924,8 +33056,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&Upsi;"
                                             case ';':
+                                                // Found word "&Upsi;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -31009,18 +33142,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&Uuml;"
-                                character += 3;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&Uuml;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x9c;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9c;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Uuml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9c;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                     }
@@ -31083,8 +33232,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "ash", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&Vdash;"
                                     case ';':
+                                        // Found word "&Vdash;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -31159,8 +33309,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 't':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&Vert;"
                                                 case ';':
+                                                    // Found word "&Vert;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -31562,18 +33713,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&Yacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&Yacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x9d;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9d;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&Yacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9d;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'c':
@@ -31870,18 +34037,34 @@ char* replace_html_escape_codes(char* input_string) {
                     switch (*character) {
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&aacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&aacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xa1;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa1;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&aacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa1;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'b':
@@ -31903,8 +34086,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ac;"
                                 case ';':
+                                    // Found word "&ac;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -31954,34 +34138,66 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&acirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&acirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xa2;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa2;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&acirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa2;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'u':
                                     ++character;
-                                    if (strncmp(character, "te;", 3) == 0) {
-                                        // Found word "&acute;"
-                                        character += 3;
+                                    if (strncmp(character, "te", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&acute;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xb4;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xb4;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&acute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xb4;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -32004,25 +34220,42 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'e':
                             ++character;
-                            if (strncmp(character, "lig;", 4) == 0) {
-                                // Found word "&aelig;"
-                                character += 4;
+                            if (strncmp(character, "lig", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&aelig;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xa6;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa6;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&aelig"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa6;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'f':
                             ++character;
                             switch (*character) {
-                                    // Found word "&af;"
                                 case ';':
+                                    // Found word "&af;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -32056,18 +34289,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&agrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&agrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xa0;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa0;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&agrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa0;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'l':
@@ -32171,16 +34420,32 @@ char* replace_html_escape_codes(char* input_string) {
                                             break;
                                     }
                                     break;
-                                    // Found word "&amp"
                                 case 'p':
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&amp;"
+                                        ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0x26;
-                                    output_copy_start += 1;
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0x26;
+                                        output_copy_start += 1;
+                                    }
+                                    else {
+                                        // Found word "&amp"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0x26;
+                                        output_copy_start += 1;
+                                    }
                                     break;
                             }
                             break;
@@ -32190,8 +34455,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'd':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&and;"
                                         case ';':
+                                            // Found word "&and;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -32276,8 +34542,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'g':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ang;"
                                         case ';':
+                                            // Found word "&ang;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -32328,8 +34595,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "sd", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&angmsd;"
                                                     case ';':
+                                                        // Found word "&angmsd;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -32490,8 +34758,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 't') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&angrt;"
                                                     case ';':
+                                                        // Found word "&angrt;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -32508,8 +34777,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (*character == 'b') {
                                                             ++character;
                                                             switch (*character) {
-                                                                    // Found word "&angrtvb;"
                                                                 case ';':
+                                                                    // Found word "&angrtvb;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -32645,8 +34915,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'p':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ap;"
                                 case ';':
+                                    // Found word "&ap;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -32746,8 +35017,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "rox", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&approx;"
                                             case ';':
+                                                // Found word "&approx;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -32783,18 +35055,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'r':
                             ++character;
-                            if (strncmp(character, "ing;", 4) == 0) {
-                                // Found word "&aring;"
-                                character += 4;
+                            if (strncmp(character, "ing", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&aring;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xa5;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa5;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&aring"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa5;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 's':
@@ -32838,8 +35126,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "mp", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&asymp;"
                                             case ';':
+                                                // Found word "&asymp;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -32875,34 +35164,66 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 't':
                             ++character;
-                            if (strncmp(character, "ilde;", 5) == 0) {
-                                // Found word "&atilde;"
-                                character += 5;
+                            if (strncmp(character, "ilde", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&atilde;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xa3;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa3;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&atilde"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa3;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&auml;"
-                                character += 3;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&auml;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xa4;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa4;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&auml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xa4;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'w':
@@ -33029,8 +35350,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "im", 2) == 0) {
                                                     character += 2;
                                                     switch (*character) {
-                                                            // Found word "&backsim;"
                                                         case ';':
+                                                            // Found word "&backsim;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -33090,8 +35412,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "ed", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&barwed;"
                                                     case ';':
+                                                        // Found word "&barwed;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -33132,8 +35455,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "rk", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&bbrk;"
                                     case ';':
+                                        // Found word "&bbrk;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -33228,8 +35552,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "aus", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&becaus;"
                                             case ';':
+                                                // Found word "&becaus;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -33705,8 +36030,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "riangle", 7) == 0) {
                                                             character += 7;
                                                             switch (*character) {
-                                                                    // Found word "&blacktriangle;"
                                                                 case ';':
+                                                                    // Found word "&blacktriangle;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -33880,8 +36206,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&bne;"
                                         case ';':
+                                            // Found word "&bne;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -33959,8 +36286,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&bot;"
                                         case ';':
+                                            // Found word "&bot;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -34087,8 +36415,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'H':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxH;"
                                                 case ';':
+                                                    // Found word "&boxH;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -34246,8 +36575,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'V':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxV;"
                                                 case ';':
+                                                    // Found word "&boxV;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -34456,8 +36786,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'h':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxh;"
                                                 case ';':
+                                                    // Found word "&boxh;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -34666,8 +36997,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'v':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&boxv;"
                                                 case ';':
+                                                    // Found word "&boxv;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -34825,18 +37157,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'v':
                                     ++character;
-                                    if (strncmp(character, "bar;", 4) == 0) {
-                                        // Found word "&brvbar;"
-                                        character += 4;
+                                    if (strncmp(character, "bar", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&brvbar;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xa6;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa6;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&brvbar"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa6;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -34884,8 +37232,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bsim;"
                                             case ';':
+                                                // Found word "&bsim;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -34922,8 +37271,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'l') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bsol;"
                                             case ';':
+                                                // Found word "&bsol;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -34980,8 +37330,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'l') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bull;"
                                             case ';':
+                                                // Found word "&bull;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -35018,8 +37369,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'p') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&bump;"
                                             case ';':
+                                                // Found word "&bump;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -35051,8 +37403,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'e':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&bumpe;"
                                                     case ';':
+                                                        // Found word "&bumpe;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -35115,8 +37468,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&cap;"
                                         case ';':
+                                            // Found word "&cap;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -35323,18 +37677,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'e':
                                     ++character;
-                                    if (strncmp(character, "dil;", 4) == 0) {
-                                        // Found word "&ccedil;"
-                                        character += 4;
+                                    if (strncmp(character, "dil", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&ccedil;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xa7;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa7;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&ccedil"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa7;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'i':
@@ -35358,8 +37728,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ps", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&ccups;"
                                             case ';':
+                                                // Found word "&ccups;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -35414,18 +37785,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'd':
                                     ++character;
-                                    if (strncmp(character, "il;", 3) == 0) {
-                                        // Found word "&cedil;"
-                                        character += 3;
+                                    if (strncmp(character, "il", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&cedil;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xb8;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xb8;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&cedil"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xb8;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'm':
@@ -35448,17 +37835,38 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'n':
                                     ++character;
                                     if (*character == 't') {
-                                        // Found word "&cent"
                                         ++character;
+                                        switch (*character) {
+                                            case ';':
+                                                // Found word "&cent;"
+                                                ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xa2;
-                                        output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xa2;
+                                                output_copy_start += 2;
+                                                break;
+                                            case 'e':
+                                                ++character;
+                                                if (strncmp(character, "rdot;", 5) == 0) {
+                                                    // Found word "&centerdot;"
+                                                    character += 5;
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc2;
+                                                    output_copy_start[1] = 0xb7;
+                                                    output_copy_start += 2;
+                                                }
+                                                break;
+                                        }
                                     }
                                     break;
                             }
@@ -35505,8 +37913,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ck", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&check;"
                                             case ';':
+                                                // Found word "&check;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -35561,8 +37970,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (*character == 'r') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&cir;"
                                     case ';':
+                                        // Found word "&cir;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -35594,8 +38004,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     case 'c':
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&circ;"
                                             case ';':
+                                                // Found word "&circ;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -35840,8 +38251,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "ubs", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&clubs;"
                                     case ';':
+                                        // Found word "&clubs;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -35881,8 +38293,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "on", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&colon;"
                                             case ';':
+                                                // Found word "&colon;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -35895,8 +38308,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'e':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&colone;"
                                                     case ';':
+                                                        // Found word "&colone;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -35938,8 +38352,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'a') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&comma;"
                                                     case ';':
+                                                        // Found word "&comma;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -35970,8 +38385,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&comp;"
                                                 case ';':
+                                                    // Found word "&comp;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -36052,8 +38468,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'g':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&cong;"
                                                 case ';':
+                                                    // Found word "&cong;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -36141,17 +38558,40 @@ char* replace_html_escape_codes(char* input_string) {
                                                 output_copy_start += 3;
                                             }
                                             break;
-                                            // Found word "&copy"
                                         case 'y':
+                                            ++character;
+                                            switch (*character) {
+                                                case ';':
+                                                    // Found word "&copy;"
+                                                    ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc2;
-                                            output_copy_start[1] = 0xa9;
-                                            output_copy_start += 2;
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc2;
+                                                    output_copy_start[1] = 0xa9;
+                                                    output_copy_start += 2;
+                                                    break;
+                                                case 's':
+                                                    ++character;
+                                                    if (strncmp(character, "r;", 2) == 0) {
+                                                        // Found word "&copysr;"
+                                                        character += 2;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0x84;
+                                                        output_copy_start[2] = 0x97;
+                                                        output_copy_start += 3;
+                                                    }
+                                                    break;
+                                            }
                                             break;
                                     }
                                     break;
@@ -36223,8 +38663,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'b':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&csub;"
                                                 case ';':
+                                                    // Found word "&csub;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -36258,8 +38699,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&csup;"
                                                 case ';':
+                                                    // Found word "&csup;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -36400,8 +38842,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "arr", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&cularr;"
                                             case ';':
+                                                // Found word "&cularr;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -36436,8 +38879,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&cup;"
                                         case ';':
+                                            // Found word "&cup;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -36569,8 +39013,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "rr", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&curarr;"
                                                     case ';':
+                                                        // Found word "&curarr;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -36688,18 +39133,34 @@ char* replace_html_escape_codes(char* input_string) {
                                             break;
                                         case 'r':
                                             ++character;
-                                            if (strncmp(character, "en;", 3) == 0) {
-                                                // Found word "&curren;"
-                                                character += 3;
+                                            if (strncmp(character, "en", 2) == 0) {
+                                                character += 2;
+                                                if (*character == ';') {
+                                                    // Found word "&curren;"
+                                                    ++character;
 
-                                                // Copy the string up to the start of the token
-                                                copy_size = substitute_start - input_copy_start;
-                                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                                output_copy_start += copy_size;
-                                                input_copy_start = character;
-                                                output_copy_start[0] = 0xc2;
-                                                output_copy_start[1] = 0xa4;
-                                                output_copy_start += 2;
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc2;
+                                                    output_copy_start[1] = 0xa4;
+                                                    output_copy_start += 2;
+                                                }
+                                                else {
+                                                    // Found word "&curren"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc2;
+                                                    output_copy_start[1] = 0xa4;
+                                                    output_copy_start += 2;
+                                                }
                                             }
                                             break;
                                         case 'v':
@@ -36936,8 +39397,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'h') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&dash;"
                                             case ';':
+                                                // Found word "&dash;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -37049,8 +39511,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'd':
                             ++character;
                             switch (*character) {
-                                    // Found word "&dd;"
                                 case ';':
+                                    // Found word "&dd;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -37123,17 +39586,34 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&deg"
                                 case 'g':
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&deg;"
+                                        ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0xc2;
-                                    output_copy_start[1] = 0xb0;
-                                    output_copy_start += 2;
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xb0;
+                                        output_copy_start += 2;
+                                    }
+                                    else {
+                                        // Found word "&deg"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xb0;
+                                        output_copy_start += 2;
+                                    }
                                     break;
                                 case 'l':
                                     ++character;
@@ -37260,8 +39740,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&diam;"
                                             case ';':
+                                                // Found word "&diam;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -37278,8 +39759,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "nd", 2) == 0) {
                                                     character += 2;
                                                     switch (*character) {
-                                                            // Found word "&diamond;"
                                                         case ';':
+                                                            // Found word "&diamond;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -37383,8 +39865,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'v':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&div;"
                                         case ';':
+                                            // Found word "&div;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -37398,17 +39881,39 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'i':
                                             ++character;
                                             if (strncmp(character, "de", 2) == 0) {
-                                                // Found word "&divide"
                                                 character += 2;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&divide;"
+                                                        ++character;
 
-                                                // Copy the string up to the start of the token
-                                                copy_size = substitute_start - input_copy_start;
-                                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                                output_copy_start += copy_size;
-                                                input_copy_start = character;
-                                                output_copy_start[0] = 0xc3;
-                                                output_copy_start[1] = 0xb7;
-                                                output_copy_start += 2;
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xc3;
+                                                        output_copy_start[1] = 0xb7;
+                                                        output_copy_start += 2;
+                                                        break;
+                                                    case 'o':
+                                                        ++character;
+                                                        if (strncmp(character, "ntimes;", 7) == 0) {
+                                                            // Found word "&divideontimes;"
+                                                            character += 7;
+
+                                                            // Copy the string up to the start of the token
+                                                            copy_size = substitute_start - input_copy_start;
+                                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                                            output_copy_start += copy_size;
+                                                            input_copy_start = character;
+                                                            output_copy_start[0] = 0xe2;
+                                                            output_copy_start[1] = 0x8b;
+                                                            output_copy_start[2] = 0x87;
+                                                            output_copy_start += 3;
+                                                        }
+                                                        break;
+                                                }
                                             }
                                             break;
                                         case 'o':
@@ -37529,8 +40034,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&dot;"
                                         case ';':
+                                            // Found word "&dot;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -37546,8 +40052,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'q') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&doteq;"
                                                     case ';':
+                                                        // Found word "&doteq;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -37898,8 +40405,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&dtri;"
                                             case ';':
+                                                // Found word "&dtri;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -38076,18 +40584,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&eacute;"
-                                        character += 4;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&eacute;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xa9;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa9;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&eacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa9;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 's':
@@ -38133,8 +40657,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&ecir;"
                                             case ';':
+                                                // Found word "&ecir;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -38146,17 +40671,34 @@ char* replace_html_escape_codes(char* input_string) {
                                                 output_copy_start[2] = 0x96;
                                                 output_copy_start += 3;
                                                 break;
-                                                // Found word "&ecirc"
                                             case 'c':
+                                                ++character;
+                                                if (*character == ';') {
+                                                    // Found word "&ecirc;"
+                                                    ++character;
 
-                                                // Copy the string up to the start of the token
-                                                copy_size = substitute_start - input_copy_start;
-                                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                                output_copy_start += copy_size;
-                                                input_copy_start = character;
-                                                output_copy_start[0] = 0xc3;
-                                                output_copy_start[1] = 0xaa;
-                                                output_copy_start += 2;
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc3;
+                                                    output_copy_start[1] = 0xaa;
+                                                    output_copy_start += 2;
+                                                }
+                                                else {
+                                                    // Found word "&ecirc"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc3;
+                                                    output_copy_start[1] = 0xaa;
+                                                    output_copy_start += 2;
+                                                }
                                                 break;
                                         }
                                     }
@@ -38272,8 +40814,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'g':
                             ++character;
                             switch (*character) {
-                                    // Found word "&eg;"
                                 case ';':
+                                    // Found word "&eg;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -38287,25 +40830,42 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'r':
                                     ++character;
-                                    if (strncmp(character, "ave;", 4) == 0) {
-                                        // Found word "&egrave;"
-                                        character += 4;
+                                    if (strncmp(character, "ave", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&egrave;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xa8;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa8;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&egrave"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xa8;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&egs;"
                                         case ';':
+                                            // Found word "&egs;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -38341,8 +40901,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&el;"
                                 case ';':
+                                    // Found word "&el;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -38391,8 +40952,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&els;"
                                         case ';':
+                                            // Found word "&els;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -38449,8 +41011,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ty", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&empty;"
                                             case ';':
+                                                // Found word "&empty;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -38543,8 +41106,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         break;
                                                 }
                                                 break;
-                                                // Found word "&emsp;"
                                             case ';':
+                                                // Found word "&emsp;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -38646,8 +41210,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&epar;"
                                             case ';':
+                                                // Found word "&epar;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -38701,8 +41266,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&epsi;"
                                             case ';':
+                                                // Found word "&epsi;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -38896,8 +41462,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'v') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&equiv;"
                                                     case ';':
+                                                        // Found word "&equiv;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -39064,17 +41631,34 @@ char* replace_html_escape_codes(char* input_string) {
                                         output_copy_start += 2;
                                     }
                                     break;
-                                    // Found word "&eth"
                                 case 'h':
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&eth;"
+                                        ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0xc3;
-                                    output_copy_start[1] = 0xb0;
-                                    output_copy_start += 2;
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc3;
+                                        output_copy_start[1] = 0xb0;
+                                        output_copy_start += 2;
+                                    }
+                                    else {
+                                        // Found word "&eth"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc3;
+                                        output_copy_start[1] = 0xb0;
+                                        output_copy_start += 2;
+                                    }
                                     break;
                             }
                             break;
@@ -39083,18 +41667,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&euml;"
-                                        character += 2;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&euml;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xab;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xab;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&euml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xab;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -39475,8 +42075,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'k':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&fork;"
                                                 case ';':
+                                                    // Found word "&fork;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -39540,17 +42141,34 @@ char* replace_html_escape_codes(char* input_string) {
                                                 case '1':
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&frac12"
                                                         case '2':
+                                                            ++character;
+                                                            if (*character == ';') {
+                                                                // Found word "&frac12;"
+                                                                ++character;
 
-                                                            // Copy the string up to the start of the token
-                                                            copy_size = substitute_start - input_copy_start;
-                                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                                            output_copy_start += copy_size;
-                                                            input_copy_start = character;
-                                                            output_copy_start[0] = 0xc2;
-                                                            output_copy_start[1] = 0xbd;
-                                                            output_copy_start += 2;
+                                                                // Copy the string up to the start of the token
+                                                                copy_size = substitute_start - input_copy_start;
+                                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                output_copy_start += copy_size;
+                                                                input_copy_start = character;
+                                                                output_copy_start[0] = 0xc2;
+                                                                output_copy_start[1] = 0xbd;
+                                                                output_copy_start += 2;
+                                                            }
+                                                            else {
+                                                                // Found word "&frac12"
+                                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                                // Copy the string up to the start of the token
+                                                                copy_size = substitute_start - input_copy_start;
+                                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                output_copy_start += copy_size;
+                                                                input_copy_start = character;
+                                                                output_copy_start[0] = 0xc2;
+                                                                output_copy_start[1] = 0xbd;
+                                                                output_copy_start += 2;
+                                                            }
                                                             break;
                                                         case '3':
                                                             ++character;
@@ -39569,17 +42187,34 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 output_copy_start += 3;
                                                             }
                                                             break;
-                                                            // Found word "&frac14"
                                                         case '4':
+                                                            ++character;
+                                                            if (*character == ';') {
+                                                                // Found word "&frac14;"
+                                                                ++character;
 
-                                                            // Copy the string up to the start of the token
-                                                            copy_size = substitute_start - input_copy_start;
-                                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                                            output_copy_start += copy_size;
-                                                            input_copy_start = character;
-                                                            output_copy_start[0] = 0xc2;
-                                                            output_copy_start[1] = 0xbc;
-                                                            output_copy_start += 2;
+                                                                // Copy the string up to the start of the token
+                                                                copy_size = substitute_start - input_copy_start;
+                                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                output_copy_start += copy_size;
+                                                                input_copy_start = character;
+                                                                output_copy_start[0] = 0xc2;
+                                                                output_copy_start[1] = 0xbc;
+                                                                output_copy_start += 2;
+                                                            }
+                                                            else {
+                                                                // Found word "&frac14"
+                                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                                // Copy the string up to the start of the token
+                                                                copy_size = substitute_start - input_copy_start;
+                                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                output_copy_start += copy_size;
+                                                                input_copy_start = character;
+                                                                output_copy_start[0] = 0xc2;
+                                                                output_copy_start[1] = 0xbc;
+                                                                output_copy_start += 2;
+                                                            }
                                                             break;
                                                         case '5':
                                                             ++character;
@@ -39676,17 +42311,34 @@ char* replace_html_escape_codes(char* input_string) {
                                                 case '3':
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&frac34"
                                                         case '4':
+                                                            ++character;
+                                                            if (*character == ';') {
+                                                                // Found word "&frac34;"
+                                                                ++character;
 
-                                                            // Copy the string up to the start of the token
-                                                            copy_size = substitute_start - input_copy_start;
-                                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                                            output_copy_start += copy_size;
-                                                            input_copy_start = character;
-                                                            output_copy_start[0] = 0xc2;
-                                                            output_copy_start[1] = 0xbe;
-                                                            output_copy_start += 2;
+                                                                // Copy the string up to the start of the token
+                                                                copy_size = substitute_start - input_copy_start;
+                                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                output_copy_start += copy_size;
+                                                                input_copy_start = character;
+                                                                output_copy_start[0] = 0xc2;
+                                                                output_copy_start[1] = 0xbe;
+                                                                output_copy_start += 2;
+                                                            }
+                                                            else {
+                                                                // Found word "&frac34"
+                                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                                // Copy the string up to the start of the token
+                                                                copy_size = substitute_start - input_copy_start;
+                                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                output_copy_start += copy_size;
+                                                                input_copy_start = character;
+                                                                output_copy_start[0] = 0xc2;
+                                                                output_copy_start[1] = 0xbe;
+                                                                output_copy_start += 2;
+                                                            }
                                                             break;
                                                         case '5':
                                                             ++character;
@@ -39863,8 +42515,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'E':
                             ++character;
                             switch (*character) {
-                                    // Found word "&gE;"
                                 case ';':
+                                    // Found word "&gE;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -39919,8 +42572,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ma", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&gamma;"
                                             case ';':
+                                                // Found word "&gamma;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -40041,8 +42695,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ge;"
                                 case ';':
+                                    // Found word "&ge;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -40074,8 +42729,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'q':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&geq;"
                                         case ';':
+                                            // Found word "&geq;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -40126,8 +42782,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ges;"
                                         case ';':
+                                            // Found word "&ges;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -40161,8 +42818,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "ot", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&gesdot;"
                                                     case ';':
+                                                        // Found word "&gesdot;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -40177,8 +42835,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     case 'o':
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&gesdoto;"
                                                             case ';':
+                                                                // Found word "&gesdoto;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -40215,8 +42874,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'l':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&gesl;"
                                                 case ';':
+                                                    // Found word "&gesl;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -40275,8 +42935,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'g':
                             ++character;
                             switch (*character) {
-                                    // Found word "&gg;"
                                 case ';':
+                                    // Found word "&gg;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -40343,8 +43004,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&gl;"
                                 case ';':
+                                    // Found word "&gl;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -40434,8 +43096,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'p') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&gnap;"
                                             case ';':
+                                                // Found word "&gnap;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -40470,8 +43133,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&gne;"
                                         case ';':
+                                            // Found word "&gne;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -40486,8 +43150,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&gneq;"
                                                 case ';':
+                                                    // Found word "&gneq;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -40597,8 +43262,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&gsim;"
                                             case ';':
+                                                // Found word "&gsim;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -40649,16 +43315,249 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                             }
                             break;
-                            // Found word "&gt"
                         case 't':
+                            ++character;
+                            switch (*character) {
+                                case ';':
+                                    // Found word "&gt;"
+                                    ++character;
 
-                            // Copy the string up to the start of the token
-                            copy_size = substitute_start - input_copy_start;
-                            memcpy(output_copy_start, input_copy_start, copy_size);
-                            output_copy_start += copy_size;
-                            input_copy_start = character;
-                            output_copy_start[0] = 0x3e;
-                            output_copy_start += 1;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0x3e;
+                                    output_copy_start += 1;
+                                    break;
+                                case 'c':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'c':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&gtcc;"
+                                                ++character;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0xaa;
+                                                output_copy_start[2] = 0xa7;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            if (strncmp(character, "r;", 2) == 0) {
+                                                // Found word "&gtcir;"
+                                                character += 2;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0xa9;
+                                                output_copy_start[2] = 0xba;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                case 'd':
+                                    ++character;
+                                    if (strncmp(character, "ot;", 3) == 0) {
+                                        // Found word "&gtdot;"
+                                        character += 3;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0x8b;
+                                        output_copy_start[2] = 0x97;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'l':
+                                    ++character;
+                                    if (strncmp(character, "Par;", 4) == 0) {
+                                        // Found word "&gtlPar;"
+                                        character += 4;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0xa6;
+                                        output_copy_start[2] = 0x95;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'q':
+                                    ++character;
+                                    if (strncmp(character, "uest;", 5) == 0) {
+                                        // Found word "&gtquest;"
+                                        character += 5;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0xa9;
+                                        output_copy_start[2] = 0xbc;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'r':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'a':
+                                            ++character;
+                                            switch (*character) {
+                                                case 'p':
+                                                    ++character;
+                                                    if (strncmp(character, "prox;", 5) == 0) {
+                                                        // Found word "&gtrapprox;"
+                                                        character += 5;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0xaa;
+                                                        output_copy_start[2] = 0x86;
+                                                        output_copy_start += 3;
+                                                    }
+                                                    break;
+                                                case 'r':
+                                                    ++character;
+                                                    if (strncmp(character, "r;", 2) == 0) {
+                                                        // Found word "&gtrarr;"
+                                                        character += 2;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0xa5;
+                                                        output_copy_start[2] = 0xb8;
+                                                        output_copy_start += 3;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                        case 'd':
+                                            ++character;
+                                            if (strncmp(character, "ot;", 3) == 0) {
+                                                // Found word "&gtrdot;"
+                                                character += 3;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0x8b;
+                                                output_copy_start[2] = 0x97;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                        case 'e':
+                                            ++character;
+                                            if (*character == 'q') {
+                                                ++character;
+                                                switch (*character) {
+                                                    case 'l':
+                                                        ++character;
+                                                        if (strncmp(character, "ess;", 4) == 0) {
+                                                            // Found word "&gtreqless;"
+                                                            character += 4;
+
+                                                            // Copy the string up to the start of the token
+                                                            copy_size = substitute_start - input_copy_start;
+                                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                                            output_copy_start += copy_size;
+                                                            input_copy_start = character;
+                                                            output_copy_start[0] = 0xe2;
+                                                            output_copy_start[1] = 0x8b;
+                                                            output_copy_start[2] = 0x9b;
+                                                            output_copy_start += 3;
+                                                        }
+                                                        break;
+                                                    case 'q':
+                                                        ++character;
+                                                        if (strncmp(character, "less;", 5) == 0) {
+                                                            // Found word "&gtreqqless;"
+                                                            character += 5;
+
+                                                            // Copy the string up to the start of the token
+                                                            copy_size = substitute_start - input_copy_start;
+                                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                                            output_copy_start += copy_size;
+                                                            input_copy_start = character;
+                                                            output_copy_start[0] = 0xe2;
+                                                            output_copy_start[1] = 0xaa;
+                                                            output_copy_start[2] = 0x8c;
+                                                            output_copy_start += 3;
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                        case 'l':
+                                            ++character;
+                                            if (strncmp(character, "ess;", 4) == 0) {
+                                                // Found word "&gtrless;"
+                                                character += 4;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0x89;
+                                                output_copy_start[2] = 0xb7;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                        case 's':
+                                            ++character;
+                                            if (strncmp(character, "im;", 3) == 0) {
+                                                // Found word "&gtrsim;"
+                                                character += 3;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0x89;
+                                                output_copy_start[2] = 0xb3;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                            }
                             break;
                         case 'v':
                             ++character;
@@ -40802,8 +43701,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'r':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&harr;"
                                                 case ';':
+                                                    // Found word "&harr;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -40896,8 +43796,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "rts", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&hearts;"
                                             case ';':
+                                                // Found word "&hearts;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -41243,25 +44144,42 @@ char* replace_html_escape_codes(char* input_string) {
                     switch (*character) {
                         case 'a':
                             ++character;
-                            if (strncmp(character, "cute;", 5) == 0) {
-                                // Found word "&iacute;"
-                                character += 5;
+                            if (strncmp(character, "cute", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&iacute;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xad;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xad;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&iacute"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xad;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ic;"
                                 case ';':
+                                    // Found word "&ic;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -41275,18 +44193,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&icirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&icirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xae;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xae;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&icirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xae;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -41328,18 +44262,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'x':
                                     ++character;
-                                    if (strncmp(character, "cl;", 3) == 0) {
-                                        // Found word "&iexcl;"
-                                        character += 3;
+                                    if (strncmp(character, "cl", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&iexcl;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xa1;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa1;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&iexcl"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa1;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -41386,25 +44336,42 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&igrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&igrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xac;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xac;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&igrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xac;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'i':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ii;"
                                 case ';':
+                                    // Found word "&ii;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -41641,8 +44608,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'n':
                             ++character;
                             switch (*character) {
-                                    // Found word "&in;"
                                 case ';':
+                                    // Found word "&in;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -41676,8 +44644,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "in", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&infin;"
                                             case ';':
+                                                // Found word "&infin;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -41728,8 +44697,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&int;"
                                         case ';':
+                                            // Found word "&int;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -41925,18 +44895,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'q':
                             ++character;
-                            if (strncmp(character, "uest;", 5) == 0) {
-                                // Found word "&iquest;"
-                                character += 5;
+                            if (strncmp(character, "uest", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&iquest;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc2;
-                                output_copy_start[1] = 0xbf;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xbf;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&iquest"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xbf;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 's':
@@ -41965,8 +44951,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'n') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&isin;"
                                             case ';':
+                                                // Found word "&isin;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -42015,8 +45002,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 's':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&isins;"
                                                     case ';':
+                                                        // Found word "&isins;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -42072,8 +45060,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 't':
                             ++character;
                             switch (*character) {
-                                    // Found word "&it;"
                                 case ';':
+                                    // Found word "&it;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -42124,18 +45113,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&iuml;"
-                                        character += 2;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&iuml;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xaf;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xaf;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&iuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xaf;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -42299,8 +45304,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "ppa", 3) == 0) {
                                 character += 3;
                                 switch (*character) {
-                                        // Found word "&kappa;"
                                     case ';':
+                                        // Found word "&kappa;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -42550,8 +45556,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'E':
                             ++character;
                             switch (*character) {
-                                    // Found word "&lE;"
                                 case ';':
+                                    // Found word "&lE;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -42673,8 +45680,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'g') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&lang;"
                                             case ';':
+                                                // Found word "&lang;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -42742,18 +45750,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'q':
                                     ++character;
-                                    if (strncmp(character, "uo;", 3) == 0) {
-                                        // Found word "&laquo;"
-                                        character += 3;
+                                    if (strncmp(character, "uo", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&laquo;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xab;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xab;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&laquo"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xab;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -42761,8 +45785,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&larr;"
                                             case ';':
+                                                // Found word "&larr;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -42777,8 +45802,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'b':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&larrb;"
                                                     case ';':
+                                                        // Found word "&larrb;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -42917,8 +45943,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&lat;"
                                         case ';':
+                                            // Found word "&lat;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -42950,8 +45977,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&late;"
                                                 case ';':
+                                                    // Found word "&late;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -43250,8 +46278,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "uo", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&ldquo;"
                                             case ';':
+                                                // Found word "&ldquo;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -43344,8 +46373,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&le;"
                                 case ';':
+                                    // Found word "&le;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -43367,8 +46397,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "rrow", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&leftarrow;"
                                                         case ';':
+                                                            // Found word "&leftarrow;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -43469,8 +46500,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "rrow", 4) == 0) {
                                                                 character += 4;
                                                                 switch (*character) {
-                                                                        // Found word "&leftrightarrow;"
                                                                     case ';':
+                                                                        // Found word "&leftrightarrow;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -43579,8 +46611,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'q':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&leq;"
                                         case ';':
+                                            // Found word "&leq;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -43631,8 +46664,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&les;"
                                         case ';':
+                                            // Found word "&les;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -43666,8 +46700,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "ot", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&lesdot;"
                                                     case ';':
+                                                        // Found word "&lesdot;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -43682,8 +46717,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     case 'o':
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&lesdoto;"
                                                             case ';':
+                                                                // Found word "&lesdoto;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -43720,8 +46756,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'g':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&lesg;"
                                                 case ';':
+                                                    // Found word "&lesg;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -43934,8 +46971,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'g':
                             ++character;
                             switch (*character) {
-                                    // Found word "&lg;"
                                 case ';':
+                                    // Found word "&lg;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -43994,8 +47032,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'u':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&lharu;"
                                                     case ';':
+                                                        // Found word "&lharu;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -44067,8 +47106,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'l':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ll;"
                                 case ';':
+                                    // Found word "&ll;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -44174,8 +47214,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ust", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&lmoust;"
                                             case ';':
+                                                // Found word "&lmoust;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -44234,8 +47275,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'p') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&lnap;"
                                             case ';':
+                                                // Found word "&lnap;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -44270,8 +47312,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&lne;"
                                         case ';':
+                                            // Found word "&lne;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -44286,8 +47329,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&lneq;"
                                                 case ';':
+                                                    // Found word "&lneq;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -44638,8 +47682,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'z':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&loz;"
                                         case ';':
+                                            // Found word "&loz;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -44694,8 +47739,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "ar", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&lpar;"
                                     case ';':
+                                        // Found word "&lpar;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -44767,8 +47813,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ar", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&lrhar;"
                                             case ';':
+                                                // Found word "&lrhar;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -44896,8 +47943,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&lsim;"
                                             case ';':
+                                                // Found word "&lsim;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -44969,8 +48017,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'o') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&lsquo;"
                                                     case ';':
+                                                        // Found word "&lsquo;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -45022,16 +48071,221 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                             }
                             break;
-                            // Found word "&lt"
                         case 't':
+                            ++character;
+                            switch (*character) {
+                                case ';':
+                                    // Found word "&lt;"
+                                    ++character;
 
-                            // Copy the string up to the start of the token
-                            copy_size = substitute_start - input_copy_start;
-                            memcpy(output_copy_start, input_copy_start, copy_size);
-                            output_copy_start += copy_size;
-                            input_copy_start = character;
-                            output_copy_start[0] = 0x3c;
-                            output_copy_start += 1;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0x3c;
+                                    output_copy_start += 1;
+                                    break;
+                                case 'c':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'c':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&ltcc;"
+                                                ++character;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0xaa;
+                                                output_copy_start[2] = 0xa6;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            if (strncmp(character, "r;", 2) == 0) {
+                                                // Found word "&ltcir;"
+                                                character += 2;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0xa9;
+                                                output_copy_start[2] = 0xb9;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                case 'd':
+                                    ++character;
+                                    if (strncmp(character, "ot;", 3) == 0) {
+                                        // Found word "&ltdot;"
+                                        character += 3;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0x8b;
+                                        output_copy_start[2] = 0x96;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'h':
+                                    ++character;
+                                    if (strncmp(character, "ree;", 4) == 0) {
+                                        // Found word "&lthree;"
+                                        character += 4;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0x8b;
+                                        output_copy_start[2] = 0x8b;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'i':
+                                    ++character;
+                                    if (strncmp(character, "mes;", 4) == 0) {
+                                        // Found word "&ltimes;"
+                                        character += 4;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0x8b;
+                                        output_copy_start[2] = 0x89;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'l':
+                                    ++character;
+                                    if (strncmp(character, "arr;", 4) == 0) {
+                                        // Found word "&ltlarr;"
+                                        character += 4;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0xa5;
+                                        output_copy_start[2] = 0xb6;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'q':
+                                    ++character;
+                                    if (strncmp(character, "uest;", 5) == 0) {
+                                        // Found word "&ltquest;"
+                                        character += 5;
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xe2;
+                                        output_copy_start[1] = 0xa9;
+                                        output_copy_start[2] = 0xbb;
+                                        output_copy_start += 3;
+                                    }
+                                    break;
+                                case 'r':
+                                    ++character;
+                                    switch (*character) {
+                                        case 'P':
+                                            ++character;
+                                            if (strncmp(character, "ar;", 3) == 0) {
+                                                // Found word "&ltrPar;"
+                                                character += 3;
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xe2;
+                                                output_copy_start[1] = 0xa6;
+                                                output_copy_start[2] = 0x96;
+                                                output_copy_start += 3;
+                                            }
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            switch (*character) {
+                                                case ';':
+                                                    // Found word "&ltri;"
+                                                    ++character;
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xe2;
+                                                    output_copy_start[1] = 0x97;
+                                                    output_copy_start[2] = 0x83;
+                                                    output_copy_start += 3;
+                                                    break;
+                                                case 'e':
+                                                    ++character;
+                                                    if (*character == ';') {
+                                                        // Found word "&ltrie;"
+                                                        ++character;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0x8a;
+                                                        output_copy_start[2] = 0xb4;
+                                                        output_copy_start += 3;
+                                                    }
+                                                    break;
+                                                case 'f':
+                                                    ++character;
+                                                    if (*character == ';') {
+                                                        // Found word "&ltrif;"
+                                                        ++character;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0x97;
+                                                        output_copy_start[2] = 0x82;
+                                                        output_copy_start += 3;
+                                                    }
+                                                    break;
+                                            }
+                                            break;
+                                    }
+                                    break;
+                            }
                             break;
                         case 'u':
                             ++character;
@@ -45147,18 +48401,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "r;", 2) == 0) {
-                                        // Found word "&macr;"
-                                        character += 2;
+                                    if (*character == 'r') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&macr;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xaf;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xaf;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&macr"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xaf;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'l':
@@ -45184,8 +48454,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 't':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&malt;"
                                                 case ';':
+                                                    // Found word "&malt;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -45221,8 +48492,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&map;"
                                         case ';':
+                                            // Found word "&map;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -45239,8 +48511,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "to", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&mapsto;"
                                                     case ';':
+                                                        // Found word "&mapsto;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -45439,25 +48712,42 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ro;", 3) == 0) {
-                                        // Found word "&micro;"
-                                        character += 3;
+                                    if (strncmp(character, "ro", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&micro;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xb5;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xb5;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&micro"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xb5;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'd':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&mid;"
                                         case ';':
+                                            // Found word "&mid;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -45503,18 +48793,34 @@ char* replace_html_escape_codes(char* input_string) {
                                             break;
                                         case 'd':
                                             ++character;
-                                            if (strncmp(character, "ot;", 3) == 0) {
-                                                // Found word "&middot;"
-                                                character += 3;
+                                            if (strncmp(character, "ot", 2) == 0) {
+                                                character += 2;
+                                                if (*character == ';') {
+                                                    // Found word "&middot;"
+                                                    ++character;
 
-                                                // Copy the string up to the start of the token
-                                                copy_size = substitute_start - input_copy_start;
-                                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                                output_copy_start += copy_size;
-                                                input_copy_start = character;
-                                                output_copy_start[0] = 0xc2;
-                                                output_copy_start[1] = 0xb7;
-                                                output_copy_start += 2;
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc2;
+                                                    output_copy_start[1] = 0xb7;
+                                                    output_copy_start += 2;
+                                                }
+                                                else {
+                                                    // Found word "&middot"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc2;
+                                                    output_copy_start[1] = 0xb7;
+                                                    output_copy_start += 2;
+                                                }
                                             }
                                             break;
                                     }
@@ -45524,8 +48830,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "us", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&minus;"
                                             case ';':
+                                                // Found word "&minus;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -45557,8 +48864,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'd':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&minusd;"
                                                     case ';':
+                                                        // Found word "&minusd;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -45750,8 +49058,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'u':
                             ++character;
                             switch (*character) {
-                                    // Found word "&mu;"
                                 case ';':
+                                    // Found word "&mu;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -45828,8 +49137,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nGt;"
                                         case ';':
+                                            // Found word "&nGt;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -45934,8 +49244,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nLt;"
                                         case ';':
+                                            // Found word "&nLt;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -46088,8 +49399,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nap;"
                                         case ';':
+                                            // Found word "&nap;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -46179,8 +49491,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ur", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&natur;"
                                             case ';':
+                                                // Found word "&natur;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -46197,8 +49510,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (*character == 'l') {
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&natural;"
                                                         case ';':
+                                                            // Found word "&natural;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -46240,18 +49554,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 's':
                                     ++character;
-                                    if (strncmp(character, "p;", 2) == 0) {
-                                        // Found word "&nbsp;"
-                                        character += 2;
+                                    if (*character == 'p') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&nbsp;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xa0;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa0;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&nbsp"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa0;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'u':
@@ -46259,8 +49589,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "mp", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&nbump;"
                                             case ';':
+                                                // Found word "&nbump;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -46360,8 +49691,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ng", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&ncong;"
                                             case ';':
+                                                // Found word "&ncong;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -46450,8 +49782,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'e':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ne;"
                                 case ';':
+                                    // Found word "&ne;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -46505,8 +49838,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nearr;"
                                                     case ';':
+                                                        // Found word "&nearr;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -46622,8 +49956,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ist", 3) == 0) {
                                         character += 3;
                                         switch (*character) {
-                                                // Found word "&nexist;"
                                             case ';':
+                                                // Found word "&nexist;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -46700,8 +50035,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nge;"
                                         case ';':
+                                            // Found word "&nge;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -46716,8 +50052,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&ngeq;"
                                                 case ';':
+                                                    // Found word "&ngeq;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -46810,8 +50147,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ngt;"
                                         case ';':
+                                            // Found word "&ngt;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -46903,8 +50241,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'i':
                             ++character;
                             switch (*character) {
-                                    // Found word "&ni;"
                                 case ';':
+                                    // Found word "&ni;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -46919,8 +50258,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 's':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nis;"
                                         case ';':
+                                            // Found word "&nis;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -47062,8 +50402,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nle;"
                                         case ';':
+                                            // Found word "&nle;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -47120,8 +50461,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'q':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nleq;"
                                                 case ';':
+                                                    // Found word "&nleq;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -47176,8 +50518,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 's':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nles;"
                                                 case ';':
+                                                    // Found word "&nles;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -47232,8 +50575,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nlt;"
                                         case ';':
+                                            // Found word "&nlt;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -47250,8 +50594,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'i') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nltri;"
                                                     case ';':
+                                                        // Found word "&nltri;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -47325,17 +50670,217 @@ char* replace_html_escape_codes(char* input_string) {
                                         output_copy_start += 4;
                                     }
                                     break;
-                                    // Found word "&not"
                                 case 't':
+                                    ++character;
+                                    switch (*character) {
+                                        case ';':
+                                            // Found word "&not;"
+                                            ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0xc2;
-                                    output_copy_start[1] = 0xac;
-                                    output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xac;
+                                            output_copy_start += 2;
+                                            break;
+                                        case 'i':
+                                            ++character;
+                                            if (*character == 'n') {
+                                                ++character;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&notin;"
+                                                        ++character;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0x88;
+                                                        output_copy_start[2] = 0x89;
+                                                        output_copy_start += 3;
+                                                        break;
+                                                    case 'E':
+                                                        ++character;
+                                                        if (*character == ';') {
+                                                            // Found word "&notinE;"
+                                                            ++character;
+
+                                                            // Copy the string up to the start of the token
+                                                            copy_size = substitute_start - input_copy_start;
+                                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                                            output_copy_start += copy_size;
+                                                            input_copy_start = character;
+                                                            output_copy_start[0] = 0xe2;
+                                                            output_copy_start[1] = 0x8b;
+                                                            output_copy_start[2] = 0xb9;
+                                                            output_copy_start[3] = 0xcc;
+                                                            output_copy_start[4] = 0xb8;
+                                                            output_copy_start += 5;
+                                                        }
+                                                        break;
+                                                    case 'd':
+                                                        ++character;
+                                                        if (strncmp(character, "ot;", 3) == 0) {
+                                                            // Found word "&notindot;"
+                                                            character += 3;
+
+                                                            // Copy the string up to the start of the token
+                                                            copy_size = substitute_start - input_copy_start;
+                                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                                            output_copy_start += copy_size;
+                                                            input_copy_start = character;
+                                                            output_copy_start[0] = 0xe2;
+                                                            output_copy_start[1] = 0x8b;
+                                                            output_copy_start[2] = 0xb5;
+                                                            output_copy_start[3] = 0xcc;
+                                                            output_copy_start[4] = 0xb8;
+                                                            output_copy_start += 5;
+                                                        }
+                                                        break;
+                                                    case 'v':
+                                                        ++character;
+                                                        switch (*character) {
+                                                            case 'a':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notinva;"
+                                                                    ++character;
+
+                                                                    // Copy the string up to the start of the token
+                                                                    copy_size = substitute_start - input_copy_start;
+                                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                    output_copy_start += copy_size;
+                                                                    input_copy_start = character;
+                                                                    output_copy_start[0] = 0xe2;
+                                                                    output_copy_start[1] = 0x88;
+                                                                    output_copy_start[2] = 0x89;
+                                                                    output_copy_start += 3;
+                                                                }
+                                                                break;
+                                                            case 'b':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notinvb;"
+                                                                    ++character;
+
+                                                                    // Copy the string up to the start of the token
+                                                                    copy_size = substitute_start - input_copy_start;
+                                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                    output_copy_start += copy_size;
+                                                                    input_copy_start = character;
+                                                                    output_copy_start[0] = 0xe2;
+                                                                    output_copy_start[1] = 0x8b;
+                                                                    output_copy_start[2] = 0xb7;
+                                                                    output_copy_start += 3;
+                                                                }
+                                                                break;
+                                                            case 'c':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notinvc;"
+                                                                    ++character;
+
+                                                                    // Copy the string up to the start of the token
+                                                                    copy_size = substitute_start - input_copy_start;
+                                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                    output_copy_start += copy_size;
+                                                                    input_copy_start = character;
+                                                                    output_copy_start[0] = 0xe2;
+                                                                    output_copy_start[1] = 0x8b;
+                                                                    output_copy_start[2] = 0xb6;
+                                                                    output_copy_start += 3;
+                                                                }
+                                                                break;
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                        case 'n':
+                                            ++character;
+                                            if (*character == 'i') {
+                                                ++character;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&notni;"
+                                                        ++character;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0x88;
+                                                        output_copy_start[2] = 0x8c;
+                                                        output_copy_start += 3;
+                                                        break;
+                                                    case 'v':
+                                                        ++character;
+                                                        switch (*character) {
+                                                            case 'a':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notniva;"
+                                                                    ++character;
+
+                                                                    // Copy the string up to the start of the token
+                                                                    copy_size = substitute_start - input_copy_start;
+                                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                    output_copy_start += copy_size;
+                                                                    input_copy_start = character;
+                                                                    output_copy_start[0] = 0xe2;
+                                                                    output_copy_start[1] = 0x88;
+                                                                    output_copy_start[2] = 0x8c;
+                                                                    output_copy_start += 3;
+                                                                }
+                                                                break;
+                                                            case 'b':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notnivb;"
+                                                                    ++character;
+
+                                                                    // Copy the string up to the start of the token
+                                                                    copy_size = substitute_start - input_copy_start;
+                                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                    output_copy_start += copy_size;
+                                                                    input_copy_start = character;
+                                                                    output_copy_start[0] = 0xe2;
+                                                                    output_copy_start[1] = 0x8b;
+                                                                    output_copy_start[2] = 0xbe;
+                                                                    output_copy_start += 3;
+                                                                }
+                                                                break;
+                                                            case 'c':
+                                                                ++character;
+                                                                if (*character == ';') {
+                                                                    // Found word "&notnivc;"
+                                                                    ++character;
+
+                                                                    // Copy the string up to the start of the token
+                                                                    copy_size = substitute_start - input_copy_start;
+                                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                                    output_copy_start += copy_size;
+                                                                    input_copy_start = character;
+                                                                    output_copy_start[0] = 0xe2;
+                                                                    output_copy_start[1] = 0x8b;
+                                                                    output_copy_start[2] = 0xbd;
+                                                                    output_copy_start += 3;
+                                                                }
+                                                                break;
+                                                        }
+                                                        break;
+                                                }
+                                            }
+                                            break;
+                                    }
                                     break;
                             }
                             break;
@@ -47347,8 +50892,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&npar;"
                                             case ';':
+                                                // Found word "&npar;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -47439,8 +50985,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'r':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&npr;"
                                         case ';':
+                                            // Found word "&npr;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -47472,8 +51019,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&npre;"
                                                 case ';':
+                                                    // Found word "&npre;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -47490,8 +51038,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 case 'c':
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&nprec;"
                                                         case ';':
+                                                            // Found word "&nprec;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -47555,8 +51104,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "rr", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&nrarr;"
                                             case ';':
+                                                // Found word "&nrarr;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -47631,8 +51181,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ri", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&nrtri;"
                                             case ';':
+                                                // Found word "&nrtri;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -47672,8 +51223,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'c':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&nsc;"
                                         case ';':
+                                            // Found word "&nsc;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -47788,8 +51340,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'm') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&nsim;"
                                             case ';':
+                                                // Found word "&nsim;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -47804,8 +51357,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'e':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nsime;"
                                                     case ';':
+                                                        // Found word "&nsime;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -47921,8 +51475,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'b':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nsub;"
                                                 case ';':
+                                                    // Found word "&nsub;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -47975,8 +51530,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (strncmp(character, "et", 2) == 0) {
                                                         character += 2;
                                                         switch (*character) {
-                                                                // Found word "&nsubset;"
                                                             case ';':
+                                                                // Found word "&nsubset;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -47996,8 +51552,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&nsubseteq;"
                                                                         case ';':
+                                                                            // Found word "&nsubseteq;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -48041,8 +51598,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'c') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nsucc;"
                                                     case ';':
+                                                        // Found word "&nsucc;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -48079,8 +51637,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nsup;"
                                                 case ';':
+                                                    // Found word "&nsup;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -48133,8 +51692,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (strncmp(character, "et", 2) == 0) {
                                                         character += 2;
                                                         switch (*character) {
-                                                                // Found word "&nsupset;"
                                                             case ';':
+                                                                // Found word "&nsupset;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -48154,8 +51714,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&nsupseteq;"
                                                                         case ';':
+                                                                            // Found word "&nsupseteq;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -48220,18 +51781,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "lde;", 4) == 0) {
-                                        // Found word "&ntilde;"
-                                        character += 4;
+                                    if (strncmp(character, "lde", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&ntilde;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xb1;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb1;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&ntilde"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb1;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'l':
@@ -48261,8 +51838,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "eft", 3) == 0) {
                                                     character += 3;
                                                     switch (*character) {
-                                                            // Found word "&ntriangleleft;"
                                                         case ';':
+                                                            // Found word "&ntriangleleft;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -48299,8 +51877,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "ight", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&ntriangleright;"
                                                         case ';':
+                                                            // Found word "&ntriangleright;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -48340,8 +51919,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'u':
                             ++character;
                             switch (*character) {
-                                    // Found word "&nu;"
                                 case ';':
+                                    // Found word "&nu;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -48355,8 +51935,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'm':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&num;"
                                         case ';':
+                                            // Found word "&num;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -48581,8 +52162,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 't':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&nvlt;"
                                                 case ';':
+                                                    // Found word "&nvlt;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -48728,8 +52310,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&nwarr;"
                                                     case ';':
+                                                        // Found word "&nwarr;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -48809,18 +52392,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&oacute;"
-                                        character += 4;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&oacute;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xb3;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb3;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&oacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb3;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 's':
@@ -48850,8 +52449,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&ocir;"
                                             case ';':
+                                                // Found word "&ocir;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -48863,17 +52463,34 @@ char* replace_html_escape_codes(char* input_string) {
                                                 output_copy_start[2] = 0x9a;
                                                 output_copy_start += 3;
                                                 break;
-                                                // Found word "&ocirc"
                                             case 'c':
+                                                ++character;
+                                                if (*character == ';') {
+                                                    // Found word "&ocirc;"
+                                                    ++character;
 
-                                                // Copy the string up to the start of the token
-                                                copy_size = substitute_start - input_copy_start;
-                                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                                output_copy_start += copy_size;
-                                                input_copy_start = character;
-                                                output_copy_start[0] = 0xc3;
-                                                output_copy_start[1] = 0xb4;
-                                                output_copy_start += 2;
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc3;
+                                                    output_copy_start[1] = 0xb4;
+                                                    output_copy_start += 2;
+                                                }
+                                                else {
+                                                    // Found word "&ocirc"
+                                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xc3;
+                                                    output_copy_start[1] = 0xb4;
+                                                    output_copy_start += 2;
+                                                }
                                                 break;
                                         }
                                     }
@@ -49062,18 +52679,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'r':
                                     ++character;
-                                    if (strncmp(character, "ave;", 4) == 0) {
-                                        // Found word "&ograve;"
-                                        character += 4;
+                                    if (strncmp(character, "ave", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&ograve;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xb2;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb2;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&ograve"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb2;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 't':
@@ -49414,8 +53047,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&or;"
                                 case ';':
+                                    // Found word "&or;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -49447,8 +53081,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'd':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&ord;"
                                         case ';':
+                                            // Found word "&ord;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -49465,8 +53100,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'r') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&order;"
                                                     case ';':
+                                                        // Found word "&order;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -49498,29 +53134,63 @@ char* replace_html_escape_codes(char* input_string) {
                                                 }
                                             }
                                             break;
-                                            // Found word "&ordf"
                                         case 'f':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&ordf;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc2;
-                                            output_copy_start[1] = 0xaa;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xaa;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&ordf"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xaa;
+                                                output_copy_start += 2;
+                                            }
                                             break;
-                                            // Found word "&ordm"
                                         case 'm':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&ordm;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc2;
-                                            output_copy_start[1] = 0xba;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xba;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&ordm"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xba;
+                                                output_copy_start += 2;
+                                            }
                                             break;
                                     }
                                     break;
@@ -49616,18 +53286,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'l':
                                     ++character;
-                                    if (strncmp(character, "ash;", 4) == 0) {
-                                        // Found word "&oslash;"
-                                        character += 4;
+                                    if (strncmp(character, "ash", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&oslash;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xb8;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb8;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&oslash"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xb8;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'o':
@@ -49656,18 +53342,34 @@ char* replace_html_escape_codes(char* input_string) {
                                 switch (*character) {
                                     case 'l':
                                         ++character;
-                                        if (strncmp(character, "de;", 3) == 0) {
-                                            // Found word "&otilde;"
-                                            character += 3;
+                                        if (strncmp(character, "de", 2) == 0) {
+                                            character += 2;
+                                            if (*character == ';') {
+                                                // Found word "&otilde;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc3;
-                                            output_copy_start[1] = 0xb5;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0xb5;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&otilde"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0xb5;
+                                                output_copy_start += 2;
+                                            }
                                         }
                                         break;
                                     case 'm':
@@ -49675,8 +53377,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         if (strncmp(character, "es", 2) == 0) {
                                             character += 2;
                                             switch (*character) {
-                                                    // Found word "&otimes;"
                                                 case ';':
+                                                    // Found word "&otimes;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -49713,18 +53416,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'u':
                             ++character;
-                            if (strncmp(character, "ml;", 3) == 0) {
-                                // Found word "&ouml;"
-                                character += 3;
+                            if (strncmp(character, "ml", 2) == 0) {
+                                character += 2;
+                                if (*character == ';') {
+                                    // Found word "&ouml;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xb6;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xb6;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&ouml"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xb6;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'v':
@@ -49754,8 +53473,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (*character == 'r') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&par;"
                                     case ';':
+                                        // Found word "&par;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -49767,17 +53487,40 @@ char* replace_html_escape_codes(char* input_string) {
                                         output_copy_start[2] = 0xa5;
                                         output_copy_start += 3;
                                         break;
-                                        // Found word "&para"
                                     case 'a':
+                                        ++character;
+                                        switch (*character) {
+                                            case ';':
+                                                // Found word "&para;"
+                                                ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xb6;
-                                        output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb6;
+                                                output_copy_start += 2;
+                                                break;
+                                            case 'l':
+                                                ++character;
+                                                if (strncmp(character, "lel;", 4) == 0) {
+                                                    // Found word "&parallel;"
+                                                    character += 4;
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xe2;
+                                                    output_copy_start[1] = 0x88;
+                                                    output_copy_start[2] = 0xa5;
+                                                    output_copy_start += 3;
+                                                }
+                                                break;
+                                        }
                                         break;
                                     case 's':
                                         ++character;
@@ -49967,8 +53710,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'i':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&phi;"
                                         case ';':
+                                            // Found word "&phi;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -50036,8 +53780,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'i':
                             ++character;
                             switch (*character) {
-                                    // Found word "&pi;"
                                 case ';':
+                                    // Found word "&pi;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -50096,8 +53841,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (*character == 'k') {
                                                     ++character;
                                                     switch (*character) {
-                                                            // Found word "&planck;"
                                                         case ';':
+                                                            // Found word "&planck;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -50154,8 +53900,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 's') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&plus;"
                                             case ';':
+                                                // Found word "&plus;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -50274,18 +54021,34 @@ char* replace_html_escape_codes(char* input_string) {
                                                 break;
                                             case 'm':
                                                 ++character;
-                                                if (strncmp(character, "n;", 2) == 0) {
-                                                    // Found word "&plusmn;"
-                                                    character += 2;
+                                                if (*character == 'n') {
+                                                    ++character;
+                                                    if (*character == ';') {
+                                                        // Found word "&plusmn;"
+                                                        ++character;
 
-                                                    // Copy the string up to the start of the token
-                                                    copy_size = substitute_start - input_copy_start;
-                                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                                    output_copy_start += copy_size;
-                                                    input_copy_start = character;
-                                                    output_copy_start[0] = 0xc2;
-                                                    output_copy_start[1] = 0xb1;
-                                                    output_copy_start += 2;
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xc2;
+                                                        output_copy_start[1] = 0xb1;
+                                                        output_copy_start += 2;
+                                                    }
+                                                    else {
+                                                        // Found word "&plusmn"
+                                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xc2;
+                                                        output_copy_start[1] = 0xb1;
+                                                        output_copy_start += 2;
+                                                    }
                                                 }
                                                 break;
                                             case 's':
@@ -50383,18 +54146,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'u':
                                     ++character;
-                                    if (strncmp(character, "nd;", 3) == 0) {
-                                        // Found word "&pound;"
-                                        character += 3;
+                                    if (strncmp(character, "nd", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&pound;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xa3;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa3;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&pound"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa3;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -50402,8 +54181,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&pr;"
                                 case ';':
+                                    // Found word "&pr;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -50469,8 +54249,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&pre;"
                                         case ';':
+                                            // Found word "&pre;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -50485,8 +54266,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'c':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&prec;"
                                                 case ';':
+                                                    // Found word "&prec;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -50631,8 +54413,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "me", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&prime;"
                                             case ';':
+                                                // Found word "&prime;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -50799,8 +54582,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'p':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&prop;"
                                                 case ';':
+                                                    // Found word "&prop;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -51068,8 +54852,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "st", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&quest;"
                                             case ';':
+                                                // Found word "&quest;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -51101,17 +54886,32 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'o':
                                     ++character;
-                                    if (strncmp(character, "t;", 2) == 0) {
-                                        // Found word "&quot;"
-                                        character += 2;
+                                    if (*character == 't') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&quot;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0x22;
-                                        output_copy_start += 1;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0x22;
+                                            output_copy_start += 1;
+                                        }
+                                        else {
+                                            // Found word "&quot"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0x22;
+                                            output_copy_start += 1;
+                                        }
                                     }
                                     break;
                             }
@@ -51293,8 +55093,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'g') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rang;"
                                             case ';':
+                                                // Found word "&rang;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -51362,18 +55163,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'q':
                                     ++character;
-                                    if (strncmp(character, "uo;", 3) == 0) {
-                                        // Found word "&raquo;"
-                                        character += 3;
+                                    if (strncmp(character, "uo", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&raquo;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xbb;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xbb;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&raquo"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xbb;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -51381,8 +55198,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rarr;"
                                             case ';':
+                                                // Found word "&rarr;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -51414,8 +55232,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'b':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&rarrb;"
                                                     case ';':
+                                                        // Found word "&rarrb;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -51610,8 +55429,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'o') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&ratio;"
                                                     case ';':
+                                                        // Found word "&ratio;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -51925,8 +55745,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "uo", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&rdquo;"
                                             case ';':
+                                                // Found word "&rdquo;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -51985,8 +55806,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'l') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&real;"
                                             case ';':
+                                                // Found word "&real;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -52069,17 +55891,34 @@ char* replace_html_escape_codes(char* input_string) {
                                         output_copy_start += 3;
                                     }
                                     break;
-                                    // Found word "&reg"
                                 case 'g':
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&reg;"
+                                        ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0xc2;
-                                    output_copy_start[1] = 0xae;
-                                    output_copy_start += 2;
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xae;
+                                        output_copy_start += 2;
+                                    }
+                                    else {
+                                        // Found word "&reg"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xae;
+                                        output_copy_start += 2;
+                                    }
                                     break;
                             }
                             break;
@@ -52168,8 +56007,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'u':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&rharu;"
                                                     case ';':
+                                                        // Found word "&rharu;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -52206,8 +56046,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'o':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&rho;"
                                         case ';':
+                                            // Found word "&rho;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -52251,8 +56092,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                 if (strncmp(character, "rrow", 4) == 0) {
                                                     character += 4;
                                                     switch (*character) {
-                                                            // Found word "&rightarrow;"
                                                         case ';':
+                                                            // Found word "&rightarrow;"
+                                                            ++character;
 
                                                             // Copy the string up to the start of the token
                                                             copy_size = substitute_start - input_copy_start;
@@ -52518,8 +56360,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "oust", 4) == 0) {
                                 character += 4;
                                 switch (*character) {
-                                        // Found word "&rmoust;"
                                     case ';':
+                                        // Found word "&rmoust;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -52711,8 +56554,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rpar;"
                                             case ';':
+                                                // Found word "&rpar;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -52856,8 +56700,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'o') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&rsquo;"
                                                     case ';':
+                                                        // Found word "&rsquo;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -52935,8 +56780,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&rtri;"
                                             case ';':
+                                                // Found word "&rtri;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -53079,8 +56925,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'c':
                             ++character;
                             switch (*character) {
-                                    // Found word "&sc;"
                                 case ';':
+                                    // Found word "&sc;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -53167,8 +57014,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sce;"
                                         case ';':
+                                            // Found word "&sce;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -53327,8 +57175,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "ot", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&sdot;"
                                     case ';':
+                                        // Found word "&sdot;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -53422,8 +57271,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&searr;"
                                                     case ';':
+                                                        // Found word "&searr;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -53459,18 +57309,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "t;", 2) == 0) {
-                                        // Found word "&sect;"
-                                        character += 2;
+                                    if (*character == 't') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&sect;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc2;
-                                        output_copy_start[1] = 0xa7;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa7;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&sect"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc2;
+                                            output_copy_start[1] = 0xa7;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'm':
@@ -53571,8 +57437,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (*character == 'r') {
                                 ++character;
                                 switch (*character) {
-                                        // Found word "&sfr;"
                                     case ';':
+                                        // Found word "&sfr;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -53704,17 +57571,34 @@ char* replace_html_escape_codes(char* input_string) {
                                         }
                                     }
                                     break;
-                                    // Found word "&shy"
                                 case 'y':
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&shy;"
+                                        ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0xc2;
-                                    output_copy_start[1] = 0xad;
-                                    output_copy_start += 2;
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xad;
+                                        output_copy_start += 2;
+                                    }
+                                    else {
+                                        // Found word "&shy"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xad;
+                                        output_copy_start += 2;
+                                    }
                                     break;
                             }
                             break;
@@ -53726,8 +57610,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (strncmp(character, "ma", 2) == 0) {
                                         character += 2;
                                         switch (*character) {
-                                                // Found word "&sigma;"
                                             case ';':
+                                                // Found word "&sigma;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -53776,8 +57661,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'm':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sim;"
                                         case ';':
+                                            // Found word "&sim;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -53809,8 +57695,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&sime;"
                                                 case ';':
+                                                    // Found word "&sime;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -53844,8 +57731,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'g':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&simg;"
                                                 case ';':
+                                                    // Found word "&simg;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -53879,8 +57767,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'l':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&siml;"
                                                 case ';':
+                                                    // Found word "&siml;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -54084,8 +57973,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 't':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&smt;"
                                         case ';':
+                                            // Found word "&smt;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -54100,8 +57990,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&smte;"
                                                 case ';':
+                                                    // Found word "&smte;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -54161,8 +58052,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'l':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sol;"
                                         case ';':
+                                            // Found word "&sol;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -54175,8 +58067,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'b':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&solb;"
                                                 case ';':
+                                                    // Found word "&solb;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -54239,8 +58132,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         if (strncmp(character, "es", 2) == 0) {
                                             character += 2;
                                             switch (*character) {
-                                                    // Found word "&spades;"
                                                 case ';':
+                                                    // Found word "&spades;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -54303,8 +58197,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'p') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqcap;"
                                                     case ';':
+                                                        // Found word "&sqcap;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -54344,8 +58239,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'p') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqcup;"
                                                     case ';':
+                                                        // Found word "&sqcup;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -54390,8 +58286,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'b':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqsub;"
                                                     case ';':
+                                                        // Found word "&sqsub;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -54425,8 +58322,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "et", 2) == 0) {
                                                             character += 2;
                                                             switch (*character) {
-                                                                    // Found word "&sqsubset;"
                                                                 case ';':
+                                                                    // Found word "&sqsubset;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -54463,8 +58361,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'p':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&sqsup;"
                                                     case ';':
+                                                        // Found word "&sqsup;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -54498,8 +58397,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "et", 2) == 0) {
                                                             character += 2;
                                                             switch (*character) {
-                                                                    // Found word "&sqsupset;"
                                                                 case ';':
+                                                                    // Found word "&sqsupset;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -54539,8 +58439,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'u':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&squ;"
                                         case ';':
+                                            // Found word "&squ;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -54714,8 +58615,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'r') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&star;"
                                             case ';':
+                                                // Found word "&star;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -54816,8 +58718,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'b':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sub;"
                                         case ';':
+                                            // Found word "&sub;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -54866,8 +58769,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&sube;"
                                                 case ';':
+                                                    // Found word "&sube;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -54996,8 +58900,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (*character == 't') {
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&subset;"
                                                             case ';':
+                                                                // Found word "&subset;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -55014,8 +58919,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&subseteq;"
                                                                         case ';':
+                                                                            // Found word "&subseteq;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -55052,8 +58958,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (strncmp(character, "eq", 2) == 0) {
                                                                     character += 2;
                                                                     switch (*character) {
-                                                                            // Found word "&subsetneq;"
                                                                         case ';':
+                                                                            // Found word "&subsetneq;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -55153,8 +59060,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'c') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&succ;"
                                             case ';':
+                                                // Found word "&succ;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -55330,44 +59238,96 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&sup1"
                                         case '1':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&sup1;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc2;
-                                            output_copy_start[1] = 0xb9;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb9;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&sup1"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb9;
+                                                output_copy_start += 2;
+                                            }
                                             break;
-                                            // Found word "&sup2"
                                         case '2':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&sup2;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc2;
-                                            output_copy_start[1] = 0xb2;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb2;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&sup2"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb2;
+                                                output_copy_start += 2;
+                                            }
                                             break;
-                                            // Found word "&sup3"
                                         case '3':
+                                            ++character;
+                                            if (*character == ';') {
+                                                // Found word "&sup3;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc2;
-                                            output_copy_start[1] = 0xb3;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb3;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&sup3"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc2;
+                                                output_copy_start[1] = 0xb3;
+                                                output_copy_start += 2;
+                                            }
                                             break;
-                                            // Found word "&sup;"
                                         case ';':
+                                            // Found word "&sup;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -55438,8 +59398,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'e':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&supe;"
                                                 case ';':
+                                                    // Found word "&supe;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -55610,8 +59571,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                     if (*character == 't') {
                                                         ++character;
                                                         switch (*character) {
-                                                                // Found word "&supset;"
                                                             case ';':
+                                                                // Found word "&supset;"
+                                                                ++character;
 
                                                                 // Copy the string up to the start of the token
                                                                 copy_size = substitute_start - input_copy_start;
@@ -55628,8 +59590,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (*character == 'q') {
                                                                     ++character;
                                                                     switch (*character) {
-                                                                            // Found word "&supseteq;"
                                                                         case ';':
+                                                                            // Found word "&supseteq;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -55666,8 +59629,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                                 if (strncmp(character, "eq", 2) == 0) {
                                                                     character += 2;
                                                                     switch (*character) {
-                                                                            // Found word "&supsetneq;"
                                                                         case ';':
+                                                                            // Found word "&supsetneq;"
+                                                                            ++character;
 
                                                                             // Copy the string up to the start of the token
                                                                             copy_size = substitute_start - input_copy_start;
@@ -55809,8 +59773,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             case 'r':
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&swarr;"
                                                     case ';':
+                                                        // Found word "&swarr;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -55865,18 +59830,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'z':
                             ++character;
-                            if (strncmp(character, "lig;", 4) == 0) {
-                                // Found word "&szlig;"
-                                character += 4;
+                            if (strncmp(character, "lig", 3) == 0) {
+                                character += 3;
+                                if (*character == ';') {
+                                    // Found word "&szlig;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0x9f;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9f;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&szlig"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0x9f;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                     }
@@ -56097,8 +60078,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'a') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&theta;"
                                                     case ';':
+                                                        // Found word "&theta;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -56251,18 +60233,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'o':
                                     ++character;
-                                    if (strncmp(character, "rn;", 3) == 0) {
-                                        // Found word "&thorn;"
-                                        character += 3;
+                                    if (strncmp(character, "rn", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&thorn;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xbe;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbe;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&thorn"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbe;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -56289,17 +60287,75 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'm':
                                     ++character;
                                     if (strncmp(character, "es", 2) == 0) {
-                                        // Found word "&times"
                                         character += 2;
+                                        switch (*character) {
+                                            case ';':
+                                                // Found word "&times;"
+                                                ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0x97;
-                                        output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0x97;
+                                                output_copy_start += 2;
+                                                break;
+                                            case 'b':
+                                                ++character;
+                                                switch (*character) {
+                                                    case ';':
+                                                        // Found word "&timesb;"
+                                                        ++character;
+
+                                                        // Copy the string up to the start of the token
+                                                        copy_size = substitute_start - input_copy_start;
+                                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                                        output_copy_start += copy_size;
+                                                        input_copy_start = character;
+                                                        output_copy_start[0] = 0xe2;
+                                                        output_copy_start[1] = 0x8a;
+                                                        output_copy_start[2] = 0xa0;
+                                                        output_copy_start += 3;
+                                                        break;
+                                                    case 'a':
+                                                        ++character;
+                                                        if (strncmp(character, "r;", 2) == 0) {
+                                                            // Found word "&timesbar;"
+                                                            character += 2;
+
+                                                            // Copy the string up to the start of the token
+                                                            copy_size = substitute_start - input_copy_start;
+                                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                                            output_copy_start += copy_size;
+                                                            input_copy_start = character;
+                                                            output_copy_start[0] = 0xe2;
+                                                            output_copy_start[1] = 0xa8;
+                                                            output_copy_start[2] = 0xb1;
+                                                            output_copy_start += 3;
+                                                        }
+                                                        break;
+                                                }
+                                                break;
+                                            case 'd':
+                                                ++character;
+                                                if (*character == ';') {
+                                                    // Found word "&timesd;"
+                                                    ++character;
+
+                                                    // Copy the string up to the start of the token
+                                                    copy_size = substitute_start - input_copy_start;
+                                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                                    output_copy_start += copy_size;
+                                                    input_copy_start = character;
+                                                    output_copy_start[0] = 0xe2;
+                                                    output_copy_start[1] = 0xa8;
+                                                    output_copy_start[2] = 0xb0;
+                                                    output_copy_start += 3;
+                                                }
+                                                break;
+                                        }
                                     }
                                     break;
                                 case 'n':
@@ -56344,8 +60400,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'p':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&top;"
                                         case ';':
+                                            // Found word "&top;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -56394,8 +60451,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'f':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&topf;"
                                                 case ';':
+                                                    // Found word "&topf;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -56493,8 +60551,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "ngle", 4) == 0) {
                                                 character += 4;
                                                 switch (*character) {
-                                                        // Found word "&triangle;"
                                                     case ';':
+                                                        // Found word "&triangle;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -56528,8 +60587,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "eft", 3) == 0) {
                                                             character += 3;
                                                             switch (*character) {
-                                                                    // Found word "&triangleleft;"
                                                                 case ';':
+                                                                    // Found word "&triangleleft;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -56583,8 +60643,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                         if (strncmp(character, "ight", 4) == 0) {
                                                             character += 4;
                                                             switch (*character) {
-                                                                    // Found word "&triangleright;"
                                                                 case ';':
+                                                                    // Found word "&triangleright;"
+                                                                    ++character;
 
                                                                     // Copy the string up to the start of the token
                                                                     copy_size = substitute_start - input_copy_start;
@@ -56926,18 +60987,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'c':
                                     ++character;
-                                    if (strncmp(character, "ute;", 4) == 0) {
-                                        // Found word "&uacute;"
-                                        character += 4;
+                                    if (strncmp(character, "ute", 3) == 0) {
+                                        character += 3;
+                                        if (*character == ';') {
+                                            // Found word "&uacute;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xba;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xba;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&uacute"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xba;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'r':
@@ -57004,18 +61081,34 @@ char* replace_html_escape_codes(char* input_string) {
                             switch (*character) {
                                 case 'i':
                                     ++character;
-                                    if (strncmp(character, "rc;", 3) == 0) {
-                                        // Found word "&ucirc;"
-                                        character += 3;
+                                    if (strncmp(character, "rc", 2) == 0) {
+                                        character += 2;
+                                        if (*character == ';') {
+                                            // Found word "&ucirc;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xbb;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbb;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&ucirc"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbb;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                                 case 'y':
@@ -57133,18 +61226,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'g':
                             ++character;
-                            if (strncmp(character, "rave;", 5) == 0) {
-                                // Found word "&ugrave;"
-                                character += 5;
+                            if (strncmp(character, "rave", 4) == 0) {
+                                character += 4;
+                                if (*character == ';') {
+                                    // Found word "&ugrave;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc3;
-                                output_copy_start[1] = 0xb9;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xb9;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&ugrave"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc3;
+                                    output_copy_start[1] = 0xb9;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'h':
@@ -57222,8 +61331,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "rn", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&ulcorn;"
                                                     case ';':
+                                                        // Found word "&ulcorn;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -57312,17 +61422,34 @@ char* replace_html_escape_codes(char* input_string) {
                                         output_copy_start += 2;
                                     }
                                     break;
-                                    // Found word "&uml"
                                 case 'l':
+                                    ++character;
+                                    if (*character == ';') {
+                                        // Found word "&uml;"
+                                        ++character;
 
-                                    // Copy the string up to the start of the token
-                                    copy_size = substitute_start - input_copy_start;
-                                    memcpy(output_copy_start, input_copy_start, copy_size);
-                                    output_copy_start += copy_size;
-                                    input_copy_start = character;
-                                    output_copy_start[0] = 0xc2;
-                                    output_copy_start[1] = 0xa8;
-                                    output_copy_start += 2;
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xa8;
+                                        output_copy_start += 2;
+                                    }
+                                    else {
+                                        // Found word "&uml"
+                                        // Dont update the character position. No new characters were matched for this leaf.
+
+                                        // Copy the string up to the start of the token
+                                        copy_size = substitute_start - input_copy_start;
+                                        memcpy(output_copy_start, input_copy_start, copy_size);
+                                        output_copy_start += copy_size;
+                                        input_copy_start = character;
+                                        output_copy_start[0] = 0xc2;
+                                        output_copy_start[1] = 0xa8;
+                                        output_copy_start += 2;
+                                    }
                                     break;
                             }
                             break;
@@ -57466,8 +61593,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&upsi;"
                                             case ';':
+                                                // Found word "&upsi;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -57543,8 +61671,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (strncmp(character, "rn", 2) == 0) {
                                                 character += 2;
                                                 switch (*character) {
-                                                        // Found word "&urcorn;"
                                                     case ';':
+                                                        // Found word "&urcorn;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -57689,8 +61818,9 @@ char* replace_html_escape_codes(char* input_string) {
                                     if (*character == 'i') {
                                         ++character;
                                         switch (*character) {
-                                                // Found word "&utri;"
                                             case ';':
+                                                // Found word "&utri;"
+                                                ++character;
 
                                                 // Copy the string up to the start of the token
                                                 copy_size = substitute_start - input_copy_start;
@@ -57746,18 +61876,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&uuml;"
-                                        character += 2;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&uuml;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xbc;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbc;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&uuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbc;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }
@@ -57806,8 +61952,9 @@ char* replace_html_escape_codes(char* input_string) {
                             if (strncmp(character, "ar", 2) == 0) {
                                 character += 2;
                                 switch (*character) {
-                                        // Found word "&vBar;"
                                     case ';':
+                                        // Found word "&vBar;"
+                                        ++character;
 
                                         // Copy the string up to the start of the token
                                         copy_size = substitute_start - input_copy_start;
@@ -57985,8 +62132,9 @@ char* replace_html_escape_codes(char* input_string) {
                                         case 'r':
                                             ++character;
                                             switch (*character) {
-                                                    // Found word "&varr;"
                                                 case ';':
+                                                    // Found word "&varr;"
+                                                    ++character;
 
                                                     // Copy the string up to the start of the token
                                                     copy_size = substitute_start - input_copy_start;
@@ -58043,8 +62191,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "setneq", 6) == 0) {
                                                                 character += 6;
                                                                 switch (*character) {
-                                                                        // Found word "&varsubsetneq;"
                                                                     case ';':
+                                                                        // Found word "&varsubsetneq;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -58087,8 +62236,9 @@ char* replace_html_escape_codes(char* input_string) {
                                                             if (strncmp(character, "setneq", 6) == 0) {
                                                                 character += 6;
                                                                 switch (*character) {
-                                                                        // Found word "&varsupsetneq;"
                                                                     case ';':
+                                                                        // Found word "&varsupsetneq;"
+                                                                        ++character;
 
                                                                         // Copy the string up to the start of the token
                                                                         copy_size = substitute_start - input_copy_start;
@@ -58236,8 +62386,9 @@ char* replace_html_escape_codes(char* input_string) {
                                 case 'e':
                                     ++character;
                                     switch (*character) {
-                                            // Found word "&vee;"
                                         case ';':
+                                            // Found word "&vee;"
+                                            ++character;
 
                                             // Copy the string up to the start of the token
                                             copy_size = substitute_start - input_copy_start;
@@ -58664,8 +62815,9 @@ char* replace_html_escape_codes(char* input_string) {
                                             if (*character == 'e') {
                                                 ++character;
                                                 switch (*character) {
-                                                        // Found word "&wedge;"
                                                     case ';':
+                                                        // Found word "&wedge;"
+                                                        ++character;
 
                                                         // Copy the string up to the start of the token
                                                         copy_size = substitute_start - input_copy_start;
@@ -58774,8 +62926,9 @@ char* replace_html_escape_codes(char* input_string) {
                         case 'r':
                             ++character;
                             switch (*character) {
-                                    // Found word "&wr;"
                                 case ';':
+                                    // Found word "&wr;"
+                                    ++character;
 
                                     // Copy the string up to the start of the token
                                     copy_size = substitute_start - input_copy_start;
@@ -59291,18 +63444,34 @@ char* replace_html_escape_codes(char* input_string) {
                                 switch (*character) {
                                     case 'u':
                                         ++character;
-                                        if (strncmp(character, "te;", 3) == 0) {
-                                            // Found word "&yacute;"
-                                            character += 3;
+                                        if (strncmp(character, "te", 2) == 0) {
+                                            character += 2;
+                                            if (*character == ';') {
+                                                // Found word "&yacute;"
+                                                ++character;
 
-                                            // Copy the string up to the start of the token
-                                            copy_size = substitute_start - input_copy_start;
-                                            memcpy(output_copy_start, input_copy_start, copy_size);
-                                            output_copy_start += copy_size;
-                                            input_copy_start = character;
-                                            output_copy_start[0] = 0xc3;
-                                            output_copy_start[1] = 0xbd;
-                                            output_copy_start += 2;
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0xbd;
+                                                output_copy_start += 2;
+                                            }
+                                            else {
+                                                // Found word "&yacute"
+                                                // Dont update the character position. No new characters were matched for this leaf.
+
+                                                // Copy the string up to the start of the token
+                                                copy_size = substitute_start - input_copy_start;
+                                                memcpy(output_copy_start, input_copy_start, copy_size);
+                                                output_copy_start += copy_size;
+                                                input_copy_start = character;
+                                                output_copy_start[0] = 0xc3;
+                                                output_copy_start[1] = 0xbd;
+                                                output_copy_start += 2;
+                                            }
                                         }
                                         break;
                                     case 'y':
@@ -59363,18 +63532,34 @@ char* replace_html_escape_codes(char* input_string) {
                             break;
                         case 'e':
                             ++character;
-                            if (strncmp(character, "n;", 2) == 0) {
-                                // Found word "&yen;"
-                                character += 2;
+                            if (*character == 'n') {
+                                ++character;
+                                if (*character == ';') {
+                                    // Found word "&yen;"
+                                    ++character;
 
-                                // Copy the string up to the start of the token
-                                copy_size = substitute_start - input_copy_start;
-                                memcpy(output_copy_start, input_copy_start, copy_size);
-                                output_copy_start += copy_size;
-                                input_copy_start = character;
-                                output_copy_start[0] = 0xc2;
-                                output_copy_start[1] = 0xa5;
-                                output_copy_start += 2;
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xa5;
+                                    output_copy_start += 2;
+                                }
+                                else {
+                                    // Found word "&yen"
+                                    // Dont update the character position. No new characters were matched for this leaf.
+
+                                    // Copy the string up to the start of the token
+                                    copy_size = substitute_start - input_copy_start;
+                                    memcpy(output_copy_start, input_copy_start, copy_size);
+                                    output_copy_start += copy_size;
+                                    input_copy_start = character;
+                                    output_copy_start[0] = 0xc2;
+                                    output_copy_start[1] = 0xa5;
+                                    output_copy_start += 2;
+                                }
                             }
                             break;
                         case 'f':
@@ -59468,18 +63653,34 @@ char* replace_html_escape_codes(char* input_string) {
                                     break;
                                 case 'm':
                                     ++character;
-                                    if (strncmp(character, "l;", 2) == 0) {
-                                        // Found word "&yuml;"
-                                        character += 2;
+                                    if (*character == 'l') {
+                                        ++character;
+                                        if (*character == ';') {
+                                            // Found word "&yuml;"
+                                            ++character;
 
-                                        // Copy the string up to the start of the token
-                                        copy_size = substitute_start - input_copy_start;
-                                        memcpy(output_copy_start, input_copy_start, copy_size);
-                                        output_copy_start += copy_size;
-                                        input_copy_start = character;
-                                        output_copy_start[0] = 0xc3;
-                                        output_copy_start[1] = 0xbf;
-                                        output_copy_start += 2;
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbf;
+                                            output_copy_start += 2;
+                                        }
+                                        else {
+                                            // Found word "&yuml"
+                                            // Dont update the character position. No new characters were matched for this leaf.
+
+                                            // Copy the string up to the start of the token
+                                            copy_size = substitute_start - input_copy_start;
+                                            memcpy(output_copy_start, input_copy_start, copy_size);
+                                            output_copy_start += copy_size;
+                                            input_copy_start = character;
+                                            output_copy_start[0] = 0xc3;
+                                            output_copy_start[1] = 0xbf;
+                                            output_copy_start += 2;
+                                        }
                                     }
                                     break;
                             }

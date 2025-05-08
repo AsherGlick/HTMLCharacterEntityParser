@@ -348,42 +348,47 @@ def build_trie_tree(strings: Iterable[str]) -> TrieTree:
 def build_switch_tree(trie: TrieTree, found_function: Callable[[str, str, List[str]], None], indent: str = "") -> str:
     lines = []
 
-    _build_switch_tree(trie, indent, lines, found_function)
+    _build_switch_tree(trie, indent, lines, found_function, None)
 
     return "\n".join(lines)
 
 
-def _build_switch_tree(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None]):
+def _build_switch_tree(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None], leaf_word: Optional[str]):
     if len(trie) == 1:
-        build_elided_switch_branch(trie, indent, lines, found_function)
+        build_elided_switch_branch(trie, indent, lines, found_function, leaf_word)
         return lines
 
     lines.append(indent + "switch (*character) {")
-    label_indent = indent + "  ";
-    new_indent = indent + "    ";
+    label_indent = indent + "    ";
+    new_indent = indent + "        ";
     for character in sorted(trie.keys()):
         lines.append(f"{label_indent}case '{character}':")
 
 
         leaf_word = trie[character].leaf_word
-        if leaf_word is not None:
+        if len(trie[character].children) == 0:
+            if leaf_word is None:
+                raise ValueError("No children and no leaf word")
+            lines.append(f"{new_indent}++character;")
+
             build_leaf(leaf_word, new_indent, lines, found_function)
         else:
             lines.append(f"{new_indent}++character;")
-            _build_switch_tree(trie[character].children, new_indent, lines, found_function)
+            _build_switch_tree(trie[character].children, new_indent, lines, found_function, leaf_word)
 
         lines.append(f"{new_indent}break;")
     lines.append(indent + "}")
     return lines
 
 
-def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None]) -> List[str]:
+def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None], leaf_word: Optional[str]) -> List[str]:
     elidable_characters = []
-    leaf_word: Optional[str] = None
-    while len(trie) == 1:
+    inner_leaf_word: Optional[str] = None
+
+    while len(trie) == 1 and inner_leaf_word is None:
         character = next(iter(trie))
         elidable_characters.append(character)
-        leaf_word = trie[character].leaf_word
+        inner_leaf_word = trie[character].leaf_word
         trie = trie[character].children
 
     new_indent = indent + "    "
@@ -392,23 +397,37 @@ def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], fo
     if len(elidable_string) > 1:
         lines.append(f"{indent}if (strncmp(character, \"{elidable_string}\", {len(elidable_string)}) == 0) {{")
         lines.append(f"{new_indent}character += {len(elidable_string)};")
+
     elif len(elidable_string) == 1:
         lines.append(indent + f"if (*character == '{elidable_string}') {{")
         lines.append(f"{new_indent}++character;")
     else:
         raise ValueError("Got a 0 length elidable string")
 
-    if leaf_word is not None:
-        build_leaf(leaf_word, new_indent, lines, found_function)
+    if len(trie) == 0:
+        if inner_leaf_word is None:
+            raise ValueError("No children and no leaf word")
+        
+        build_leaf(inner_leaf_word, new_indent, lines, found_function)
     else:
-        _build_switch_tree(trie, new_indent, lines, found_function)
+        _build_switch_tree(trie, new_indent, lines, found_function, inner_leaf_word)
+
+
+    if leaf_word is not None:
+        lines.append(indent + "}")
+        lines.append(indent + "else {")
+
+         # Extending a hack for how we insert the comments into the leaf nodes
+        lines.append(new_indent + "// Dont update the character position. No new characters were matched for this leaf.")
+
+        build_leaf(leaf_word, new_indent, lines, found_function)
+
 
     lines.append(indent + "}")
 
     return lines
 
 def build_leaf(word: str, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None]):
-    lines.append(f"{indent}// Found word \"{word}\"")
     found_function(word, indent, lines)
 
 
@@ -421,6 +440,12 @@ entity_filter: Optional[List[str]] = None
 #     "&gt;",
 #     "&lt;",
 #     "&frasl;",
+# ]
+
+# entity_filter = [
+#     "&quot;",
+#     "&amp;",
+#     "&amp",
 # ]
 
 def main():
@@ -457,16 +482,19 @@ def main():
     
 
     def delta_length(word: str, indent: str, lines: List[str]):
+        lines.insert(-1, f"{indent}// Found word \"{word}\"")
         delta_length = delta_lengths[word]
         lines.append(f"{indent}length += {delta_length};")
 
     def replace_buffers(word: str, indent: str, lines: List[str]):
-        hex_characters = replace_values[word]
+        lines.insert(-1, f"{indent}// Found word \"{word}\"")
+        lines.append("")
         lines.append(f"{indent}// Copy the string up to the start of the token")
         lines.append(f"{indent}copy_size = substitute_start - input_copy_start;")
         lines.append(f"{indent}memcpy(output_copy_start, input_copy_start, copy_size);")
         lines.append(f"{indent}output_copy_start += copy_size;")
         lines.append(f"{indent}input_copy_start = character;")
+        hex_characters = replace_values[word]
         for i, hex_character in enumerate(hex_characters):
             lines.append(f"{indent}output_copy_start[{i}] = 0x{hex_character};")
         lines.append(f"{indent}output_copy_start += {len(hex_characters)};")
@@ -475,33 +503,34 @@ def main():
     with open("output.c", "w") as f:
         f.write("\n".join([
             "#include <stdint.h>",
+            "#include <stdlib.h>",
             "#include <string.h>",
-            "#include <stdlib.h>"
             "",
             "size_t get_new_buffer_size(char* input_string) {",
             "    char* character = input_string;",
             "    int length = 0;",
-            "    while(1) {",
+            "    while (1) {",
             build_switch_tree(trie, delta_length, "        "),
             "        else if (*character == 0x00) {",
-            "            return character-input_string + length;",
+            "            return character - input_string + length;",
             "        }",
             "        else {",
-            "             ++character;",
+            "            ++character;",
             "        }",
-            "     }",
+            "    }",
             "}",
+            "",
             "char* replace_html_escape_codes(char* input_string) {",
             "    size_t buffer_size = get_new_buffer_size(input_string);",
             "    char* output = malloc(buffer_size + 1);",
             "    // Null terminate the string.",
-            "    output[buffer_size-2] = 0x00;",
+            "    output[buffer_size - 2] = 0x00;",
             "    char* character = input_string;",
             "    char* substitute_start = character;",
             "    char* input_copy_start = character;",
             "    char* output_copy_start = output;",
             "    size_t copy_size;",
-            "    while(1) {",
+            "    while (1) {",
             "        substitute_start = character;",
             build_switch_tree(trie, replace_buffers, "        "),
             "        else if (*character == 0x00) {",
@@ -510,11 +539,12 @@ def main():
             "            break;",
             "        }",
             "        else {",
-            "             ++character;",
+            "            ++character;",
             "        }",
-            "     }",
+            "    }",
             "    return output;",
             "}",
+            "",
 
         ]));
 
