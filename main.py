@@ -3,7 +3,7 @@ import urllib.request
 import json
 import classnotation
 from dataclasses import dataclass, field
-from typing import Dict, Any, List, Union, Literal, Optional, Iterable, Callable
+from typing import Dict, Any, List, Union, Literal, Optional, Iterable, Callable, Set
 import zipfile
 import xml.etree.ElementTree as ET
 
@@ -365,18 +365,24 @@ def _build_switch_tree(trie: TrieTree, indent: str, lines: List[str], found_func
         lines.append(f"{label_indent}case '{character}':")
 
 
-        leaf_word = trie[character].leaf_word
+        inner_leaf_word = trie[character].leaf_word
         if len(trie[character].children) == 0:
-            if leaf_word is None:
+            if inner_leaf_word is None:
                 raise ValueError("No children and no leaf word")
             lines.append(f"{new_indent}++character;")
 
-            build_leaf(leaf_word, new_indent, lines, found_function)
+            build_leaf(inner_leaf_word, new_indent, lines, found_function)
         else:
             lines.append(f"{new_indent}++character;")
-            _build_switch_tree(trie[character].children, new_indent, lines, found_function, leaf_word)
+            _build_switch_tree(trie[character].children, new_indent, lines, found_function, inner_leaf_word)
 
         lines.append(f"{new_indent}break;")
+    
+    if leaf_word is not None:
+        lines.append(f"{label_indent}default:")
+        lines.append(new_indent + "// Dont update the character position. No new characters were matched for this leaf.")
+        build_leaf(leaf_word, new_indent, lines, found_function)
+
     lines.append(indent + "}")
     return lines
 
@@ -431,31 +437,29 @@ def build_leaf(word: str, indent: str, lines: List[str], found_function: Callabl
     found_function(word, indent, lines)
 
 
-entity_filter: Optional[List[str]] = None
 
-# entity_filter = [
-#     "&quot;",
-#     "&apos;",
-#     "&amp;",
-#     "&gt;",
-#     "&lt;",
-#     "&frasl;",
-# ]
 
-# entity_filter = [
-#     "&quot;",
-#     "&amp;",
-#     "&amp",
-# ]
-
-def main():
+def build_character_entity_parser(headerfile_name: str, classfile_name: str, character_entity_filter: Optional[Set[str]]):
     html_entities = get_html_entities()
     unicode_data = get_trimmed_information()
 
+    def get_uncode_name(word: str) -> str:
+        codepoints:List[int] = html_entities[word]["codepoints"]
+        output = ""
+        for codepoint in codepoints:
+            output += unicode_data[hex(codepoint)[2:].zfill(4).upper()]
+        return output
+
     data = classnotation.load_data(Wrapper, {"wrapper": html_entities}).wrapper
 
-    if entity_filter is not None:
-        data = {k: v for k, v in data.items() if k in entity_filter}
+    if character_entity_filter is not None:
+        data = {k: v for k, v in data.items() if k in character_entity_filter}
+
+        # Sanity Check
+        filtered_entites = set(data.keys())
+        if len(character_entity_filter - filtered_entites) > 0:
+            print("Not all filtered character entities were known character entities.")
+            print("  ", character_entity_filter - filtered_entites)
 
     delta_lengths = {}
     replace_values = {}
@@ -482,12 +486,22 @@ def main():
     
 
     def delta_length(word: str, indent: str, lines: List[str]):
-        lines.insert(-1, f"{indent}// Found word \"{word}\"")
+        unicode_name = get_uncode_name(word)
+        characters = data[word].characters
+        if characters == "\n":
+            characters = "\\n"
+        lines.insert(-1, f"{indent}// Character Entity: \"{word}\" Char: \"{characters}\"")
+        lines.insert(-1, f"{indent}// Name: {unicode_name}")
         delta_length = delta_lengths[word]
         lines.append(f"{indent}length += {delta_length};")
 
     def replace_buffers(word: str, indent: str, lines: List[str]):
-        lines.insert(-1, f"{indent}// Found word \"{word}\"")
+        unicode_name = get_uncode_name(word)
+        characters = data[word].characters
+        if characters == "\n":
+            characters = "\\n"
+        lines.insert(-1, f"{indent}// Character Entity: \"{word}\" Char: \"{characters}\"")
+        lines.insert(-1, f"{indent}// Name: {unicode_name}")
         lines.append("")
         lines.append(f"{indent}// Copy the string up to the start of the token")
         lines.append(f"{indent}copy_size = substitute_start - input_copy_start;")
@@ -499,8 +513,22 @@ def main():
             lines.append(f"{indent}output_copy_start[{i}] = 0x{hex_character};")
         lines.append(f"{indent}output_copy_start += {len(hex_characters)};")
 
+        # TODO: We can swap the above code to this code to be a little cleaner. We should only do this after we get some performance testing in place to make sure it is faster.
+        # copy_size = substitute_start - input_copy_start;
+        # memcpy(output_copy_start, input_copy_start, copy_size);
+        # output_copy_start += copy_size;
+        # strncpy(output_copy_start, "/xe2/x80/x89", 3);
+        # output_copy_start += 3;
+        # input_copy_start = character;
 
-    with open("output.c", "w") as f:
+
+    index = 0;
+    def return_index(word: str, indent: str, lines: List[str]):
+        nonlocal index
+        lines.append(f"{indent}return {index}")
+        index += 1
+
+    with open(classfile_name, "w") as f:
         f.write("\n".join([
             "#include <stdint.h>",
             "#include <stdlib.h>",
@@ -520,7 +548,7 @@ def main():
             "    }",
             "}",
             "",
-            "char* replace_html_escape_codes(char* input_string) {",
+            "char* replace_html_character_entities(char* input_string) {",
             "    size_t buffer_size = get_new_buffer_size(input_string);",
             "    char* output = malloc(buffer_size + 1);",
             "    // Null terminate the string.",
@@ -545,8 +573,41 @@ def main():
             "    return output;",
             "}",
             "",
-
+            # "size_t prefix_index(char* input_string) {",
+            # build_switch_tree(trie, return_index, "    "),
+            # "}",
+            "",
         ]));
+
+    with open(headerfile_name, "w") as f:
+        f.write("\n".join([
+            "#include <stddef.h>",
+            "",
+            "size_t get_new_buffer_size(char* input_string);",
+            "char* replace_html_character_entities(char* input_string);",
+        ]))
+
+
+
+
+def main():
+    preset_entity_filters = {
+        # Include all of the character entities
+        "full": None,
+
+        # # Include "common" entities. Determined by a quick google for "common
+
+        # # html character entities" and clicking on the first link/
+        # "common": set(["&acute;", "&Alpha;", "&alpha;", "&amp;", "&and;", "&ang;", "&asymp;", "&bdquo;", "&Beta;", "&beta;", "&brvbar;", "&bull;", "&cap;", "&cedil;", "&cent;", "&Chi;", "&chi;", "&circ;", "&clubs;", "&cong;", "&copy;", "&crarr;", "&cup;", "&curren;", "&dagger;", "&Dagger;", "&darr;", "&deg;", "&Delta;", "&delta;", "&diams;", "&divide;", "&empty;", "&emsp;", "&ensp;", "&Epsilon;", "&epsilon;", "&equiv;", "&Eta;", "&eta;", "&euro;", "&exist;", "&fnof;", "&forall;", "&frac12;", "&frac14;", "&frac34;", "&Gamma;", "&gamma;", "&ge;", "&gt;", "&harr;", "&hearts;", "&hellip;", "&iexcl;", "&infin;", "&int;", "&Iota;", "&iota;", "&iquest;", "&isin;", "&Kappa;", "&kappa;", "&Lambda;", "&lambda;", "&laquo;", "&larr;", "&lceil;", "&ldquo;", "&le;", "&lfloor;", "&lowast;", "&loz;", "&lrm;", "&lsaquo;", "&lsquo;", "&lt;", "&macr;", "&mdash;", "&micro;", "&minus;", "&Mu;", "&mu;", "&nabla;", "&nbsp;", "&ndash;", "&ne;", "&ni;", "&not;", "&notin;", "&nsub;", "&Nu;", "&nu;", "&OElig;", "&oelig;", "&oline;", "&Omega;", "&omega;", "&Omicron;", "&omicron;", "&oplus;", "&or;", "&ordf;", "&ordm;", "&otimes;", "&para;", "&part;", "&permil;", "&perp;", "&Phi;", "&phi;", "&Pi;", "&pi;", "&piv;", "&plusmn;", "&pound;", "&prime;", "&Prime;", "&prod;", "&prop;", "&Psi;", "&psi;", "&radic;", "&raquo;", "&rarr;", "&rceil;", "&rdquo;", "&reg;", "&rfloor;", "&Rho;", "&rho;", "&rlm;", "&rsaquo;", "&rsquo;", "&sbquo;", "&Scaron;", "&scaron;", "&sdot;", "&sect;", "&shy;", "&Sigma;", "&sigma;", "&sigmaf;", "&sim;", "&spades;", "&sub;", "&sube;", "&sum;", "&sup1;", "&sup2;", "&sup3;", "&sup;", "&supe;", "&Tau;", "&tau;", "&there4;", "&Theta;", "&theta;", "&thetasym;", "&thinsp;", "&tilde;", "&times;", "&trade;", "&uarr;", "&uml;", "&upsih;", "&Upsilon;", "&upsilon;", "&Xi;", "&xi;", "&yen;", "&Yuml;", "&Zeta;", "&zeta;", "&zwj;", "&zwnj;",
+        # ]),
+
+        # # Include only a "basic" set of character entities based on personal
+        # # usage in my own html and xml projects.
+        # "basic": set(["&quot;","&apos;","&amp;","&gt;","&lt;"]),
+    }
+
+    for name, filterset in preset_entity_filters.items():
+        build_character_entity_parser(f"{name}_entity_list.h", f"{name}_entity_list.c", filterset)
 
 
 if __name__ == "__main__":
