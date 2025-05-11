@@ -22093,7 +22093,7 @@ size_t get_new_buffer_size(char* input_string) {
     }
 }
 
-char* replace_html_escape_codes(char* input_string) {
+char* replace_html_character_entities(char* input_string) {
     size_t buffer_size = get_new_buffer_size(input_string);
     char* output = malloc(buffer_size + 1);
     // Null terminate the string.
