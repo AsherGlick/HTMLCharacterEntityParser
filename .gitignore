@@ -3,3 +3,5 @@ html_entities.json
 trimmed_ucd.json
 ucd.zip
 venv/
+.cache/
+build/
