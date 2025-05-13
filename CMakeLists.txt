@@ -16,4 +16,4 @@ list(REMOVE_ITEM SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/if_vs_switch_speed.c")
 # Set output as executable.
 add_executable(${TARGET_NAME} ${SOURCES})
 
-# target_compile_options(${TARGET_NAME} PUBLIC -Wall -Wextra -Wpedantic -Werror=return-type -O3)
+target_compile_options(${TARGET_NAME} PUBLIC -Wall -Wextra -Wpedantic -Werror=return-type -O3)

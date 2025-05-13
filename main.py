@@ -348,17 +348,17 @@ def build_trie_tree(strings: Iterable[str]) -> TrieTree:
 def build_switch_tree(trie: TrieTree, found_function: Callable[[str, str, List[str]], None], indent: str = "") -> str:
     lines = []
 
-    _build_switch_tree(trie, indent, lines, found_function, None)
+    _build_switch_tree(trie, indent, lines, found_function, None, 0)
 
     return "\n".join(lines)
 
 
-def _build_switch_tree(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None], leaf_word: Optional[str]):
+def _build_switch_tree(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None], leaf_word: Optional[str], character_index: int):
     if len(trie) == 1:
-        build_elided_switch_branch(trie, indent, lines, found_function, leaf_word)
+        build_elided_switch_branch(trie, indent, lines, found_function, leaf_word, character_index)
         return lines
 
-    lines.append(indent + "switch (*character) {")
+    lines.append(f"{indent}switch (character[{character_index}]) {{")
     label_indent = indent + "    ";
     new_indent = indent + "        ";
     for character in sorted(trie.keys()):
@@ -366,28 +366,32 @@ def _build_switch_tree(trie: TrieTree, indent: str, lines: List[str], found_func
 
 
         inner_leaf_word = trie[character].leaf_word
+
+        if inner_leaf_word is None:
+            inner_leaf_word = leaf_word
+
         if len(trie[character].children) == 0:
             if inner_leaf_word is None:
                 raise ValueError("No children and no leaf word")
-            lines.append(f"{new_indent}++character;")
+            # lines.append(f"{new_indent}++character;")
 
             build_leaf(inner_leaf_word, new_indent, lines, found_function)
         else:
-            lines.append(f"{new_indent}++character;")
-            _build_switch_tree(trie[character].children, new_indent, lines, found_function, inner_leaf_word)
+            # lines.append(f"{new_indent}++character;")
+            _build_switch_tree(trie[character].children, new_indent, lines, found_function, inner_leaf_word, character_index + 1)
 
         lines.append(f"{new_indent}break;")
     
     if leaf_word is not None:
         lines.append(f"{label_indent}default:")
-        lines.append(new_indent + "// Dont update the character position. No new characters were matched for this leaf.")
+        # lines.append(new_indent + "// Dont update the character position. No new characters were matched for this leaf.")
         build_leaf(leaf_word, new_indent, lines, found_function)
 
     lines.append(indent + "}")
     return lines
 
 
-def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None], leaf_word: Optional[str]) -> List[str]:
+def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None], leaf_word: Optional[str], character_index: int) -> List[str]:
     elidable_characters = []
     inner_leaf_word: Optional[str] = None
 
@@ -397,16 +401,19 @@ def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], fo
         inner_leaf_word = trie[character].leaf_word
         trie = trie[character].children
 
+    if inner_leaf_word is None:
+        inner_leaf_word = leaf_word
+
     new_indent = indent + "    "
 
     elidable_string = "".join(elidable_characters)
     if len(elidable_string) > 1:
-        lines.append(f"{indent}if (strncmp(character, \"{elidable_string}\", {len(elidable_string)}) == 0) {{")
-        lines.append(f"{new_indent}character += {len(elidable_string)};")
+        lines.append(f"{indent}if (strncmp(character + {character_index}, \"{elidable_string}\", {len(elidable_string)}) == 0) {{")
+        # lines.append(f"{new_indent}character += {len(elidable_string)};")
 
     elif len(elidable_string) == 1:
-        lines.append(indent + f"if (*character == '{elidable_string}') {{")
-        lines.append(f"{new_indent}++character;")
+        lines.append(indent + f"if (character[{character_index}] == '{elidable_string}') {{")
+        # lines.append(f"{new_indent}++character;")
     else:
         raise ValueError("Got a 0 length elidable string")
 
@@ -416,7 +423,7 @@ def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], fo
         
         build_leaf(inner_leaf_word, new_indent, lines, found_function)
     else:
-        _build_switch_tree(trie, new_indent, lines, found_function, inner_leaf_word)
+        _build_switch_tree(trie, new_indent, lines, found_function, inner_leaf_word, character_index + len(elidable_string))
 
 
     if leaf_word is not None:
@@ -434,6 +441,7 @@ def build_elided_switch_branch(trie: TrieTree, indent: str, lines: List[str], fo
     return lines
 
 def build_leaf(word: str, indent: str, lines: List[str], found_function: Callable[[str, str, List[str]], None]):
+    lines.append(f"{indent}character += {len(word)-1};")
     found_function(word, indent, lines)
 
 
@@ -507,26 +515,21 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
         lines.append(f"{indent}copy_size = substitute_start - input_copy_start;")
         lines.append(f"{indent}memcpy(output_copy_start, input_copy_start, copy_size);")
         lines.append(f"{indent}output_copy_start += copy_size;")
-        lines.append(f"{indent}input_copy_start = character;")
+
         hex_characters = replace_values[word]
-        for i, hex_character in enumerate(hex_characters):
-            lines.append(f"{indent}output_copy_start[{i}] = 0x{hex_character};")
+        strhexbytes = "".join(["\\x"+x for x in hex_characters])
+        lines.append(f"{indent}memcpy(output_copy_start, \"{strhexbytes}\", {len(hex_characters)});")
         lines.append(f"{indent}output_copy_start += {len(hex_characters)};")
+        lines.append(f"{indent}input_copy_start = character + 1;")
 
-        # TODO: We can swap the above code to this code to be a little cleaner. We should only do this after we get some performance testing in place to make sure it is faster.
-        # copy_size = substitute_start - input_copy_start;
-        # memcpy(output_copy_start, input_copy_start, copy_size);
-        # output_copy_start += copy_size;
-        # strncpy(output_copy_start, "/xe2/x80/x89", 3);
-        # output_copy_start += 3;
-        # input_copy_start = character;
-
-
-    index = 0;
+    output_indexes: Dict[str, int] = {}
     def return_index(word: str, indent: str, lines: List[str]):
-        nonlocal index
-        lines.append(f"{indent}return {index}")
-        index += 1
+        nonlocal output_indexes
+        hex_characters = "".join(replace_values[word])
+        if word not in output_indexes:
+            new_index = len(output_indexes)
+            output_indexes[word] = new_index
+        lines.append(f"{indent}return {output_indexes[word]};")
 
     with open(classfile_name, "w") as f:
         f.write("\n".join([
@@ -542,9 +545,7 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
             "        else if (*character == 0x00) {",
             "            return character - input_string + length;",
             "        }",
-            "        else {",
-            "            ++character;",
-            "        }",
+            "        ++character;",
             "    }",
             "}",
             "",
@@ -552,7 +553,7 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
             "    size_t buffer_size = get_new_buffer_size(input_string);",
             "    char* output = malloc(buffer_size + 1);",
             "    // Null terminate the string.",
-            "    output[buffer_size - 2] = 0x00;",
+            "    output[buffer_size] = 0x00;",
             "    char* character = input_string;",
             "    char* substitute_start = character;",
             "    char* input_copy_start = character;",
@@ -566,17 +567,16 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
             "            memcpy(output_copy_start, input_copy_start, copy_size);",
             "            break;",
             "        }",
-            "        else {",
-            "            ++character;",
-            "        }",
+            "        ++character;",
             "    }",
             "    return output;",
             "}",
-            "",
-            # "size_t prefix_index(char* input_string) {",
+            # "",
+            # "size_t get_prefix(char* input_string) {",
+            # "    char* character = input_string;",
             # build_switch_tree(trie, return_index, "    "),
             # "}",
-            "",
+            # "",
         ]));
 
     with open(headerfile_name, "w") as f:
