@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-size_t get_new_buffer_size(char* input_string) {
-    char* character = input_string;
+size_t get_size_for_replacing_all_character_entities(const char* input_string) {
+    const char* character = input_string;
     int length = 0;
     while (1) {
         if (character[0] == '&') {
@@ -21720,14 +21720,14 @@ size_t get_new_buffer_size(char* input_string) {
     }
 }
 
-char* replace_html_character_entities(char* input_string) {
-    size_t buffer_size = get_new_buffer_size(input_string);
+char* replace_all_character_entities(const char* input_string) {
+    size_t buffer_size = get_size_for_replacing_all_character_entities(input_string);
     char* output = malloc(buffer_size + 1);
     // Null terminate the string.
     output[buffer_size] = 0x00;
-    char* character = input_string;
-    char* substitute_start = character;
-    char* input_copy_start = character;
+    const char* character = input_string;
+    const char* substitute_start = character;
+    const char* input_copy_start = character;
     char* output_copy_start = output;
     size_t copy_size;
     while (1) {

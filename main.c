@@ -1,4 +1,6 @@
-#include "full_entity_list.h"
+#include "replace_all_character_entities.h"
+#include "replace_common_character_entities.h"
+#include "replace_limited_character_entities.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -13,6 +15,13 @@ struct Testcase {
 	char* input_string;
 	char* output_string;
 };
+
+
+size_t mystrlen(const char *str) {
+        const char *s;
+        for (s = str; *s; ++s);
+        return (s - str);
+}
 
 int main() {
 	struct Testcase testcases[] = {
@@ -34,9 +43,9 @@ int main() {
 
 	for (size_t i = 0; i < testcase_count; i++) {
 		int test_passed = 1;
-		size_t buffer_size = get_new_buffer_size(testcases[i].input_string);
+		size_t buffer_size = get_size_for_replacing_all_character_entities(testcases[i].input_string);
 
-		char* output_string = replace_html_character_entities(testcases[i].input_string);
+		char* output_string = replace_all_character_entities(testcases[i].input_string);
 
 		if (buffer_size != testcases[i].output_length) {
 			printf("FAIL '%s' failed because the buffer size was incorrect. Expected %zu and got %zu.\n", testcases[i].test_name, testcases[i].output_length, buffer_size);
@@ -62,21 +71,48 @@ int main() {
 	}
 
 
-
 	#ifdef LATENCY_TEST
-	clock_t start = clock();
+	clock_t start;
+	clock_t end;
+	double elapsedtime;
+	size_t length;
+
+	start = clock();
+	size_t length_sum = 0;
 
 	for (size_t i = 0; i < 10000; i++) {
-		char* output_string = replace_html_character_entities(testcases[4].input_string);
+		// char* output_string = replace_all_character_entities(testcases[4].input_string);
+		// char* output_string = replace_common_character_entities(testcases[4].input_string);
+		char* output_string = replace_limited_character_entities(testcases[4].input_string);
 		free(output_string);
+		// length = get_new_buffer_size(testcases[4].input_string);
+		// length_sum += length;
 	}
 
-	clock_t end = clock();
+	end = clock();
+	printf("%zu %zu\n", length, length_sum);
 
 
-	double elapsedtime = (end - start);
+	elapsedtime = (end - start);
+	printf("total time %fs\n",  elapsedtime / CLOCKS_PER_SEC);
+
+	volatile int input_index = 4;
+
+	start = clock();
+
+	for (size_t i = 0; i < 10000; i++) {
+		length = mystrlen(testcases[input_index].input_string);
+		length_sum += length;
+	}
+
+	end = clock();
+	printf("%zu %zu\n", length, length_sum);
+
+
+	elapsedtime = (end - start);
 	printf("total time %fs\n",  elapsedtime / CLOCKS_PER_SEC);
 	#endif // LATENCY_TEST
+
 
 	return !all_tests_pass;
 }

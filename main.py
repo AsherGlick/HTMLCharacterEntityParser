@@ -447,7 +447,9 @@ def build_leaf(word: str, indent: str, lines: List[str], found_function: Callabl
 
 
 
-def build_character_entity_parser(headerfile_name: str, classfile_name: str, character_entity_filter: Optional[Set[str]]):
+def build_character_entity_parser(name: str, character_entity_filter: Optional[Set[str]]):
+    headerfile_name = f"replace_{name}_character_entities.h"
+    classfile_name = f"replace_{name}_character_entities.c"
     html_entities = get_html_entities()
     unicode_data = get_trimmed_information()
 
@@ -537,8 +539,8 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
             "#include <stdlib.h>",
             "#include <string.h>",
             "",
-            "size_t get_new_buffer_size(char* input_string) {",
-            "    char* character = input_string;",
+            f"size_t get_size_for_replacing_{name}_character_entities(const char* input_string) {{",
+            "    const char* character = input_string;",
             "    int length = 0;",
             "    while (1) {",
             build_switch_tree(trie, delta_length, "        "),
@@ -549,14 +551,14 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
             "    }",
             "}",
             "",
-            "char* replace_html_character_entities(char* input_string) {",
-            "    size_t buffer_size = get_new_buffer_size(input_string);",
+            f"char* replace_{name}_character_entities(const char* input_string) {{",
+            f"    size_t buffer_size = get_size_for_replacing_{name}_character_entities(input_string);",
             "    char* output = malloc(buffer_size + 1);",
             "    // Null terminate the string.",
             "    output[buffer_size] = 0x00;",
-            "    char* character = input_string;",
-            "    char* substitute_start = character;",
-            "    char* input_copy_start = character;",
+            "    const char* character = input_string;",
+            "    const char* substitute_start = character;",
+            "    const char* input_copy_start = character;",
             "    char* output_copy_start = output;",
             "    size_t copy_size;",
             "    while (1) {",
@@ -571,6 +573,7 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
             "    }",
             "    return output;",
             "}",
+            "",
             # "",
             # "size_t get_prefix(char* input_string) {",
             # "    char* character = input_string;",
@@ -583,8 +586,9 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
         f.write("\n".join([
             "#include <stddef.h>",
             "",
-            "size_t get_new_buffer_size(char* input_string);",
-            "char* replace_html_character_entities(char* input_string);",
+            f"size_t get_size_for_replacing_{name}_character_entities(const char* input_string);",
+            f"char* replace_{name}_character_entities(const char* input_string);",
+            "",
         ]))
 
 
@@ -593,21 +597,50 @@ def build_character_entity_parser(headerfile_name: str, classfile_name: str, cha
 def main():
     preset_entity_filters = {
         # Include all of the character entities
-        "full": None,
+        "all": None,
 
         # # Include "common" entities. Determined by a quick google for "common
+        # html character entities" and clicking on the first link.
+        "common": set([
+            "&ge;", "&phi;", "&Iota;", "&cedil;", "&Prime;", "&Scaron;",
+            "&gt;", "&piv;", "&iota;", "&acute;", "&rsquo;", "&scaron;",
+            "&le;", "&psi;", "&isin;", "&Alpha;", "&sbquo;", "&sigmaf;",
+            "&lt;", "&Psi;", "&larr;", "&alpha;", "&Sigma;", "&spades;",
+            "&Mu;", "&reg;", "&macr;", "&Kappa;", "&sigma;", "&there4;",
+            "&mu;", "&Rho;", "&nbsp;", "&kappa;", "&Theta;", "&thinsp;",
+            "&ne;", "&rho;", "&nsub;", "&laquo;", "&theta;", "&frac14;",
+            "&ni;", "&rlm;", "&ordf;", "&lceil;", "&tilde;", "&frac34;",
+            "&Nu;", "&shy;", "&ordm;", "&ldquo;", "&times;", "&brvbar;",
+            "&nu;", "&sim;", "&para;", "&lsquo;", "&trade;", "&curren;",
+            "&or;", "&sub;", "&part;", "&mdash;", "&upsih;", "&dagger;",
+            "&Pi;", "&sum;", "&perp;", "&micro;", "&asymp;", "&hearts;",
+            "&pi;", "&sup;", "&prod;", "&minus;", "&Delta;", "&hellip;",
+            "&Xi;", "&tau;", "&prop;", "&nabla;", "&delta;", "&Lambda;",
+            "&xi;", "&Tau;", "&rarr;", "&ndash;", "&exist;", "&lambda;",
+            "&amp;", "&uml;", "&sdot;", "&OElig;", "&Gamma;", "&lfloor;",
+            "&and;", "&yen;", "&sect;", "&oelig;", "&gamma;", "&lowast;",
+            "&ang;", "&zwj;", "&sube;", "&oline;", "&diams;", "&Dagger;",
+            "&cap;", "&Beta;", "&sup1;", "&Omega;", "&equiv;", "&divide;",
+            "&Chi;", "&beta;", "&sup2;", "&omega;", "&empty;", "&Epsilon;",
+            "&chi;", "&cong;", "&sup3;", "&pound;", "&bdquo;", "&epsilon;",
+            "&cup;", "&darr;", "&supe;", "&prime;", "&forall;", "&Upsilon;",
+            "&deg;", "&copy;", "&uarr;", "&radic;", "&frac12;", "&upsilon;",
+            "&eta;", "&euro;", "&Yuml;", "&raquo;", "&iquest;", "&Omicron;",
+            "&Eta;", "&emsp;", "&Zeta;", "&iexcl;", "&lsaquo;", "&omicron;",
+            "&int;", "&ensp;", "&zeta;", "&infin;", "&otimes;", "&thetasym;",
+            "&loz;", "&fnof;", "&zwnj;", "&notin;", "&permil;",
+            "&lrm;", "&bull;", "&circ;", "&oplus;", "&plusmn;",
+            "&not;", "&cent;", "&clubs;", "&rceil;", "&rsaquo;",
+            "&Phi;", "&harr;", "&crarr;", "&rdquo;", "&rfloor;",
+        ]),
 
-        # # html character entities" and clicking on the first link/
-        # "common": set(["&acute;", "&Alpha;", "&alpha;", "&amp;", "&and;", "&ang;", "&asymp;", "&bdquo;", "&Beta;", "&beta;", "&brvbar;", "&bull;", "&cap;", "&cedil;", "&cent;", "&Chi;", "&chi;", "&circ;", "&clubs;", "&cong;", "&copy;", "&crarr;", "&cup;", "&curren;", "&dagger;", "&Dagger;", "&darr;", "&deg;", "&Delta;", "&delta;", "&diams;", "&divide;", "&empty;", "&emsp;", "&ensp;", "&Epsilon;", "&epsilon;", "&equiv;", "&Eta;", "&eta;", "&euro;", "&exist;", "&fnof;", "&forall;", "&frac12;", "&frac14;", "&frac34;", "&Gamma;", "&gamma;", "&ge;", "&gt;", "&harr;", "&hearts;", "&hellip;", "&iexcl;", "&infin;", "&int;", "&Iota;", "&iota;", "&iquest;", "&isin;", "&Kappa;", "&kappa;", "&Lambda;", "&lambda;", "&laquo;", "&larr;", "&lceil;", "&ldquo;", "&le;", "&lfloor;", "&lowast;", "&loz;", "&lrm;", "&lsaquo;", "&lsquo;", "&lt;", "&macr;", "&mdash;", "&micro;", "&minus;", "&Mu;", "&mu;", "&nabla;", "&nbsp;", "&ndash;", "&ne;", "&ni;", "&not;", "&notin;", "&nsub;", "&Nu;", "&nu;", "&OElig;", "&oelig;", "&oline;", "&Omega;", "&omega;", "&Omicron;", "&omicron;", "&oplus;", "&or;", "&ordf;", "&ordm;", "&otimes;", "&para;", "&part;", "&permil;", "&perp;", "&Phi;", "&phi;", "&Pi;", "&pi;", "&piv;", "&plusmn;", "&pound;", "&prime;", "&Prime;", "&prod;", "&prop;", "&Psi;", "&psi;", "&radic;", "&raquo;", "&rarr;", "&rceil;", "&rdquo;", "&reg;", "&rfloor;", "&Rho;", "&rho;", "&rlm;", "&rsaquo;", "&rsquo;", "&sbquo;", "&Scaron;", "&scaron;", "&sdot;", "&sect;", "&shy;", "&Sigma;", "&sigma;", "&sigmaf;", "&sim;", "&spades;", "&sub;", "&sube;", "&sum;", "&sup1;", "&sup2;", "&sup3;", "&sup;", "&supe;", "&Tau;", "&tau;", "&there4;", "&Theta;", "&theta;", "&thetasym;", "&thinsp;", "&tilde;", "&times;", "&trade;", "&uarr;", "&uml;", "&upsih;", "&Upsilon;", "&upsilon;", "&Xi;", "&xi;", "&yen;", "&Yuml;", "&Zeta;", "&zeta;", "&zwj;", "&zwnj;",
-        # ]),
-
-        # # Include only a "basic" set of character entities based on personal
-        # # usage in my own html and xml projects.
-        # "basic": set(["&quot;","&apos;","&amp;","&gt;","&lt;"]),
+        # Include only a "limited" set of character entities based on escaping
+        # special characters in the HTML/XML spec.
+        "limited": set(["&quot;","&apos;","&amp;","&gt;","&lt;"]),
     }
 
     for name, filterset in preset_entity_filters.items():
-        build_character_entity_parser(f"{name}_entity_list.h", f"{name}_entity_list.c", filterset)
+        build_character_entity_parser(name, filterset)
 
 
 if __name__ == "__main__":
